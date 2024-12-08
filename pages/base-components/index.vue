@@ -12,6 +12,11 @@ import { EToast } from '@/models/enums/shared.enum';
 import { useDebounceFn } from '@vueuse/core';
 import type { TDate } from '@/models/types/shared.type';
 
+await useAsyncData('checkDev', async () => {
+  if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT)
+    return navigateTo(constants.routePages.LOGIN);
+});
+
 const schema = toTypedSchema(
   yupObject({
     email: yupString()

@@ -5,9 +5,8 @@ dotenv.config();
 
 export default defineNuxtConfig({
   ssr: process.env.VITE_SSR === 'true',
-  css: ['./assets/styles/root/main.scss'],
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: process.env.VITE_DEVTOOLS === 'true' },
+  css: ['./assets/styles/root/main.scss'],
   modules: [
     '@element-plus/nuxt',
     '@nuxtjs/i18n',
@@ -15,6 +14,9 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@nuxtjs/tailwindcss'
   ],
+  devtools: {
+    enabled: process.env.VITE_DEVTOOLS === 'true'
+  },
   components: {
     dirs: ['components/base']
   },

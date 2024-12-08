@@ -7,8 +7,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="tw-flex-center tw-w-screen tw-h-screen">
-    <h1>{{ props.error?.statusCode }}</h1>
+  <div class="tw-fixed-center">
+    <h1 class="tw-flex-center">{{ props.error?.statusCode }}</h1>
     <NuxtLink to="/">Go back home</NuxtLink>
   </div>
 </template>
