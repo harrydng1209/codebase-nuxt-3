@@ -1,0 +1,27 @@
+// light theme
+:root {
+  --el-color-primary: #01c0c8 !important;
+  --el-color-primary-light-3: #33d9d9 !important;
+  --el-color-primary-light-5: #6cc1c3 !important;
+  --el-color-primary-dark-2: #018a94 !important;
+
+  --el-color-primary-light-9: transparent !important;
+  --el-color-info-light-9: transparent !important;
+  --el-color-success-light-9: transparent !important;
+  --el-color-warning-light-9: transparent !important;
+  --el-color-danger-light-9: transparent !important;
+}
+
+// dark theme
+html.dark {
+  --el-color-primary: #01c0c8 !important;
+  --el-color-primary-light-3: rgba(1, 192, 200, 0.85) !important;
+  --el-color-primary-light-5: #6cc1c3 !important;
+  --el-color-primary-dark-2: #018a94 !important;
+
+  --el-color-primary-light-9: transparent !important;
+  --el-color-info-light-9: transparent !important;
+  --el-color-success-light-9: transparent !important;
+  --el-color-warning-light-9: transparent !important;
+  --el-color-danger-light-9: transparent !important;
+}

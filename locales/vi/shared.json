@@ -1,0 +1,11 @@
+{
+  "hello": "Xin chào",
+  "shared": {
+    "dashboard": "Bảng điều khiển",
+    "settings": "Cài đặt",
+    "search": "Tìm kiếm"
+  },
+  "navigator": {
+    "baseComponents": "Thành phần cơ sở"
+  }
+}

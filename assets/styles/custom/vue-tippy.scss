@@ -1,0 +1,21 @@
+.tippy-box[data-theme~='material'] {
+  color: var(--el-bg-color);
+  background-color: var(--el-text-color-primary);
+  font-weight: $base-font-weight;
+
+  &[data-placement^='top'] > .tippy-arrow:before {
+    border-top-color: var(--el-text-color-primary) !important;
+  }
+
+  &[data-placement^='bottom'] > .tippy-arrow:before {
+    border-bottom-color: var(--el-text-color-primary) !important;
+  }
+
+  &[data-placement^='left'] > .tippy-arrow:before {
+    border-left-color: var(--el-text-color-primary) !important;
+  }
+
+  &[data-placement^='right'] > .tippy-arrow:before {
+    border-right-color: var(--el-text-color-primary) !important;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "hello": "Hello",
+  "shared": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "search": "Search"
+  },
+  "navigator": {
+    "baseComponents": "Base Components"
+  }
+}

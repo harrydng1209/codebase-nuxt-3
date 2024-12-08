@@ -1,0 +1,22 @@
+@import './fonts.scss';
+@import './themes.scss';
+
+// tailwindcss
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// vue-tippy
+@import 'tippy.js/dist/tippy.css';
+@import 'tippy.js/themes/material.css';
+@import '../custom/vue-tippy.scss';
+
+// element-plus
+@import 'element-plus/theme-chalk/el-notification.css';
+@import 'element-plus/theme-chalk/dark/css-vars.css';
+@import '../custom/el-themes.scss';
+@import '../custom/el-shared.scss';
+@import '../custom/el-dropdown.scss';
+@import '../custom/el-button.scss';
+
+@import './shared.scss';

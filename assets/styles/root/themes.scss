@@ -1,0 +1,17 @@
+// light theme
+:root {
+  --v-text-color: #000;
+  --v-background-body-color: #e0f8f9;
+  --v-background-container-color: #fff;
+  --v-box-shadow-color: #2553b91a;
+  --v-scrollbar-color: #b0b0b0;
+}
+
+// dark theme
+html.dark {
+  --v-text-color: #fff;
+  --v-background-body-color: #16293e;
+  --v-background-container-color: #111c2d;
+  --v-box-shadow-color: #2553b91a;
+  --v-scrollbar-color: #555;
+}

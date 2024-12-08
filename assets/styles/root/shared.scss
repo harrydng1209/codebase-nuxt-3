@@ -1,0 +1,39 @@
+body {
+  font-style: normal;
+  font-optical-sizing: auto;
+  background-color: var(--v-background-body-color);
+  @include text-style;
+}
+
+body::-webkit-scrollbar {
+  width: $base-scrollbar-width;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: var(--v-scrollbar-color);
+}
+
+h1 {
+  @include text-style(40px, 700);
+}
+
+h2 {
+  @include text-style(30px, 700);
+}
+
+h3 {
+  @include text-style(24px, 600);
+}
+
+h4 {
+  @include text-style(20px, 600);
+}
+
+h5 {
+  @include text-style(16px, 500);
+}
+
+p {
+  @include text-style;
+}
