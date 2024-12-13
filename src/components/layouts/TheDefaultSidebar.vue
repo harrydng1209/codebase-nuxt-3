@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n();
-</script>
-
 <template>
   <div class="the-default-sidebar">
     <div class="the-default-sidebar__logo">
@@ -15,14 +11,14 @@ const { t } = useI18n();
         <ElIcon>
           <BaseIconSvg :path="constants.shared.ICON_PATHS.LAYOUTS_DASHBOARD" />
         </ElIcon>
-        <template #title>{{ t('shared.dashboard') }}</template>
+        <template #title>{{ $t('shared.dashboard') }}</template>
       </ElMenuItem>
 
       <ElMenuItem :index="constants.routePages.BASE_COMPONENTS">
         <ElIcon>
           <BaseIconSvg :path="constants.shared.ICON_PATHS.LAYOUTS_FOLDER_SHARED" />
         </ElIcon>
-        <template #title>{{ t('navigator.baseComponents') }}</template>
+        <template #title>{{ $t('navigator.baseComponents') }}</template>
       </ElMenuItem>
     </ElMenu>
   </div>

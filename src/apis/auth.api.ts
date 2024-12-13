@@ -1,17 +1,19 @@
+import type { ILoginResponse, IUserInfo } from '~/models/interfaces/shared.interface';
+
 const auth = {
   login: async (data: unknown) => {
     const url = constants.routeApis.AUTH.LOGIN;
-    return await utils.http.post<unknown>(url, data, { withCredentials: true });
+    return await utils.http.post<ILoginResponse>(url, data, { withCredentials: true });
   },
   refreshToken: async () => {
     const url = constants.routeApis.AUTH.REFRESH_TOKEN;
-    return await utils.http.post<unknown>(url, null, {
+    return await utils.http.post<ILoginResponse>(url, null, {
       withCredentials: true
     });
   },
   me: async () => {
     const url = constants.routeApis.AUTH.ME;
-    return await utils.http.get<unknown>(url);
+    return await utils.http.get<IUserInfo>(url);
   }
 };
 

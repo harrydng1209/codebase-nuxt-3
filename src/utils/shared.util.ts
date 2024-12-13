@@ -6,12 +6,16 @@ import { EToast } from '@/models/enums/shared.enum';
 import { ElNotification, ElLoading } from 'element-plus';
 import { capitalize } from 'lodash-es';
 import type { IFailureResponse } from '@/models/interfaces/shared.interface';
+import stringFormat from 'string-template';
 
 const shared = {
   isSuccessResponse<T, M>(
     response: TSuccessResponse<T, M> | IFailureResponse
   ): response is TSuccessResponse<T, M> {
     return response.status === EResponseStatus.Success;
+  },
+  stringFormat: (template: string, values: Record<string, unknown> | unknown[]): string => {
+    return stringFormat(template, values);
   },
   showToast: (message: string, type: EToast = EToast.Success, title: string = capitalize(type)) => {
     ElNotification({

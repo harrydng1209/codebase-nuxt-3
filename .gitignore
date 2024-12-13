@@ -24,4 +24,5 @@ logs
 !.env.sample
 yarn.lock
 package-lock.json
-@types/auto-imports.d.ts
+src/@types/components.d.ts
+src/@types/auto-imports.d.ts

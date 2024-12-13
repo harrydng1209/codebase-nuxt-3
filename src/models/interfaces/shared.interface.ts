@@ -8,6 +8,10 @@ export interface IFailureResponse {
   };
 }
 
+export interface ILoginResponse {
+  accessToken: string;
+}
+
 export interface IUserInfo {
   id: number;
   role: ERole;

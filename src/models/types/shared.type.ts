@@ -13,7 +13,7 @@ export type TSuccessResponse<T = unknown, M = unknown> = {
   meta: M;
 };
 
-export type TOptions<T = unknown> = {
+export type TOptions<T = string | number | boolean | Record<string, unknown>> = {
   label: string;
   value: T;
 };

@@ -2,9 +2,9 @@
 @import './themes.scss';
 
 // tailwindcss
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // vue-tippy
 @import 'tippy.js/dist/tippy.css';

@@ -2,7 +2,6 @@
 import { notifications } from '@/mocks/the-default-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
 
-const { t } = useI18n();
 const { isDark, toggleDark } = useTheme();
 const { currentLanguage, toggleLanguage } = useLanguage();
 
@@ -27,7 +26,7 @@ const getIconPathForLanguage = (language: ELanguageCode) => {
     <section>
       <BaseInput
         v-model="searchInput"
-        :placeholder="`${t('shared.search')}...`"
+        :placeholder="`${$t('shared.search')}...`"
         class="!tw-w-[200px] tw-shadow-lg"
       >
         <template #suffix>
