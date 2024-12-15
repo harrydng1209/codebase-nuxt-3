@@ -22,7 +22,10 @@ logs
 .env
 .env.*
 !.env.sample
+
+bun.lockb
 yarn.lock
 package-lock.json
+
 src/@types/components.d.ts
 src/@types/auto-imports.d.ts
