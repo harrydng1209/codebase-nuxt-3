@@ -4,9 +4,9 @@ import { useLocalStorage } from '@vueuse/core';
 
 const httpService = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
   },
   paramsSerializer: (params) => qs.stringify(params, { indices: true })
 });
@@ -14,6 +14,7 @@ const httpService = axios.create({
 httpService.interceptors.request.use(
   (config) => {
     const token = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
+
     if (config.data && !(config.data instanceof FormData))
       config.data = utils.shared.convertToSnakeCase(config.data);
     if (config.params) config.params = utils.shared.convertToSnakeCase(config.params);
@@ -32,35 +33,24 @@ httpService.interceptors.response.use(
     const status = error.response?.status;
     const errorData = error.response?.data || {};
 
-    if (!status) {
-      console.error('An unexpected error occurred:', error.message || 'An unknown error occurred.');
-      return Promise.reject(error);
-    }
+    if (!status) throw new Error(errorData.message || 'An unknown error occurred');
 
     switch (status) {
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.BAD_REQUEST:
-        console.error('Bad Request:', errorData.message || 'The request was invalid.');
-        break;
+        throw new Error(errorData.message || 'The request was invalid');
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.UNAUTHORIZED:
-        console.error('Unauthorized:', errorData.message || 'Authentication is required.');
-        break;
+        throw new Error(errorData.message || 'Authentication is required');
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.FORBIDDEN:
-        console.error(
-          'Forbidden:',
-          errorData.message || 'You do not have permission to access this resource.'
-        );
-        break;
+        throw new Error(errorData.message || 'You do not have permission to access this resource');
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.NOT_FOUND:
-        console.error('Not Found:', errorData.message || 'The requested resource was not found.');
-        break;
+        throw new Error(errorData.message || 'The requested resource was not found');
 
       default:
-        console.error('An error occurred:', errorData.message || 'An unexpected error occurred.');
+        throw new Error(errorData.message || 'An unexpected error occurred');
     }
-    return Promise.reject(error);
   }
 );
 

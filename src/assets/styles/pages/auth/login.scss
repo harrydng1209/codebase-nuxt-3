@@ -1,0 +1,29 @@
+.login {
+  height: 100vh;
+  @include flexbox-style;
+
+  > section {
+    height: 370px;
+    width: 420px;
+    border: 1px solid $base-color-white;
+    box-shadow:
+      0px 0px 6px rgba(0, 0, 0, 0.12),
+      0px 4px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    padding: 52px;
+    background-color: $base-color-white;
+
+    > h4 {
+      text-align: center;
+      margin-bottom: 8px;
+      @include text-style(20px, 700, 30px);
+    }
+
+    :deep(.el-form-item--label-top .el-form-item__label) {
+      display: flex !important;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { notifications } from '@/mocks/the-default-topbar.mock';
+import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
 
 const { isDark, toggleDark } = useTheme();
 const { currentLanguage, toggleLanguage } = useLanguage();
+const { t } = useI18n();
 
 const searchInput = ref<string>();
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
@@ -11,37 +12,39 @@ const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   value
 }));
 
-const getIconPathForLanguage = (language: ELanguageCode) => {
+const getIconPathForLanguage = (lang: ELanguageCode) => {
   const iconPaths = {
-    [ELanguageCode.English]: constants.shared.ICON_PATHS.LAYOUTS_ENGLISH,
-    [ELanguageCode.Vietnamese]: constants.shared.ICON_PATHS.LAYOUTS_VIETNAMESE,
-    [ELanguageCode.Japanese]: constants.shared.ICON_PATHS.LAYOUTS_JAPANESE
+    [ELanguageCode.English]: constants.iconPaths.LAYOUTS.ENGLISH,
+    [ELanguageCode.Vietnamese]: constants.iconPaths.LAYOUTS.VIETNAMESE,
+    [ELanguageCode.Japanese]: constants.iconPaths.LAYOUTS.JAPANESE
   };
-  return iconPaths[language];
+  return iconPaths[lang];
 };
 </script>
 
 <template>
-  <div class="the-default-topbar">
+  <div class="the-topbar">
     <section>
       <BaseInput
         v-model="searchInput"
-        :placeholder="`${$t('shared.search')}...`"
-        class="!tw-w-[200px] tw-shadow-lg"
+        :placeholder="`${t('shared.search')}...`"
+        class="!tw-w-[200px]"
       >
         <template #suffix>
-          <BaseIconSvg :path="constants.shared.ICON_PATHS.LAYOUTS_SEARCH" />
+          <BaseIconSvg
+            :path="constants.iconPaths.LAYOUTS.SEARCH"
+            :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+          />
         </template>
       </BaseInput>
     </section>
 
-    <section class="the-default-topbar__profile">
+    <section class="the-topbar__profile">
       <BaseIconSvg
         :path="
-          isDark
-            ? constants.shared.ICON_PATHS.SHARED_LIGHT_MODE
-            : constants.shared.ICON_PATHS.SHARED_DARK_MODE
+          isDark ? constants.iconPaths.SHARED.LIGHT_MODE : constants.iconPaths.SHARED.DARK_MODE
         "
+        :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
         @click="toggleDark()"
       />
 
@@ -69,7 +72,10 @@ const getIconPathForLanguage = (language: ELanguageCode) => {
       <BaseDropdown>
         <span>
           <ElBadge :value="notifications.length">
-            <BaseIconSvg :path="constants.shared.ICON_PATHS.LAYOUTS_NOTIFICATION" />
+            <BaseIconSvg
+              :path="constants.iconPaths.LAYOUTS.NOTIFICATION"
+              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+            />
           </ElBadge>
         </span>
 
@@ -105,5 +111,5 @@ const getIconPathForLanguage = (language: ELanguageCode) => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/layouts/the-default-topbar.scss';
+@import '@/assets/styles/layouts/the-topbar.scss';
 </style>

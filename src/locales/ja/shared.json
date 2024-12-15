@@ -6,6 +6,11 @@
     "search": "検索"
   },
   "navigator": {
+    "login": "ログイン",
     "baseComponents": "ベースコンポーネント"
+  },
+  "button": {
+    "ok": "はい",
+    "cancel": "キャンセル"
   }
 }

@@ -7,8 +7,6 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const { isDark } = useTheme();
-
 const icons = import.meta.glob('../../assets/icons/**/*.vue') as TIcons;
 const iconComponent = shallowRef<Component | null>(null);
 
@@ -30,10 +28,5 @@ watch(
 </script>
 
 <template>
-  <component
-    :is="iconComponent"
-    :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-    class="tw-cursor-pointer tw-outline-none"
-    v-bind="$attrs"
-  />
+  <component :is="iconComponent" class="tw-cursor-pointer tw-outline-none" v-bind="$attrs" />
 </template>

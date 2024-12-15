@@ -6,6 +6,11 @@
     "search": "Tìm kiếm"
   },
   "navigator": {
+    "login": "Đăng nhập",
     "baseComponents": "Thành phần cơ sở"
+  },
+  "button": {
+    "ok": "Đồng ý",
+    "cancel": "Hủy"
   }
 }

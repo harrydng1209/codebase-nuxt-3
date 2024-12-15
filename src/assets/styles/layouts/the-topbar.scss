@@ -1,4 +1,4 @@
-.the-default-topbar {
+.the-topbar {
   height: var(--el-header-height);
   background-color: var(--v-background-container-color);
   @include flexbox-style(0, space-between, center);

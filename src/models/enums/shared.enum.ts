@@ -25,12 +25,6 @@ export enum EResponseStatus {
   Failure = 'failure'
 }
 
-export enum ERole {
-  Admin = 'admin',
-  Manager = 'manager',
-  Employee = 'employee'
-}
-
 export enum EToast {
   Success = 'success',
   Error = 'error',

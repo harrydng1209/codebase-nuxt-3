@@ -12,9 +12,13 @@ import { EToast } from '@/models/enums/shared.enum';
 import { useDebounceFn } from '@vueuse/core';
 import type { TDate } from '@/models/types/shared.type';
 
+definePageMeta({
+  layout: 'default'
+});
+
 await useAsyncData('checkDev', async () => {
   if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT)
-    return navigateTo(constants.routePages.LOGIN);
+    return navigateTo(constants.routePages.AUTH.LOGIN);
 });
 
 const schema = toTypedSchema(
@@ -36,12 +40,14 @@ const schema = toTypedSchema(
     terms: yupBoolean().required().isTrue('You must agree to the terms and conditions')
   })
 );
+
 const { handleSubmit, resetForm } = useForm({
   validationSchema: schema,
   initialValues: {}
 });
-
 const { t } = useI18n();
+const { showConfirm } = useConfirmDialog();
+const { isDark } = useTheme();
 
 const baseSelect = ref({ label: 'select label 2', value: 'select value 2' });
 const baseCheckbox = ref<boolean>(false);
@@ -83,28 +89,37 @@ const handleChangeSwitch = (value: boolean) => {
   utils.shared.showToast(`handleChangeSwitch: ${value}`);
 };
 
-const handleCancelDialog = () => {
+const handleDialog = () => {
   baseDialog.value = false;
-  utils.shared.showToast('handleCancelDialog', EToast.Error);
-};
-
-const handleConfirmDialog = () => {
-  baseDialog.value = false;
-  utils.shared.showToast('handleConfirmDialog');
+  utils.shared.showToast('handleConfirmDialog', EToast.Info);
 };
 
 const handleChangePagination = (currentPage: number, pageSize: number) => {
   utils.shared.showToast(`currentPage: ${currentPage} & pageSize: ${pageSize}`);
 };
 
-const onSubmit = handleSubmit((values: unknown) => {
-  console.log('onSubmit:', values);
+const onSubmit = handleSubmit((_values: unknown) => {
   utils.shared.showToast('onSubmit: check console');
 });
 
 const handleGetHealthCheck = useDebounceFn(async () => {
   await apis.shared.healthCheck();
 }, 200);
+
+const confirmDelete = () => {
+  showConfirm({
+    title: 'Warning',
+    message: 'Proxy will permanently delete the file. Continue?',
+    onConfirm: () => {
+      utils.shared.showToast('File has been successfully deleted');
+    },
+    onCancel: () => {
+      utils.shared.showToast('File deletion has been canceled');
+    },
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'No, Cancel'
+  });
+};
 </script>
 
 <template>
@@ -122,28 +137,23 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- Icons --</h4>
+      <h4>-- Base Icons SVG --</h4>
       <div class="tw-flex tw-gap-2">
-        <BaseIconSvg
-          :path="constants.shared.ICON_PATHS.SHARED_DELETE"
-          v-tippy="constants.shared.ICON_PATHS.SHARED_DELETE"
-          @click="handleClickIconSvg"
-        />
-        <BaseIconSvg
-          :path="constants.shared.ICON_PATHS.LAYOUTS_SEARCH"
-          v-tippy="constants.shared.ICON_PATHS.LAYOUTS_SEARCH"
-          @click="handleClickIconSvg"
-        />
-        <BaseIconSvg
-          :path="constants.shared.ICON_PATHS.LAYOUTS_SETTINGS"
-          v-tippy="constants.shared.ICON_PATHS.LAYOUTS_SETTINGS"
-          @click="handleClickIconSvg"
-        />
+        <template v-for="(category, categoryName) in constants.iconPaths" :key="categoryName">
+          <template v-for="(iconPath, iconName) in category" :key="iconName">
+            <BaseIconSvg
+              :path="iconPath"
+              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+              v-tippy="iconPath"
+              @click="handleClickIconSvg"
+            />
+          </template>
+        </template>
       </div>
     </section>
 
     <section>
-      <h4>-- Buttons --</h4>
+      <h4>-- Base Buttons --</h4>
       <div class="tw-mb-4">
         <BaseButton type="primary" @click="handleClickButton">Primary</BaseButton>
         <BaseButton type="info" @click="handleClickButton">Info</BaseButton>
@@ -175,7 +185,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               width="14"
               height="14"
               :fill="constants.shared.COLORS.WHITE"
-              :path="constants.shared.ICON_PATHS.SHARED_DELETE"
+              :path="constants.iconPaths.SHARED.DELETE"
             />
           </template>
         </BaseButton>
@@ -185,7 +195,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               width="14"
               height="14"
               :fill="constants.shared.COLORS.WHITE"
-              :path="constants.shared.ICON_PATHS.SHARED_DELETE"
+              :path="constants.iconPaths.SHARED.DELETE"
             />
           </template>
         </BaseButton>
@@ -195,7 +205,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               width="14"
               height="14"
               :fill="constants.shared.COLORS.WHITE"
-              :path="constants.shared.ICON_PATHS.SHARED_DELETE"
+              :path="constants.iconPaths.SHARED.DELETE"
             />
           </template>
         </BaseButton>
@@ -205,7 +215,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               width="14"
               height="14"
               :fill="constants.shared.COLORS.WHITE"
-              :path="constants.shared.ICON_PATHS.SHARED_DELETE"
+              :path="constants.iconPaths.SHARED.DELETE"
             />
           </template>
         </BaseButton>
@@ -215,7 +225,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               width="14"
               height="14"
               :fill="constants.shared.COLORS.WHITE"
-              :path="constants.shared.ICON_PATHS.SHARED_DELETE"
+              :path="constants.iconPaths.SHARED.DELETE"
             />
           </template>
         </BaseButton>
@@ -223,7 +233,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- Selects --</h4>
+      <h4>-- Base Selects --</h4>
       <BaseSelect
         v-model="baseSelect"
         :options="baseSelectOptions"
@@ -233,19 +243,19 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- Checkboxes --</h4>
+      <h4>-- Base Checkboxes --</h4>
       <BaseCheckbox v-model="baseCheckbox" @change="handleChangeCheckbox">
         checkbox label
       </BaseCheckbox>
     </section>
 
     <section>
-      <h4>-- Switches --</h4>
+      <h4>-- Base Switches --</h4>
       <BaseSwitch v-model="baseSwitch" activeText="switch label" @change="handleChangeSwitch" />
     </section>
 
     <section>
-      <h4>-- Input --</h4>
+      <h4>-- Base Inputs --</h4>
       <BaseInput
         v-model="baseInput"
         placeholder="Please input"
@@ -255,7 +265,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- DatePickers --</h4>
+      <h4>-- Base DatePickers --</h4>
       <BaseDatePicker
         v-model="baseDatePicker"
         placeholder="Pick a day"
@@ -264,7 +274,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- TimePickers --</h4>
+      <h4>-- Base TimePickers --</h4>
       <BaseTimePicker
         v-model="baseTimePicker"
         placeholder="Pick a time"
@@ -273,21 +283,22 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- Dialogs --</h4>
-      <BaseButton plain @click="baseDialog = true">Click to open the Dialog</BaseButton>
+      <h4>-- Base Dialogs --</h4>
+      <BaseButton @click="baseDialog = true">Open Dialog</BaseButton>
       <BaseDialog v-model="baseDialog" title="Dialog Title" width="500">
         <span>This is a dialog content</span>
         <template #footer>
           <div class="dialog-footer">
-            <BaseButton @click="handleCancelDialog">Cancel</BaseButton>
-            <BaseButton type="primary" @click="handleConfirmDialog">Confirm</BaseButton>
+            <BaseButton type="primary" @click="handleDialog">OK</BaseButton>
           </div>
         </template>
       </BaseDialog>
+
+      <BaseButton class="tw-ml-4" @click="confirmDelete">Open Confirm Dialog</BaseButton>
     </section>
 
     <section>
-      <h4>-- Tables --</h4>
+      <h4>-- Base Tables --</h4>
       <BaseTable :data="tableData" height="300" rowKey="date">
         <ElTableColumn type="index" width="50" />
         <ElTableColumn prop="date" label="Date" width="120" />
@@ -311,7 +322,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
     </section>
 
     <section>
-      <h4>-- Forms --</h4>
+      <h4>-- Base Forms --</h4>
       <ElForm @submit="onSubmit" labelWidth="auto">
         <BaseFormItem name="email" label="Email">
           <template #default="{ modelValue, updateModelValue }">
@@ -335,7 +346,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               placeholder="Password"
               :modelValue="modelValue"
               @input="updateModelValue"
-              show-password
+              showPassword
             />
           </template>
         </BaseFormItem>
@@ -346,7 +357,7 @@ const handleGetHealthCheck = useDebounceFn(async () => {
               placeholder="Confirm password"
               :modelValue="modelValue"
               @input="updateModelValue"
-              show-password
+              showPassword
             />
           </template>
         </BaseFormItem>
@@ -371,8 +382,8 @@ const handleGetHealthCheck = useDebounceFn(async () => {
         </BaseFormItem>
 
         <div>
-          <BaseButton type="primary" native-type="submit">Submit</BaseButton>
-          <BaseButton type="info" native-type="button" @click="resetForm()">Reset</BaseButton>
+          <BaseButton type="primary" nativeType="submit">Submit</BaseButton>
+          <BaseButton type="info" nativeType="button" @click="resetForm()">Reset</BaseButton>
         </div>
       </ElForm>
     </section>

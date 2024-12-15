@@ -34,9 +34,12 @@ const updateModelValue = (newValue: unknown) => {
 
 <template>
   <ElFormItem :label="label" v-bind="fieldProps">
-    <slot
-      :modelValue="modelValue"
-      :updateModelValue="(value: unknown) => updateModelValue(value)"
-    />
+    <template v-for="(_, name) in $slots" :key="name" #[name]>
+      <slot
+        :name="name"
+        :modelValue="modelValue"
+        :updateModelValue="(value: any) => updateModelValue(value)"
+      />
+    </template>
   </ElFormItem>
 </template>

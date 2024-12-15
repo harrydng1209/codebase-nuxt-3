@@ -8,8 +8,8 @@ const useLanguage = () => {
     ELanguageCode.English
   );
 
-  const toggleLanguage = (newLanguage: ELanguageCode) => {
-    currentLanguage.value = newLanguage;
+  const toggleLanguage = (newLang: ELanguageCode) => {
+    currentLanguage.value = newLang;
   };
 
   watch(

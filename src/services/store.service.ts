@@ -1,7 +1,7 @@
 import { getActivePinia, type Pinia, type Store } from 'pinia';
 
 interface IPinia extends Pinia {
-  _s: Map<string, Store>;
+  storeMap: Map<string, Store>;
 }
 
 const storeService = {
@@ -12,11 +12,11 @@ const storeService = {
   },
   disposeAll: () => {
     const pinia = storeService.getPinia();
-    pinia._s.forEach((store) => store.$dispose());
+    pinia.storeMap.forEach((store) => store.$dispose());
   },
   resetAll: () => {
     const pinia = storeService.getPinia();
-    pinia._s.forEach((store) => store.$reset());
+    pinia.storeMap.forEach((store) => store.$reset());
   }
 };
 

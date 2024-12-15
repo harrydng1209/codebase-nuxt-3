@@ -1,4 +1,4 @@
-import type { EResponseStatus, ERole } from '@/models/enums/shared.enum';
+import type { EResponseStatus } from '@/models/enums/shared.enum';
 
 export interface IFailureResponse {
   status: EResponseStatus;
@@ -6,21 +6,6 @@ export interface IFailureResponse {
     message: string;
     code: number;
   };
-}
-
-export interface ILoginResponse {
-  accessToken: string;
-}
-
-export interface IUserInfo {
-  id: number;
-  role: ERole;
-  email: string;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
 }
 
 export interface IBreadcrumbItem {

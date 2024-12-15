@@ -17,6 +17,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'vue/prop-name-casing': ['error', 'camelCase'],
+    'vue/attribute-hyphenation': ['error', 'never'],
     "eol-last": ["error", "always"],
     '@typescript-eslint/no-unused-vars': [
       'error',

@@ -4,6 +4,7 @@
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.inlayHints.enabled": "off",
+  "scss.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   }

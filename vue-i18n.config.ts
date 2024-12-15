@@ -6,9 +6,9 @@ const locales: Record<string, { default: Record<string, string> }> = import.meta
 );
 
 const messages: Record<ELanguageCode, Record<string, string>> = Object.values(ELanguageCode).reduce(
-  (accumulator, language) => {
-    accumulator[language] = {};
-    return accumulator;
+  (acc, lang) => {
+    acc[lang] = {};
+    return acc;
   },
   {} as Record<ELanguageCode, Record<string, string>>
 );
@@ -21,10 +21,7 @@ Object.keys(locales).forEach((path) => {
   const locale = match[1] as ELanguageCode;
   const data = locales[path].default;
 
-  if (!Object.values(ELanguageCode).includes(locale)) {
-    console.warn(`Locale '${locale}' is not supported.`);
-    return;
-  }
+  if (!Object.values(ELanguageCode).includes(locale)) return;
 
   Object.assign(messages[locale], data);
 });

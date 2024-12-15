@@ -1,5 +1,5 @@
-import type { IUserInfo } from '@/models/interfaces/shared.interface';
 import { useLocalStorage } from '@vueuse/core';
+import type { IUserInfo } from '~/models/interfaces/auth.interface';
 
 const useAuthStore = defineStore('authStore', () => {
   const accessToken = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
