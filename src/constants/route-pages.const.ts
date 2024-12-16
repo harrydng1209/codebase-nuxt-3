@@ -1,12 +1,12 @@
 const routePages = {
-  HOME: '/',
-  FORBIDDEN: '/access-denied',
-  NOT_FOUND: '/doesnt-exist',
-  BASE_COMPONENTS: '/base-components',
   AUTH: {
-    ROOT: '/auth',
-    LOGIN: '/auth/login'
-  }
+    LOGIN: '/auth/login',
+    ROOT: '/auth'
+  },
+  BASE_COMPONENTS: '/base-components',
+  FORBIDDEN: '/access-denied',
+  HOME: '/',
+  NOT_FOUND: '/doesnt-exist'
 } as const;
 
 export default routePages;

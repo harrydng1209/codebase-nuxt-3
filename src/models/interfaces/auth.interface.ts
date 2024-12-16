@@ -5,12 +5,12 @@ export interface ILoginResponse {
 }
 
 export interface IUserInfo {
-  id: number;
-  role: ERole;
+  createdAt: string;
+  deletedAt: null | string;
   email: string;
   firstName: string;
+  id: number;
   lastName: string;
-  createdAt: string;
+  role: ERole;
   updatedAt: string;
-  deletedAt: string | null;
 }

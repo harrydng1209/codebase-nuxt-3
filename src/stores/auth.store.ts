@@ -1,4 +1,5 @@
 import { useLocalStorage } from '@vueuse/core';
+
 import type { IUserInfo } from '~/models/interfaces/auth.interface';
 
 const useAuthStore = defineStore('authStore', () => {
@@ -46,16 +47,16 @@ const useAuthStore = defineStore('authStore', () => {
 
   const getActions = () => {
     return {
+      cleanUser: () => {
+        isAuthenticated.value = false;
+        userInfo.value = undefined;
+      },
       setToken: (token: string) => {
         accessToken.value = token;
       },
       setUser: (data: IUserInfo) => {
         isAuthenticated.value = true;
         userInfo.value = data;
-      },
-      cleanUser: () => {
-        isAuthenticated.value = false;
-        userInfo.value = undefined;
       }
     };
   };

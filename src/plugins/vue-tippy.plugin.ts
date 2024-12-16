@@ -2,14 +2,14 @@ import vueTippy from 'vue-tippy';
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(vueTippy, {
-    directive: 'tippy',
     component: 'tippy',
     componentSingleton: 'tippy-singleton',
     defaultProps: {
-      placement: 'top',
       allowHTML: true,
-      theme: 'material',
-      duration: [200, 200]
-    }
+      duration: [200, 200],
+      placement: 'top',
+      theme: 'material'
+    },
+    directive: 'tippy'
   });
 });

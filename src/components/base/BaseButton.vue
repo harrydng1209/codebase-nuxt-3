@@ -1,12 +1,12 @@
 <script setup lang="ts">
 interface IProps {
-  type?: 'primary' | 'info' | 'success' | 'warning' | 'danger';
   round?: boolean;
+  type?: 'danger' | 'info' | 'primary' | 'success' | 'warning';
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  type: 'primary',
-  round: true
+  round: true,
+  type: 'primary'
 });
 </script>
 

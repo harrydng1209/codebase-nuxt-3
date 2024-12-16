@@ -1,9 +1,9 @@
 <script setup lang="ts">
-type TIcons = Record<string, () => Promise<{ default: Component }>>;
-
 interface IProps {
   path: string;
 }
+
+type TIcons = Record<string, () => Promise<{ default: Component }>>;
 
 const props = defineProps<IProps>();
 

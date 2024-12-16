@@ -1,20 +1,20 @@
-import shared from './shared.const';
-import routePages from './route-pages.const';
-import routeApis from './route-apis.const';
 import iconPaths from './icon-paths.const';
+import routeApis from './route-apis.const';
+import routePages from './route-pages.const';
+import shared from './shared.const';
 
 interface IConstants {
-  shared: typeof shared;
-  routePages: typeof routePages;
-  routeApis: typeof routeApis;
   iconPaths: typeof iconPaths;
+  routeApis: typeof routeApis;
+  routePages: typeof routePages;
+  shared: typeof shared;
 }
 
 const constants: IConstants = {
-  shared,
-  routePages,
+  iconPaths,
   routeApis,
-  iconPaths
+  routePages,
+  shared
 };
 
 export default constants;

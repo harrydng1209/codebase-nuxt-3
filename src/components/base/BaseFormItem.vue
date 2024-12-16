@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useField } from 'vee-validate';
 import type { FieldMeta } from 'vee-validate';
 
+import { useField } from 'vee-validate';
+
 interface IProps {
-  name: string;
   label?: string;
+  name: string;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -12,13 +13,13 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 const attrs = useAttrs();
-const { value: modelValue, meta, errorMessage } = useField(props.name);
+const { errorMessage, meta, value: modelValue } = useField(props.name);
 
 const getVeeValidateConfig = (meta: FieldMeta<unknown>, errorMessage: string | undefined) => {
   return {
-    validateEvent: false,
     error: errorMessage,
-    required: meta.required
+    required: meta.required,
+    validateEvent: false
   };
 };
 

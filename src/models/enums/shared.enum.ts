@@ -1,33 +1,33 @@
 export enum EDataType {
-  Object = 'object',
   Array = 'array',
-  String = 'string',
-  Number = 'number',
   Boolean = 'boolean',
   Null = 'null',
+  Number = 'number',
+  Object = 'object',
+  String = 'string',
   Undefined = 'undefined'
 }
 
 export enum ELanguageCode {
   English = 'en',
-  Vietnamese = 'vi',
-  Japanese = 'ja'
+  Japanese = 'ja',
+  Vietnamese = 'vi'
 }
 
 export enum ERegionalLocale {
   EnglishUS = 'en-US',
-  VietnameseVN = 'vi-VN',
-  JapaneseJP = 'ja-JP'
+  JapaneseJP = 'ja-JP',
+  VietnameseVN = 'vi-VN'
 }
 
 export enum EResponseStatus {
-  Success = 'success',
-  Failure = 'failure'
+  Failure = 'failure',
+  Success = 'success'
 }
 
 export enum EToast {
-  Success = 'success',
   Error = 'error',
   Info = 'info',
+  Success = 'success',
   Warning = 'warning'
 }

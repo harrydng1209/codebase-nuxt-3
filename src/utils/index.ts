@@ -2,13 +2,13 @@ import http from './http.util';
 import shared from './shared.util';
 
 interface IUtils {
-  shared: typeof shared;
   http: typeof http;
+  shared: typeof shared;
 }
 
 const utils: IUtils = {
-  shared,
-  http
+  http,
+  shared
 };
 
 export default utils;

@@ -1,20 +1,20 @@
 import { ERegionalLocale } from '@/models/enums/shared.enum';
 import { useDateFormat, type UseDateFormatOptions } from '@vueuse/core';
 
+interface IProps {
+  date: Date | number | string;
+  format?: TFormat;
+}
+
 type TFormat =
-  | 'YYYY/MM/DD'
-  | 'YYYY-MM-DD'
-  | 'MM/DD'
   | 'dddd'
   | 'HH:mm'
   | 'HH:mm:ss YYYY/MM/DD (dddd)'
-  | 'YYYY/MM/DD HH:mm'
-  | 'YYYY/MM/DD (dddd)';
-
-interface IProps {
-  date: number | string | Date;
-  format?: TFormat;
-}
+  | 'MM/DD'
+  | 'YYYY-MM-DD'
+  | 'YYYY/MM/DD'
+  | 'YYYY/MM/DD (dddd)'
+  | 'YYYY/MM/DD HH:mm';
 
 const useDateFormatByLocales = (props: IProps): ComputedRef<string> => {
   const { date } = props || {};

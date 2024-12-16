@@ -1,5 +1,5 @@
-import { useLocalStorage } from '@vueuse/core';
 import { ELanguageCode } from '@/models/enums/shared.enum';
+import { useLocalStorage } from '@vueuse/core';
 
 const useLanguage = () => {
   const { locale } = useI18n();

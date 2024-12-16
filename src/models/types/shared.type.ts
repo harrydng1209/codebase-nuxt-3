@@ -1,19 +1,19 @@
 import type { EResponseStatus } from '@/models/enums/shared.enum';
 
-export type TDate = string | number | Date;
+export type TDate = Date | number | string;
 
 export type TLoadingTarget =
-  | false
   | 'full-screen'
-  | (typeof constants.shared.SELECTOR_IDS)[keyof typeof constants.shared.SELECTOR_IDS];
+  | (typeof constants.shared.SELECTOR_IDS)[keyof typeof constants.shared.SELECTOR_IDS]
+  | false;
 
-export type TSuccessResponse<T = unknown, M = unknown> = {
-  status: EResponseStatus;
-  data: T;
-  meta: M;
-};
-
-export type TOptions<T = string | number | boolean | Record<string, unknown>> = {
+export type TOptions<T = boolean | number | Record<string, unknown> | string> = {
   label: string;
   value: T;
+};
+
+export type TSuccessResponse<T = unknown, M = unknown> = {
+  data: T;
+  meta: M;
+  status: EResponseStatus;
 };

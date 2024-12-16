@@ -1,14 +1,14 @@
-import shared from './shared.api';
 import auth from './auth.api';
+import shared from './shared.api';
 
 interface IApis {
-  shared: typeof shared;
   auth: typeof auth;
+  shared: typeof shared;
 }
 
 const apis: IApis = {
-  shared,
-  auth
+  auth,
+  shared
 };
 
 export default apis;

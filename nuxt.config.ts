@@ -1,61 +1,41 @@
-import autoImport from 'unplugin-auto-import/vite';
-import components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import dotenv from 'dotenv';
+import autoImport from 'unplugin-auto-import/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import components from 'unplugin-vue-components/vite';
 
 dotenv.config();
 
 export default defineNuxtConfig({
-  srcDir: 'src/',
-  ssr: process.env.VITE_SSR === 'true',
   compatibilityDate: '2024-04-03',
+  components: {
+    dirs: []
+  },
   css: ['./src/assets/styles/root/main.scss'],
-  modules: ['@nuxtjs/i18n', '@pinia/nuxt', '@vee-validate/nuxt', '@nuxtjs/tailwindcss'],
   devtools: {
     enabled: process.env.VITE_DEVTOOLS === 'true'
   },
   dir: {
     middleware: 'middlewares'
   },
-  components: {
-    dirs: []
+  i18n: {
+    vueI18n: './vue-i18n.config.ts'
   },
   imports: {
     dirs: []
   },
-  i18n: {
-    vueI18n: './vue-i18n.config.ts'
-  },
+  modules: ['@nuxtjs/i18n', '@pinia/nuxt', '@vee-validate/nuxt', '@nuxtjs/tailwindcss'],
   postcss: {
     plugins: {
-      tailwindcss: {},
-      autoprefixer: {}
+      autoprefixer: {},
+      tailwindcss: {}
     }
   },
+  srcDir: 'src/',
+  ssr: process.env.VITE_SSR === 'true',
   typescript: {
     typeCheck: true
   },
   vite: {
-    plugins: [
-      autoImport({
-        vueTemplate: true,
-        dirs: ['composables/**'],
-        dts: '@types/auto-imports.d.ts',
-        resolvers: [ElementPlusResolver()],
-        imports: [
-          {
-            '@/constants': [['default', 'constants']],
-            '@/utils': [['default', 'utils']],
-            '@/apis': [['default', 'apis']]
-          }
-        ]
-      }),
-      components({
-        dirs: ['components/base/**'],
-        dts: '@types/components.d.ts',
-        resolvers: [ElementPlusResolver()]
-      })
-    ],
     css: {
       preprocessorOptions: {
         scss: {
@@ -65,6 +45,26 @@ export default defineNuxtConfig({
           `
         }
       }
-    }
+    },
+    plugins: [
+      autoImport({
+        dirs: ['composables/**'],
+        dts: '@types/auto-imports.d.ts',
+        imports: [
+          {
+            '@/apis': [['default', 'apis']],
+            '@/constants': [['default', 'constants']],
+            '@/utils': [['default', 'utils']]
+          }
+        ],
+        resolvers: [ElementPlusResolver()],
+        vueTemplate: true
+      }),
+      components({
+        dirs: ['components/base/**'],
+        dts: '@types/components.d.ts',
+        resolvers: [ElementPlusResolver()]
+      })
+    ]
   }
 });

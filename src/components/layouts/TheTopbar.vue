@@ -15,8 +15,8 @@ const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
 const getIconPathForLanguage = (lang: ELanguageCode) => {
   const iconPaths = {
     [ELanguageCode.English]: constants.iconPaths.LAYOUTS.ENGLISH,
-    [ELanguageCode.Vietnamese]: constants.iconPaths.LAYOUTS.VIETNAMESE,
-    [ELanguageCode.Japanese]: constants.iconPaths.LAYOUTS.JAPANESE
+    [ELanguageCode.Japanese]: constants.iconPaths.LAYOUTS.JAPANESE,
+    [ELanguageCode.Vietnamese]: constants.iconPaths.LAYOUTS.VIETNAMESE
   };
   return iconPaths[lang];
 };

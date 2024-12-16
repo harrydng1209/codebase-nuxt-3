@@ -1,10 +1,10 @@
 const routeApis = {
-  HEALTH_CHECK: '/health-check',
   AUTH: {
     LOGIN: '/auth/login',
-    REFRESH_TOKEN: '/auth/refresh-token',
-    ME: '/auth/me'
-  }
+    ME: '/auth/me',
+    REFRESH_TOKEN: '/auth/refresh-token'
+  },
+  HEALTH_CHECK: '/health-check'
 } as const;
 
 export default routeApis;

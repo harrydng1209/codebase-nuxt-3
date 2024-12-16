@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface IProps {
-  total: number;
   pagerCount?: number;
   pageSize?: number;
+  total: number;
 }
 
 const props = withDefaults(defineProps<IProps>(), {

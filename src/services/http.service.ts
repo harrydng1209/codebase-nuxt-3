@@ -1,12 +1,12 @@
+import { useLocalStorage } from '@vueuse/core';
 import axios from 'axios';
 import qs from 'qs';
-import { useLocalStorage } from '@vueuse/core';
 
 const httpService = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json'
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
   },
   paramsSerializer: (params) => qs.stringify(params, { indices: true })
 });

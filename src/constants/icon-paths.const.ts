@@ -1,26 +1,26 @@
 const iconPaths = {
-  SHARED: {
-    DELETE: 'shared/IconDelete',
-    LIGHT_MODE: 'shared/IconLightMode',
-    DARK_MODE: 'shared/IconDarkMode',
-    LOGO: 'shared/IconLogo',
-    REQUIRED: 'shared/IconRequired'
-  },
   LAYOUTS: {
     DASHBOARD: 'layouts/IconDashboard',
-    FOLDER_SHARED: 'layouts/IconFolderShared',
-    SETTINGS: 'layouts/IconSettings',
-    SEARCH: 'layouts/IconSearch',
-    NOTIFICATION: 'layouts/IconNotification',
     ENGLISH: 'layouts/IconEnglish',
-    VIETNAMESE: 'layouts/IconVietnamese',
-    JAPANESE: 'layouts/IconJapanese'
+    FOLDER_SHARED: 'layouts/IconFolderShared',
+    JAPANESE: 'layouts/IconJapanese',
+    NOTIFICATION: 'layouts/IconNotification',
+    SEARCH: 'layouts/IconSearch',
+    SETTINGS: 'layouts/IconSettings',
+    VIETNAMESE: 'layouts/IconVietnamese'
   },
   PAGES: {
     AUTH: {
       EYE: 'pages/auth/IconEye',
       EYE_CLOSED: 'pages/auth/IconEyeClosed'
     }
+  },
+  SHARED: {
+    DARK_MODE: 'shared/IconDarkMode',
+    DELETE: 'shared/IconDelete',
+    LIGHT_MODE: 'shared/IconLightMode',
+    LOGO: 'shared/IconLogo',
+    REQUIRED: 'shared/IconRequired'
   }
 } as const;
 

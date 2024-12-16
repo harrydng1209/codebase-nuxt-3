@@ -1,12 +1,12 @@
 import { ElMessageBox } from 'element-plus';
 
 interface ConfirmDialogOptions {
-  title: string;
-  message: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-  confirmButtonText?: string;
   cancelButtonText?: string;
+  confirmButtonText?: string;
+  message: string;
+  onCancel: () => void;
+  onConfirm: () => void;
+  title: string;
 }
 
 const useConfirmDialog = () => {
@@ -14,21 +14,21 @@ const useConfirmDialog = () => {
 
   const showConfirm = async (options: ConfirmDialogOptions) => {
     const {
-      title,
-      message,
-      onConfirm,
-      onCancel,
+      cancelButtonText = t('button.cancel'),
       confirmButtonText = t('button.ok'),
-      cancelButtonText = t('button.cancel')
+      message,
+      onCancel,
+      onConfirm,
+      title
     } = options || {};
 
     return ElMessageBox.confirm(message, title, {
-      confirmButtonText,
       cancelButtonText,
       center: true,
-      showClose: false,
       closeOnClickModal: false,
-      closeOnPressEscape: false
+      closeOnPressEscape: false,
+      confirmButtonText,
+      showClose: false
     })
       .then(() => onConfirm())
       .catch(() => onCancel());

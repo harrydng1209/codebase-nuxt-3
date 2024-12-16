@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/yup';
-import { object as yupObject, string as yupString } from 'yup';
-import useAuthStore from '@/stores/auth.store';
 import { EToast } from '@/models/enums/shared.enum';
+import useAuthStore from '@/stores/auth.store';
+import { toTypedSchema } from '@vee-validate/yup';
+import { useForm } from 'vee-validate';
+import { object as yupObject, string as yupString } from 'yup';
 
 definePageMeta({
   layout: 'guest'
@@ -25,8 +25,8 @@ const { t } = useI18n();
 const authStore = useAuthStore();
 const router = useRouter();
 const { handleSubmit } = useForm({
-  validationSchema: schema,
-  initialValues: {}
+  initialValues: {},
+  validationSchema: schema
 });
 
 const showPassword = ref(false);

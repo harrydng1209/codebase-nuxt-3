@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { baseSelectOptions, tableData } from '@/mocks/base-page.mock';
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/yup';
-import {
-  object as yupObject,
-  string as yupString,
-  ref as yupRef,
-  boolean as yupBoolean
-} from 'yup';
-import { EToast } from '@/models/enums/shared.enum';
-import { useDebounceFn } from '@vueuse/core';
 import type { TDate } from '@/models/types/shared.type';
+
+import { baseSelectOptions, tableData } from '@/mocks/base-page.mock';
+import { EToast } from '@/models/enums/shared.enum';
+import { toTypedSchema } from '@vee-validate/yup';
+import { useDebounceFn } from '@vueuse/core';
+import { useForm } from 'vee-validate';
+import {
+  boolean as yupBoolean,
+  object as yupObject,
+  ref as yupRef,
+  string as yupString
+} from 'yup';
 
 definePageMeta({
   layout: 'default'
@@ -36,14 +37,14 @@ const schema = toTypedSchema(
     passwordConfirm: yupString()
       .required('Password confirmation is required')
       .oneOf([yupRef('password')], 'Passwords must match'),
-    type: yupString().required('Account type is required'),
-    terms: yupBoolean().required().isTrue('You must agree to the terms and conditions')
+    terms: yupBoolean().required().isTrue('You must agree to the terms and conditions'),
+    type: yupString().required('Account type is required')
   })
 );
 
 const { handleSubmit, resetForm } = useForm({
-  validationSchema: schema,
-  initialValues: {}
+  initialValues: {},
+  validationSchema: schema
 });
 const { t } = useI18n();
 const { showConfirm } = useConfirmDialog();
@@ -73,7 +74,7 @@ const handleChangeCheckbox = (value: boolean) => {
   utils.shared.showToast(`handleChangeCheckbox: ${value}`);
 };
 
-const handleChangeInput = useDebounceFn((value: string | number) => {
+const handleChangeInput = useDebounceFn((value: number | string) => {
   utils.shared.showToast(`handleChangeInput: ${value}`);
 }, 200);
 
@@ -108,16 +109,16 @@ const handleGetHealthCheck = useDebounceFn(async () => {
 
 const confirmDelete = () => {
   showConfirm({
-    title: 'Warning',
+    cancelButtonText: 'No, Cancel',
+    confirmButtonText: 'Yes, Delete',
     message: 'Proxy will permanently delete the file. Continue?',
-    onConfirm: () => {
-      utils.shared.showToast('File has been successfully deleted');
-    },
     onCancel: () => {
       utils.shared.showToast('File deletion has been canceled');
     },
-    confirmButtonText: 'Yes, Delete',
-    cancelButtonText: 'No, Cancel'
+    onConfirm: () => {
+      utils.shared.showToast('File has been successfully deleted');
+    },
+    title: 'Warning'
   });
 };
 </script>

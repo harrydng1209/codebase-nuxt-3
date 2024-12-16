@@ -1,10 +1,5 @@
 export default {
   extends: ['@commitlint/config-conventional'],
-  rules: {
-    'prefix-commit-message': [2, 'always'],
-    'type-empty': [0, 'never'],
-    'subject-empty': [0, 'never']
-  },
   plugins: [
     {
       rules: {
@@ -17,5 +12,10 @@ export default {
         }
       }
     }
-  ]
+  ],
+  rules: {
+    'prefix-commit-message': [2, 'always'],
+    'subject-empty': [0, 'never'],
+    'type-empty': [0, 'never']
+  }
 };
