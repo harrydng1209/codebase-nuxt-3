@@ -14,12 +14,18 @@ import {
 } from 'yup';
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
+  middleware: 'auth-middleware',
+  requiresAuth: false,
+  roles: [],
+  title: 'Base Components'
 });
 
 await useAsyncData('checkDev', async () => {
-  if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT)
-    return navigateTo(constants.routePages.AUTH.LOGIN);
+  if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT) {
+    navigateTo(constants.routePages.AUTH.LOGIN);
+    return;
+  }
 });
 
 const schema = toTypedSchema(

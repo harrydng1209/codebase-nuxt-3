@@ -10,13 +10,6 @@ import qs from 'qs';
 import stringFormat from 'string-template';
 
 const shared = {
-  cleanQuery: <T>(query: Record<string, unknown>): T => {
-    const cleanedQuery = Object.fromEntries(
-      Object.entries(query).filter(([_, value]) => value !== undefined && value !== '')
-    );
-
-    return cleanedQuery as T;
-  },
   convertToCamelCase: <T>(data: Record<string, unknown> | Record<string, unknown>[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToCamelCase(item)) as T;
     if (data === null || typeof data !== EDataType.Object) return data as T;
@@ -53,7 +46,27 @@ const shared = {
     });
     return newObject as T;
   },
-  formatQueryString: (
+  hideLoading: (loadingInstance: null | ReturnType<typeof ElLoading.service>) => {
+    if (loadingInstance) {
+      loadingInstance.close();
+      const element = loadingInstance.target.value;
+      if (element && element instanceof HTMLElement)
+        element.classList.remove('tw-pointer-events-none');
+    }
+  },
+  isSuccessResponse<T, M>(
+    response: IFailureResponse | TSuccessResponse<T, M>
+  ): response is TSuccessResponse<T, M> {
+    return response.status === EResponseStatus.Success;
+  },
+  queryClean: <T>(query: Record<string, unknown>): T => {
+    const cleanedQuery = Object.fromEntries(
+      Object.entries(query).filter(([_, value]) => value !== undefined && value !== '')
+    );
+
+    return cleanedQuery as T;
+  },
+  queryStringFormat: (
     baseUrl: string,
     query: Record<string, unknown> | string | string[]
   ): string => {
@@ -67,19 +80,6 @@ const shared = {
     const queryString =
       typeof query === EDataType.String ? query : qs.stringify(query, { arrayFormat: 'brackets' });
     return `${baseUrl}?${queryString}`;
-  },
-  hideLoading: (loadingInstance: null | ReturnType<typeof ElLoading.service>) => {
-    if (loadingInstance) {
-      loadingInstance.close();
-      const element = loadingInstance.target.value;
-      if (element && element instanceof HTMLElement)
-        element.classList.remove('tw-pointer-events-none');
-    }
-  },
-  isSuccessResponse<T, M>(
-    response: IFailureResponse | TSuccessResponse<T, M>
-  ): response is TSuccessResponse<T, M> {
-    return response.status === EResponseStatus.Success;
   },
   showLoading: (target: TLoadingTarget) => {
     if (target === false) return null;

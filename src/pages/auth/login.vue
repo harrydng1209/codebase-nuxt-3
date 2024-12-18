@@ -6,7 +6,11 @@ import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 
 definePageMeta({
-  layout: 'guest'
+  layout: 'guest',
+  middleware: 'auth-middleware',
+  requiresAuth: false,
+  roles: [],
+  title: 'Authentication'
 });
 
 const schema = toTypedSchema(

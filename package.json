@@ -37,6 +37,8 @@
     "pattern": "^(feature|bugfix|hotfix|release)/.+|(master)$"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.2",
+    "@casl/vue": "^2.2.2",
     "@nuxtjs/i18n": "9.0.0-rc.2",
     "@pinia/nuxt": "^0.7.0",
     "@vee-validate/nuxt": "^4.14.7",

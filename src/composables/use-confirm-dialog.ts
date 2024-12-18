@@ -22,7 +22,7 @@ const useConfirmDialog = () => {
       title
     } = options || {};
 
-    return ElMessageBox.confirm(message, title, {
+    ElMessageBox.confirm(message, title, {
       cancelButtonText,
       center: true,
       closeOnClickModal: false,

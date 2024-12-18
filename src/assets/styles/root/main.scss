@@ -1,6 +1,3 @@
-@import './fonts.scss';
-@import './themes.scss';
-
 // tailwindcss
 @tailwind base;
 @tailwind components;
@@ -18,6 +15,8 @@
 @import '../custom/el-themes.scss';
 @import '../custom/el-shared.scss';
 @import '../custom/el-dropdown.scss';
-@import '../custom/el-table.scss';
 
+// main
+@import './fonts.scss';
+@import './themes.scss';
 @import './shared.scss';
