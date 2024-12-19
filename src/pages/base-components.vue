@@ -21,11 +21,10 @@ definePageMeta({
   title: 'Base Components'
 });
 
-await useAsyncData('checkDev', async () => {
-  if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT) {
-    navigateTo(constants.routePages.AUTH.LOGIN);
-    return;
-  }
+await useAsyncData(async () => {
+  if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT)
+    return navigateTo(constants.routePages.AUTH.LOGIN);
+  return {};
 });
 
 const schema = toTypedSchema(
@@ -55,6 +54,7 @@ const { handleSubmit, resetForm } = useForm({
 const { t } = useI18n();
 const { showConfirm } = useConfirmDialog();
 const { isDark } = useTheme();
+const { pagination } = usePagination();
 
 const baseSelect = ref({ label: 'select label 2', value: 'select value 2' });
 const baseCheckbox = ref<boolean>(false);
@@ -102,6 +102,8 @@ const handleDialog = () => {
 };
 
 const handleChangePagination = (currentPage: number, pageSize: number) => {
+  pagination.value.currentPage = currentPage;
+  pagination.value.pageSize = pageSize;
   utils.shared.showToast(`currentPage: ${currentPage} & pageSize: ${pageSize}`);
 };
 
@@ -127,274 +129,286 @@ const confirmDelete = () => {
     title: 'Warning'
   });
 };
+
+onMounted(() => {
+  pagination.value.total = 1000;
+});
 </script>
 
 <template>
-  <div class="base-components">
-    <section>
-      <h4>-- i18n --</h4>
-      <div class="tw-flex tw-items-center tw-gap-4">
-        <p>{{ t('hello') }}</p>
-      </div>
-    </section>
+  <ClientOnly>
+    <div class="base-components">
+      <section>
+        <h4>-- i18n --</h4>
+        <div class="tw-flex tw-items-center tw-gap-4">
+          <p>{{ t('hello') }}</p>
+        </div>
+      </section>
 
-    <section :id="constants.shared.SELECTOR_IDS.TEST_BUTTON_ID">
-      <h4>-- Apis --</h4>
-      <BaseButton @click="handleGetHealthCheck">Health Check</BaseButton>
-    </section>
+      <section :id="constants.shared.SELECTOR_IDS.TEST_BUTTON_ID">
+        <h4>-- Apis --</h4>
+        <BaseButton @click="handleGetHealthCheck">Health Check</BaseButton>
+      </section>
 
-    <section>
-      <h4>-- Base Icons SVG --</h4>
-      <div class="tw-flex tw-gap-2">
-        <template v-for="(category, categoryName) in constants.iconPaths" :key="categoryName">
-          <template v-for="(iconPath, iconName) in category" :key="iconName">
-            <BaseIconSvg
-              :path="iconPath"
-              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-              v-tippy="iconPath"
-              @click="handleClickIconSvg"
-            />
+      <section>
+        <h4>-- Base Icons SVG --</h4>
+        <div class="tw-flex tw-gap-2">
+          <template v-for="(category, categoryName) in constants.iconPaths" :key="categoryName">
+            <template v-for="(iconPath, iconName) in category" :key="iconName">
+              <BaseIconSvg
+                :path="String(iconPath)"
+                :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+                v-tippy="iconPath"
+                @click="handleClickIconSvg"
+              />
+            </template>
           </template>
-        </template>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section>
-      <h4>-- Base Buttons --</h4>
-      <div class="tw-mb-4">
-        <BaseButton type="primary" @click="handleClickButton">Primary</BaseButton>
-        <BaseButton type="info" @click="handleClickButton">Info</BaseButton>
-        <BaseButton type="success" @click="handleClickButton">Success</BaseButton>
-        <BaseButton type="warning" @click="handleClickButton">Warning</BaseButton>
-        <BaseButton type="danger" @click="handleClickButton">Danger</BaseButton>
-      </div>
+      <section>
+        <h4>-- Base Buttons --</h4>
+        <div class="tw-mb-4">
+          <BaseButton type="primary" @click="handleClickButton">Primary</BaseButton>
+          <BaseButton type="info" @click="handleClickButton">Info</BaseButton>
+          <BaseButton type="success" @click="handleClickButton">Success</BaseButton>
+          <BaseButton type="warning" @click="handleClickButton">Warning</BaseButton>
+          <BaseButton type="danger" @click="handleClickButton">Danger</BaseButton>
+        </div>
 
-      <div class="tw-mb-4">
-        <BaseButton type="primary" disabled @click="handleClickButton">Primary</BaseButton>
-        <BaseButton type="info" disabled @click="handleClickButton">Info</BaseButton>
-        <BaseButton type="success" disabled @click="handleClickButton">Success</BaseButton>
-        <BaseButton type="warning" disabled @click="handleClickButton">Warning</BaseButton>
-        <BaseButton type="danger" disabled @click="handleClickButton">Danger</BaseButton>
-      </div>
+        <div class="tw-mb-4">
+          <BaseButton type="primary" disabled @click="handleClickButton">Primary</BaseButton>
+          <BaseButton type="info" disabled @click="handleClickButton">Info</BaseButton>
+          <BaseButton type="success" disabled @click="handleClickButton">Success</BaseButton>
+          <BaseButton type="warning" disabled @click="handleClickButton">Warning</BaseButton>
+          <BaseButton type="danger" disabled @click="handleClickButton">Danger</BaseButton>
+        </div>
 
-      <div class="tw-mb-4">
-        <BaseButton type="primary" plain @click="handleClickButton">Primary</BaseButton>
-        <BaseButton type="info" plain @click="handleClickButton">Info</BaseButton>
-        <BaseButton type="success" plain @click="handleClickButton">Success</BaseButton>
-        <BaseButton type="warning" plain @click="handleClickButton">Warning</BaseButton>
-        <BaseButton type="danger" plain @click="handleClickButton">Danger</BaseButton>
-      </div>
-
-      <div>
-        <BaseButton type="primary" circle @click="handleClickButton">
-          <template #icon>
-            <BaseIconSvg
-              width="14"
-              height="14"
-              :fill="constants.shared.COLORS.WHITE"
-              :path="constants.iconPaths.SHARED.DELETE"
-            />
-          </template>
-        </BaseButton>
-        <BaseButton type="info" circle @click="handleClickButton">
-          <template #icon>
-            <BaseIconSvg
-              width="14"
-              height="14"
-              :fill="constants.shared.COLORS.WHITE"
-              :path="constants.iconPaths.SHARED.DELETE"
-            />
-          </template>
-        </BaseButton>
-        <BaseButton type="success" circle @click="handleClickButton">
-          <template #icon>
-            <BaseIconSvg
-              width="14"
-              height="14"
-              :fill="constants.shared.COLORS.WHITE"
-              :path="constants.iconPaths.SHARED.DELETE"
-            />
-          </template>
-        </BaseButton>
-        <BaseButton type="warning" circle @click="handleClickButton">
-          <template #icon>
-            <BaseIconSvg
-              width="14"
-              height="14"
-              :fill="constants.shared.COLORS.WHITE"
-              :path="constants.iconPaths.SHARED.DELETE"
-            />
-          </template>
-        </BaseButton>
-        <BaseButton type="danger" circle @click="handleClickButton">
-          <template #icon>
-            <BaseIconSvg
-              width="14"
-              height="14"
-              :fill="constants.shared.COLORS.WHITE"
-              :path="constants.iconPaths.SHARED.DELETE"
-            />
-          </template>
-        </BaseButton>
-      </div>
-    </section>
-
-    <section>
-      <h4>-- Base Selects --</h4>
-      <BaseSelect
-        v-model="baseSelect"
-        :options="baseSelectOptions"
-        @change="handleChangeSelect"
-        class="!tw-w-[150px]"
-      />
-    </section>
-
-    <section>
-      <h4>-- Base Checkboxes --</h4>
-      <BaseCheckbox v-model="baseCheckbox" @change="handleChangeCheckbox">
-        checkbox label
-      </BaseCheckbox>
-    </section>
-
-    <section>
-      <h4>-- Base Switches --</h4>
-      <BaseSwitch v-model="baseSwitch" activeText="switch label" @change="handleChangeSwitch" />
-    </section>
-
-    <section>
-      <h4>-- Base Inputs --</h4>
-      <BaseInput
-        v-model="baseInput"
-        placeholder="Please input"
-        @input="handleChangeInput"
-        class="!tw-w-[200px]"
-      />
-    </section>
-
-    <section>
-      <h4>-- Base DatePickers --</h4>
-      <BaseDatePicker
-        v-model="baseDatePicker"
-        placeholder="Pick a day"
-        @change="handleChangeDatePicker"
-      />
-    </section>
-
-    <section>
-      <h4>-- Base TimePickers --</h4>
-      <BaseTimePicker
-        v-model="baseTimePicker"
-        placeholder="Pick a time"
-        @change="handleChangeTimePicker"
-      />
-    </section>
-
-    <section>
-      <h4>-- Base Dialogs --</h4>
-      <BaseButton @click="baseDialog = true">Open Dialog</BaseButton>
-      <BaseDialog v-model="baseDialog" title="Dialog Title" width="500">
-        <span>This is a dialog content</span>
-        <template #footer>
-          <div class="dialog-footer">
-            <BaseButton type="primary" @click="handleDialog">OK</BaseButton>
-          </div>
-        </template>
-      </BaseDialog>
-
-      <BaseButton class="tw-ml-4" @click="confirmDelete">Open Confirm Dialog</BaseButton>
-    </section>
-
-    <section>
-      <h4>-- Base Tables --</h4>
-      <BaseTable :data="tableData" height="300" rowKey="date">
-        <ElTableColumn type="index" width="50" />
-        <ElTableColumn prop="date" label="Date" width="120" />
-        <ElTableColumn prop="name" label="Name" width="150" />
-        <ElTableColumn prop="address" label="Address" width="200" />
-        <ElTableColumn prop="email" label="Email" width="180" />
-        <ElTableColumn prop="phone" label="Phone" width="150" />
-        <ElTableColumn prop="age" label="Age" width="80" />
-        <ElTableColumn prop="occupation" label="Occupation" width="150" />
-        <ElTableColumn prop="company" label="Company" width="150" />
-        <ElTableColumn prop="salary" label="Salary" width="120" />
-        <ElTableColumn prop="department" label="Department" width="150" />
-        <ElTableColumn prop="city" label="City" width="120" />
-        <ElTableColumn prop="country" label="Country" width="120" />
-        <ElTableColumn prop="zipCode" label="Zip Code" width="120" />
-
-        <template #tfoot>
-          <BasePagination :total="1000" @change="handleChangePagination" />
-        </template>
-      </BaseTable>
-    </section>
-
-    <section>
-      <h4>-- Base Forms --</h4>
-      <ElForm @submit="onSubmit" labelWidth="auto">
-        <BaseFormItem name="email" label="Email">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseInput
-              placeholder="Email Address"
-              :modelValue="modelValue"
-              @input="updateModelValue"
-            />
-          </template>
-        </BaseFormItem>
-
-        <BaseFormItem name="fullName" label="Full name">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseInput placeholder="Full name" :modelValue="modelValue" @input="updateModelValue" />
-          </template>
-        </BaseFormItem>
-
-        <BaseFormItem name="password" label="Password">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseInput
-              placeholder="Password"
-              :modelValue="modelValue"
-              @input="updateModelValue"
-              showPassword
-            />
-          </template>
-        </BaseFormItem>
-
-        <BaseFormItem name="passwordConfirm" label="Confirm Password">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseInput
-              placeholder="Confirm password"
-              :modelValue="modelValue"
-              @input="updateModelValue"
-              showPassword
-            />
-          </template>
-        </BaseFormItem>
-
-        <BaseFormItem name="type" label="Type">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseSelect
-              :modelValue="modelValue"
-              @change="updateModelValue"
-              placeholder="Select Type"
-              :options="baseSelectOptions"
-            />
-          </template>
-        </BaseFormItem>
-
-        <BaseFormItem name="terms">
-          <template #default="{ modelValue, updateModelValue }">
-            <BaseCheckbox :modelValue="modelValue" @change="updateModelValue">
-              Agree to terms and conditions
-            </BaseCheckbox>
-          </template>
-        </BaseFormItem>
+        <div class="tw-mb-4">
+          <BaseButton type="primary" plain @click="handleClickButton">Primary</BaseButton>
+          <BaseButton type="info" plain @click="handleClickButton">Info</BaseButton>
+          <BaseButton type="success" plain @click="handleClickButton">Success</BaseButton>
+          <BaseButton type="warning" plain @click="handleClickButton">Warning</BaseButton>
+          <BaseButton type="danger" plain @click="handleClickButton">Danger</BaseButton>
+        </div>
 
         <div>
-          <BaseButton type="primary" nativeType="submit">Submit</BaseButton>
-          <BaseButton type="info" nativeType="button" @click="resetForm()">Reset</BaseButton>
+          <BaseButton type="primary" circle @click="handleClickButton">
+            <template #icon>
+              <BaseIconSvg
+                width="14"
+                height="14"
+                :fill="constants.shared.COLORS.WHITE"
+                :path="constants.iconPaths.SHARED.DELETE"
+              />
+            </template>
+          </BaseButton>
+          <BaseButton type="info" circle @click="handleClickButton">
+            <template #icon>
+              <BaseIconSvg
+                width="14"
+                height="14"
+                :fill="constants.shared.COLORS.WHITE"
+                :path="constants.iconPaths.SHARED.DELETE"
+              />
+            </template>
+          </BaseButton>
+          <BaseButton type="success" circle @click="handleClickButton">
+            <template #icon>
+              <BaseIconSvg
+                width="14"
+                height="14"
+                :fill="constants.shared.COLORS.WHITE"
+                :path="constants.iconPaths.SHARED.DELETE"
+              />
+            </template>
+          </BaseButton>
+          <BaseButton type="warning" circle @click="handleClickButton">
+            <template #icon>
+              <BaseIconSvg
+                width="14"
+                height="14"
+                :fill="constants.shared.COLORS.WHITE"
+                :path="constants.iconPaths.SHARED.DELETE"
+              />
+            </template>
+          </BaseButton>
+          <BaseButton type="danger" circle @click="handleClickButton">
+            <template #icon>
+              <BaseIconSvg
+                width="14"
+                height="14"
+                :fill="constants.shared.COLORS.WHITE"
+                :path="constants.iconPaths.SHARED.DELETE"
+              />
+            </template>
+          </BaseButton>
         </div>
-      </ElForm>
-    </section>
-  </div>
+      </section>
+
+      <section>
+        <h4>-- Base Selects --</h4>
+        <BaseSelect
+          v-model="baseSelect"
+          :options="baseSelectOptions"
+          @change="handleChangeSelect"
+          class="!tw-w-[150px]"
+        />
+      </section>
+
+      <section>
+        <h4>-- Base Checkboxes --</h4>
+        <BaseCheckbox v-model="baseCheckbox" @change="handleChangeCheckbox">
+          checkbox label
+        </BaseCheckbox>
+      </section>
+
+      <section>
+        <h4>-- Base Switches --</h4>
+        <BaseSwitch v-model="baseSwitch" activeText="switch label" @change="handleChangeSwitch" />
+      </section>
+
+      <section>
+        <h4>-- Base Inputs --</h4>
+        <BaseInput
+          v-model="baseInput"
+          placeholder="Please input"
+          @input="handleChangeInput"
+          class="!tw-w-[200px]"
+        />
+      </section>
+
+      <section>
+        <h4>-- Base DatePickers --</h4>
+        <BaseDatePicker
+          v-model="baseDatePicker"
+          placeholder="Pick a day"
+          @change="handleChangeDatePicker"
+        />
+      </section>
+
+      <section>
+        <h4>-- Base TimePickers --</h4>
+        <BaseTimePicker
+          v-model="baseTimePicker"
+          placeholder="Pick a time"
+          @change="handleChangeTimePicker"
+        />
+      </section>
+
+      <section>
+        <h4>-- Base Dialogs --</h4>
+        <BaseButton @click="baseDialog = true">Open Dialog</BaseButton>
+        <BaseDialog v-model="baseDialog" title="Dialog Title" width="500">
+          <span>This is a dialog content</span>
+          <template #footer>
+            <div class="dialog-footer">
+              <BaseButton type="primary" @click="handleDialog">OK</BaseButton>
+            </div>
+          </template>
+        </BaseDialog>
+
+        <BaseButton class="tw-ml-4" @click="confirmDelete">Open Confirm Dialog</BaseButton>
+      </section>
+
+      <section>
+        <h4>-- Base Tables --</h4>
+        <BaseTable :data="tableData" height="300" rowKey="date">
+          <ElTableColumn type="index" width="50" />
+          <ElTableColumn prop="date" label="Date" width="120" />
+          <ElTableColumn prop="name" label="Name" width="150" />
+          <ElTableColumn prop="address" label="Address" width="200" />
+          <ElTableColumn prop="email" label="Email" width="180" />
+          <ElTableColumn prop="phone" label="Phone" width="150" />
+          <ElTableColumn prop="age" label="Age" width="80" />
+          <ElTableColumn prop="occupation" label="Occupation" width="150" />
+          <ElTableColumn prop="company" label="Company" width="150" />
+          <ElTableColumn prop="salary" label="Salary" width="120" />
+          <ElTableColumn prop="department" label="Department" width="150" />
+          <ElTableColumn prop="city" label="City" width="120" />
+          <ElTableColumn prop="country" label="Country" width="120" />
+          <ElTableColumn prop="zipCode" label="Zip Code" width="120" />
+
+          <template #tfoot>
+            <BasePagination :total="pagination.total" @change="handleChangePagination" />
+          </template>
+        </BaseTable>
+
+        <div class="tw-mt-4 tw-flex-center">usePagination: {{ pagination }}</div>
+      </section>
+
+      <section>
+        <h4>-- Base Forms --</h4>
+        <ElForm @submit="onSubmit" labelWidth="auto" labelPosition="left" style="width: 100%">
+          <BaseFormItem name="email" label="Email">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseInput
+                placeholder="Enter your email address"
+                :modelValue="modelValue"
+                @input="updateModelValue"
+              />
+            </template>
+          </BaseFormItem>
+
+          <BaseFormItem name="fullName" label="Full name">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseInput
+                placeholder="Enter your full name"
+                :modelValue="modelValue"
+                @input="updateModelValue"
+              />
+            </template>
+          </BaseFormItem>
+
+          <BaseFormItem name="password" label="Password">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseInput
+                placeholder="Create a password"
+                :modelValue="modelValue"
+                @input="updateModelValue"
+                showPassword
+              />
+            </template>
+          </BaseFormItem>
+
+          <BaseFormItem name="passwordConfirm" label="Confirm Password">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseInput
+                placeholder="Re-enter your password"
+                :modelValue="modelValue"
+                @input="updateModelValue"
+                showPassword
+              />
+            </template>
+          </BaseFormItem>
+
+          <BaseFormItem name="type" label="Type">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseSelect
+                :modelValue="modelValue"
+                @change="updateModelValue"
+                placeholder="Choose a type"
+                :options="baseSelectOptions"
+              />
+            </template>
+          </BaseFormItem>
+
+          <BaseFormItem name="terms">
+            <template #default="{ modelValue, updateModelValue }">
+              <BaseCheckbox :modelValue="modelValue" @change="updateModelValue">
+                Agree to terms and conditions
+              </BaseCheckbox>
+            </template>
+          </BaseFormItem>
+
+          <div>
+            <BaseButton type="primary" nativeType="submit">Submit</BaseButton>
+            <BaseButton type="info" nativeType="button" @click="resetForm()">Reset</BaseButton>
+          </div>
+        </ElForm>
+      </section>
+    </div>
+  </ClientOnly>
 </template>
 
 <style scoped lang="scss">

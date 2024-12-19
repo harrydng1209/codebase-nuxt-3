@@ -1,6 +1,5 @@
 import type { IFailureResponse } from '@/models/interfaces/shared.interface';
 import type { TLoadingTarget, TSuccessResponse } from '@/models/types/shared.type';
-import type { ElLoading } from 'element-plus';
 
 import { EResponseStatus, EToast } from '@/models/enums/shared.enum';
 import httpService from '@/services/http.service';

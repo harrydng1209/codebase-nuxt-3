@@ -1,5 +1,3 @@
-import { ElMessageBox } from 'element-plus';
-
 interface ConfirmDialogOptions {
   cancelButtonText?: string;
   confirmButtonText?: string;

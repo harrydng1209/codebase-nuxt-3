@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import autoImport from 'unplugin-auto-import/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import components from 'unplugin-vue-components/vite';
 
 dotenv.config();
@@ -17,18 +16,31 @@ export default defineNuxtConfig({
   dir: {
     middleware: 'middlewares'
   },
+  elementPlus: {
+    icon: false
+  },
   i18n: {
     vueI18n: './vue-i18n.config.ts'
   },
   imports: {
     dirs: []
   },
-  modules: ['@nuxtjs/i18n', '@pinia/nuxt', '@vee-validate/nuxt', '@nuxtjs/tailwindcss'],
+  modules: [
+    '@nuxtjs/i18n',
+    '@pinia/nuxt',
+    '@vee-validate/nuxt',
+    '@nuxtjs/tailwindcss',
+    '@element-plus/nuxt'
+  ],
   postcss: {
     plugins: {
       autoprefixer: {},
       tailwindcss: {}
     }
+  },
+  sourcemap: {
+    client: true,
+    server: true
   },
   srcDir: 'src/',
   ssr: process.env.VITE_SSR === 'true',
@@ -57,13 +69,11 @@ export default defineNuxtConfig({
             '@/utils': [['default', 'utils']]
           }
         ],
-        resolvers: [ElementPlusResolver()],
         vueTemplate: true
       }),
       components({
         dirs: ['components/base/**'],
-        dts: '@types/components.d.ts',
-        resolvers: [ElementPlusResolver()]
+        dts: '@types/components.d.ts'
       })
     ]
   }

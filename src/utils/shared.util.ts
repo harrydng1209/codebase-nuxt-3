@@ -4,7 +4,6 @@ import type { TLoadingTarget, TSuccessResponse } from '@/models/types/shared.typ
 import { EDataType, EResponseStatus } from '@/models/enums/shared.enum';
 import { EToast } from '@/models/enums/shared.enum';
 import storeService from '@/services/store.service';
-import { ElLoading, ElNotification } from 'element-plus';
 import { capitalize } from 'lodash-es';
 import qs from 'qs';
 import stringFormat from 'string-template';

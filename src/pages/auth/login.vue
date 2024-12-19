@@ -57,7 +57,13 @@ const onSubmit = handleSubmit(async (values: unknown) => {
     <section>
       <h4>{{ t('auth.login') }}</h4>
 
-      <ElForm @submit="onSubmit" labelWidth="auto" labelPosition="top" hideRequiredAsterisk>
+      <ElForm
+        @submit="onSubmit"
+        labelWidth="auto"
+        labelPosition="top"
+        hideRequiredAsterisk
+        style="width: 100%"
+      >
         <BaseFormItem name="email">
           <template #label>
             <span>{{ t('auth.email') }}</span>

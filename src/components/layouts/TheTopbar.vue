@@ -24,20 +24,22 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
 
 <template>
   <div class="the-topbar">
-    <section>
-      <BaseInput
-        v-model="searchInput"
-        :placeholder="`${t('shared.search')}...`"
-        class="!tw-w-[200px]"
-      >
-        <template #suffix>
-          <BaseIconSvg
-            :path="constants.iconPaths.LAYOUTS.SEARCH"
-            :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-          />
-        </template>
-      </BaseInput>
-    </section>
+    <ClientOnly>
+      <section>
+        <BaseInput
+          v-model="searchInput"
+          :placeholder="`${t('shared.search')}...`"
+          class="!tw-w-[200px]"
+        >
+          <template #suffix>
+            <BaseIconSvg
+              :path="constants.iconPaths.LAYOUTS.SEARCH"
+              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+            />
+          </template>
+        </BaseInput>
+      </section>
+    </ClientOnly>
 
     <section class="the-topbar__profile">
       <BaseIconSvg

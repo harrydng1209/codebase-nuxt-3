@@ -9,3 +9,7 @@ definePageMeta({
   title: 'Home'
 });
 </script>
+
+<template>
+  <div>Code Base Nuxt 3</div>
+</template>
