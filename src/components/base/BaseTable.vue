@@ -34,7 +34,7 @@ defineExpose({ innerRef });
     </template>
   </ElTable>
 
-  <div class="tw-flex-center tw-mt-2">
+  <div class="tw-flex-center tw-mt-4">
     <slot name="tfoot" />
   </div>
 </template>
