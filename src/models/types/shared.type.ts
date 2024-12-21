@@ -8,6 +8,7 @@ export type TLoadingTarget =
   | false;
 
 export type TOptions<T = boolean | number | Record<string, unknown> | string> = {
+  id?: number;
   label: string;
   value: T;
 };

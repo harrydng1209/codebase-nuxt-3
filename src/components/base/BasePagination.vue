@@ -19,5 +19,7 @@ const props = withDefaults(defineProps<IProps>(), {
     :total="props.total"
     layout="total, sizes, prev, pager, next, jumper"
     v-bind="$attrs"
-  />
+  >
+    <slot />
+  </ElPagination>
 </template>

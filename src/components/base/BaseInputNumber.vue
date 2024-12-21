@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { ElDialog } from 'element-plus';
+import type { ElInputNumber } from 'element-plus';
 
-const innerRef = ref<InstanceType<typeof ElDialog> | null>(null);
+const innerRef = ref<InstanceType<typeof ElInputNumber> | null>(null);
 
 defineExpose({ innerRef });
 </script>
 
 <template>
-  <ElDialog ref="innerRef" :showClose="false" v-bind="$attrs">
+  <ElInputNumber ref="innerRef" v-bind="$attrs">
     <template v-for="(_, name) in $slots" :key="name" #[name]>
       <slot :name="name" />
     </template>
-  </ElDialog>
+  </ElInputNumber>
 </template>

@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import type { ElDatePicker } from 'element-plus';
+
+const innerRef = ref<InstanceType<typeof ElDatePicker> | null>(null);
+
+defineExpose({ innerRef });
+</script>
+
 <template>
-  <ElDatePicker v-bind="$attrs" />
+  <ElDatePicker ref="innerRef" v-bind="$attrs">
+    <template v-for="(_, name) in $slots" :key="name" #[name]>
+      <slot :name="name" />
+    </template>
+  </ElDatePicker>
 </template>

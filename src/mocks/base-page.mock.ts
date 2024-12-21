@@ -1,7 +1,42 @@
 export const baseSelectOptions = [
-  { label: 'select label 1', value: 'select value 1' },
-  { label: 'select label 2', value: 'select value 2' },
-  { label: 'select label 3', value: 'select value 3' }
+  { id: 1, label: 'select label 1', value: 'select value 1' },
+  { id: 2, label: 'select label 2', value: 'select value 2' },
+  { id: 3, label: 'select label 3', value: 'select value 3' }
+];
+
+export const baseCheckboxOptions = [
+  { id: 1, label: 'checkbox label 1', value: 'checkbox value 1' },
+  { id: 2, label: 'checkbox label 2', value: 'checkbox value 2' },
+  { id: 3, label: 'checkbox label 3', value: 'checkbox value 3' }
+];
+
+export const suggestions = [
+  { value: 'Apple' },
+  { value: 'Banana' },
+  { value: 'Cherry' },
+  { value: 'Date' },
+  { value: 'Elderberry' },
+  { value: 'Fig' },
+  { value: 'Grape' },
+  { value: 'Honeydew' },
+  { value: 'Indian Fig' },
+  { value: 'Jackfruit' },
+  { value: 'Kiwi' },
+  { value: 'Lemon' },
+  { value: 'Mango' },
+  { value: 'Nectarine' },
+  { value: 'Orange' },
+  { value: 'Papaya' },
+  { value: 'Quince' },
+  { value: 'Raspberry' },
+  { value: 'Strawberry' },
+  { value: 'Tangerine' },
+  { value: 'Ugli Fruit' },
+  { value: 'Vanilla Bean' },
+  { value: 'Watermelon' },
+  { value: 'Xigua' },
+  { value: 'Yellow Passion Fruit' },
+  { value: 'Zucchini' }
 ];
 
 export const tableData = [

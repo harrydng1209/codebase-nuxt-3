@@ -1,16 +1,23 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app';
+const router = useRouter();
 
-interface IProps {
-  error: NuxtError;
-}
-
-const props = defineProps<IProps>();
+const goBack = () => {
+  router.back();
+};
 </script>
 
 <template>
-  <div class="tw-fixed-center">
-    <h1 class="tw-flex-center">{{ props.error?.statusCode }}</h1>
-    <NuxtLink to="/">Go back home</NuxtLink>
+  <div class="error">
+    <h1 class="error__title">Oops! Something went wrong</h1>
+    <h5 class="error__message">An unexpected error has occurred</h5>
+    <BaseButton class="error__button" @click="goBack">Go Back</BaseButton>
   </div>
 </template>
+
+<style scoped lang="scss">
+.error {
+  width: 100vw;
+  height: 100vh;
+  @include flexbox-style(12px, center, center, column);
+}
+</style>

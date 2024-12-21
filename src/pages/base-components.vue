@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import type { TDate } from '@/models/types/shared.type';
+import type { TDate, TOptions } from '@/models/types/shared.type';
 
-import { baseSelectOptions, tableData } from '@/mocks/base-page.mock';
+import {
+  baseCheckboxOptions,
+  baseSelectOptions,
+  suggestions,
+  tableData
+} from '@/mocks/base-page.mock';
 import { EToast } from '@/models/enums/shared.enum';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useDebounceFn } from '@vueuse/core';
@@ -56,13 +61,19 @@ const { showConfirm } = useConfirmDialog();
 const { isDark } = useTheme();
 const { pagination } = usePagination();
 
-const baseSelect = ref({ label: 'select label 2', value: 'select value 2' });
-const baseCheckbox = ref<boolean>(false);
+const baseSelect = ref<TOptions>();
+const baseMultipleSelect = ref<TOptions[]>([]);
 const baseInput = ref<string>('');
+const baseInputNumber = ref<number | string>('');
+const baseAutocomplete = ref<string>('');
 const baseDatePicker = ref<TDate>(Date.now());
 const baseTimePicker = ref<TDate>(Date.now());
 const baseSwitch = ref<boolean>(true);
 const baseDialog = ref<boolean>(false);
+const baseCheckbox = ref<boolean>(false);
+const baseCheckboxGroup = ref<string[]>([]);
+const baseCheckboxAll = ref<boolean>(false);
+const isIndeterminate = ref<boolean>(false);
 
 const handleClickButton = useDebounceFn(() => {
   utils.shared.showToast('handleClickButton');
@@ -114,6 +125,32 @@ const onSubmit = handleSubmit((_values: unknown) => {
 const handleGetHealthCheck = useDebounceFn(async () => {
   await apis.shared.healthCheck();
 }, 200);
+
+const fetchSuggestions = (
+  queryString: string,
+  callback: (
+    data: {
+      value: string;
+    }[]
+  ) => void
+) => {
+  const results = suggestions.filter((suggestion) =>
+    suggestion.value.toLowerCase().includes(queryString.toLowerCase())
+  );
+  callback(results);
+};
+
+const handleCheckAllChange = (value: boolean) => {
+  const optionValue = baseCheckboxOptions.map((option) => option.value);
+  baseCheckboxGroup.value = value ? optionValue : [];
+  isIndeterminate.value = false;
+};
+
+const handleCheckboxGroupChange = (value: string[]) => {
+  const checkedCount = value.length;
+  baseCheckboxAll.value = checkedCount === baseCheckboxOptions.length;
+  isIndeterminate.value = checkedCount > 0 && checkedCount < baseCheckboxOptions.length;
+};
 
 const confirmDelete = () => {
   showConfirm({
@@ -199,40 +236,44 @@ onMounted(() => {
                 width="14"
                 height="14"
                 :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.SHARED.DELETE"
+                :path="constants.iconPaths.LAYOUTS.SEARCH"
               />
             </template>
           </BaseButton>
+
           <BaseButton type="info" circle @click="handleClickButton">
             <template #icon>
               <BaseIconSvg
                 width="14"
                 height="14"
                 :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.SHARED.DELETE"
+                :path="constants.iconPaths.LAYOUTS.SETTINGS"
               />
             </template>
           </BaseButton>
+
           <BaseButton type="success" circle @click="handleClickButton">
             <template #icon>
               <BaseIconSvg
                 width="14"
                 height="14"
                 :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.SHARED.DELETE"
+                :path="constants.iconPaths.LAYOUTS.DASHBOARD"
               />
             </template>
           </BaseButton>
+
           <BaseButton type="warning" circle @click="handleClickButton">
             <template #icon>
               <BaseIconSvg
                 width="14"
                 height="14"
                 :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.SHARED.DELETE"
+                :path="constants.iconPaths.LAYOUTS.FOLDER_SHARED"
               />
             </template>
           </BaseButton>
+
           <BaseButton type="danger" circle @click="handleClickButton">
             <template #icon>
               <BaseIconSvg
@@ -251,21 +292,59 @@ onMounted(() => {
         <BaseSelect
           v-model="baseSelect"
           :options="baseSelectOptions"
+          placeholder="Please select"
           @change="handleChangeSelect"
           class="!tw-w-[150px]"
+        />
+
+        <BaseSelect
+          v-model="baseMultipleSelect"
+          multiple
+          collapseTags
+          collapseTagsTooltip
+          placeholder="Please multiple select"
+          :options="baseSelectOptions"
+          @change="handleChangeSelect"
+          class="!tw-w-[200px] tw-ml-4"
         />
       </section>
 
       <section>
         <h4>-- Base Checkboxes --</h4>
-        <BaseCheckbox v-model="baseCheckbox" @change="handleChangeCheckbox">
-          checkbox label
+        <div>
+          <BaseCheckbox v-model="baseCheckbox" @change="handleChangeCheckbox">
+            checkbox label
+          </BaseCheckbox>
+        </div>
+
+        <BaseCheckbox
+          v-model="baseCheckboxAll"
+          :indeterminate="isIndeterminate"
+          @change="handleCheckAllChange"
+          class="tw-mt-4"
+        >
+          Check all
         </BaseCheckbox>
+        <BaseCheckboxGroup
+          v-model="baseCheckboxGroup"
+          :options="baseCheckboxOptions"
+          @change="handleCheckboxGroupChange"
+        />
       </section>
 
       <section>
         <h4>-- Base Switches --</h4>
         <BaseSwitch v-model="baseSwitch" activeText="switch label" @change="handleChangeSwitch" />
+      </section>
+
+      <section>
+        <h4>-- Base Autocompletes --</h4>
+        <BaseAutocomplete
+          v-model="baseAutocomplete"
+          placeholder="Please input"
+          :fetchSuggestions="fetchSuggestions"
+          class="!tw-w-[200px]"
+        />
       </section>
 
       <section>
@@ -275,6 +354,14 @@ onMounted(() => {
           placeholder="Please input"
           @input="handleChangeInput"
           class="!tw-w-[200px]"
+        />
+
+        <BaseInputNumber
+          v-model="baseInputNumber"
+          controlsPosition="right"
+          placeholder="Please input number"
+          @change="handleChangeInput"
+          class="!tw-w-[200px] tw-ml-4"
         />
       </section>
 
@@ -339,59 +426,63 @@ onMounted(() => {
 
       <section>
         <h4>-- Base Forms --</h4>
-        <ElForm @submit="onSubmit" labelWidth="auto" labelPosition="left" style="width: 100%">
-          <BaseFormItem name="email" label="Email">
-            <template #default="{ modelValue, updateModelValue }">
-              <BaseInput
-                placeholder="Enter your email address"
-                :modelValue="modelValue"
-                @input="updateModelValue"
-              />
-            </template>
-          </BaseFormItem>
+        <ElForm @submit="onSubmit" labelWidth="auto" labelPosition="top" style="max-width: 600px">
+          <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+            <BaseFormItem name="fullName" label="Full name">
+              <template #default="{ modelValue, updateModelValue }">
+                <BaseInput
+                  placeholder="Enter your full name"
+                  :modelValue="modelValue"
+                  @input="updateModelValue"
+                />
+              </template>
+            </BaseFormItem>
 
-          <BaseFormItem name="fullName" label="Full name">
-            <template #default="{ modelValue, updateModelValue }">
-              <BaseInput
-                placeholder="Enter your full name"
-                :modelValue="modelValue"
-                @input="updateModelValue"
-              />
-            </template>
-          </BaseFormItem>
+            <BaseFormItem name="type" label="Type">
+              <template #default="{ modelValue, updateModelValue }">
+                <BaseSelect
+                  :modelValue="modelValue"
+                  @change="updateModelValue"
+                  placeholder="Choose a type"
+                  :options="baseSelectOptions"
+                />
+              </template>
+            </BaseFormItem>
+          </div>
 
-          <BaseFormItem name="password" label="Password">
-            <template #default="{ modelValue, updateModelValue }">
-              <BaseInput
-                placeholder="Create a password"
-                :modelValue="modelValue"
-                @input="updateModelValue"
-                showPassword
-              />
-            </template>
-          </BaseFormItem>
+          <div class="tw-grid tw-grid-cols-3 tw-gap-4">
+            <BaseFormItem name="email" label="Email">
+              <template #default="{ modelValue, updateModelValue }">
+                <BaseInput
+                  placeholder="Enter your email address"
+                  :modelValue="modelValue"
+                  @input="updateModelValue"
+                />
+              </template>
+            </BaseFormItem>
 
-          <BaseFormItem name="passwordConfirm" label="Confirm Password">
-            <template #default="{ modelValue, updateModelValue }">
-              <BaseInput
-                placeholder="Re-enter your password"
-                :modelValue="modelValue"
-                @input="updateModelValue"
-                showPassword
-              />
-            </template>
-          </BaseFormItem>
+            <BaseFormItem name="password" label="Password">
+              <template #default="{ modelValue, updateModelValue }">
+                <BaseInput
+                  placeholder="Create a password"
+                  :modelValue="modelValue"
+                  @input="updateModelValue"
+                  showPassword
+                />
+              </template>
+            </BaseFormItem>
 
-          <BaseFormItem name="type" label="Type">
-            <template #default="{ modelValue, updateModelValue }">
-              <BaseSelect
-                :modelValue="modelValue"
-                @change="updateModelValue"
-                placeholder="Choose a type"
-                :options="baseSelectOptions"
-              />
-            </template>
-          </BaseFormItem>
+            <BaseFormItem name="passwordConfirm" label="Confirm Password">
+              <template #default="{ modelValue, updateModelValue }">
+                <BaseInput
+                  placeholder="Re-enter your password"
+                  :modelValue="modelValue"
+                  @input="updateModelValue"
+                  showPassword
+                />
+              </template>
+            </BaseFormItem>
+          </div>
 
           <BaseFormItem name="terms">
             <template #default="{ modelValue, updateModelValue }">

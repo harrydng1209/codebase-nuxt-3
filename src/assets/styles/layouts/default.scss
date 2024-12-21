@@ -24,6 +24,7 @@
     }
 
     &-view {
+      min-height: calc(100vh - var(--el-header-height) - $base-layout-margin * 3);
       background-color: var(--v-background-container-color);
       box-shadow: 0 2px 6px var(--v-box-shadow-color);
       border-radius: 18px;
