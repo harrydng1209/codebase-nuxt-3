@@ -9,10 +9,10 @@ const iconPaths = {
     SETTINGS: 'layouts/IconSettings',
     VIETNAMESE: 'layouts/IconVietnamese'
   },
-  PAGES: {
+  MODULES: {
     AUTH: {
-      EYE: 'pages/auth/IconEye',
-      EYE_CLOSED: 'pages/auth/IconEyeClosed'
+      EYE: 'modules/auth/IconEye',
+      EYE_CLOSED: 'modules/auth/IconEyeClosed'
     }
   },
   SHARED: {

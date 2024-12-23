@@ -98,8 +98,8 @@ const onSubmit = handleSubmit(async (values: unknown) => {
                   height="20"
                   :path="
                     showPassword
-                      ? constants.iconPaths.PAGES.AUTH.EYE
-                      : constants.iconPaths.PAGES.AUTH.EYE_CLOSED
+                      ? constants.iconPaths.MODULES.AUTH.EYE
+                      : constants.iconPaths.MODULES.AUTH.EYE_CLOSED
                   "
                   @click="togglePasswordVisibility"
                 />
@@ -124,5 +124,5 @@ const onSubmit = handleSubmit(async (values: unknown) => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/pages/auth/login.scss';
+@import '@/assets/styles/modules/auth/login.scss';
 </style>

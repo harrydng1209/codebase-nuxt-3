@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import type { TDate, TOptions } from '@/models/types/shared.type';
 
-import {
-  baseCheckboxOptions,
-  baseSelectOptions,
-  suggestions,
-  tableData
-} from '@/mocks/base-page.mock';
 import { EToast } from '@/models/enums/shared.enum';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useDebounceFn } from '@vueuse/core';
@@ -17,6 +11,13 @@ import {
   ref as yupRef,
   string as yupString
 } from 'yup';
+
+import {
+  baseCheckboxOptions,
+  baseSelectOptions,
+  suggestions,
+  tableData
+} from '~/mocks/base-components.mock';
 
 definePageMeta({
   layout: 'default',
@@ -503,5 +504,5 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/pages/base-components.scss';
+@import '@/assets/styles/modules/base-components.scss';
 </style>
