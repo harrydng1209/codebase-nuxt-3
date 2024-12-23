@@ -33,7 +33,7 @@ const { handleSubmit } = useForm({
   validationSchema: schema
 });
 
-const showPassword = ref(false);
+const showPassword = ref<boolean>(false);
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;

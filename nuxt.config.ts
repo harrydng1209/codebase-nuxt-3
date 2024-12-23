@@ -60,7 +60,7 @@ export default defineNuxtConfig({
     },
     plugins: [
       autoImport({
-        dirs: ['composables/**'],
+        dirs: ['composables/shared/**'],
         dts: '@types/auto-imports.d.ts',
         imports: [
           {

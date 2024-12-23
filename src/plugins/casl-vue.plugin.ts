@@ -26,7 +26,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(abilitiesPlugin, ability);
 
   authStore.$subscribe(() => {
-    const userRole = authStore.getUserInfo?.role || ERole.Guest;
+    const userRole = authStore.getUserRole || ERole.Guest;
     ability.update(defineAbilitiesFor(userRole).rules);
   });
 });

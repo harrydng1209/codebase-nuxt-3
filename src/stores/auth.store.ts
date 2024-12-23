@@ -41,7 +41,8 @@ const useAuthStore = defineStore('authStore', () => {
   const getGetters = () => {
     return {
       getAuthenticated: computed(() => isAuthenticated.value),
-      getUserInfo: computed(() => userInfo.value)
+      getUserInfo: computed(() => userInfo.value),
+      getUserRole: computed(() => userInfo.value?.role)
     };
   };
 

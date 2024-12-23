@@ -15,7 +15,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     if (!authStore.getAuthenticated) return navigateTo(constants.routePages.AUTH.LOGIN);
 
     const requiresRoles = to.meta.roles as ERole[];
-    const userRole = authStore.getUserInfo?.role;
+    const userRole = authStore.getUserRole;
     const hasRequiredRole = requiresRoles?.some((role) => role === userRole);
 
     if (requiresRoles.length && !hasRequiredRole) return navigateTo(constants.routePages.FORBIDDEN);

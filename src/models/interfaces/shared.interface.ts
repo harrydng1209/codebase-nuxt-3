@@ -1,13 +1,9 @@
 import type { EResponseStatus } from '@/models/enums/shared.enum';
+import type { RouteLocationRaw } from 'vue-router';
 
 export interface IBreadcrumbItem {
   text: string;
-  to: {
-    name?: string;
-    params?: Record<string, unknown>;
-    path?: string;
-    query?: Record<string, unknown>;
-  };
+  to: RouteLocationRaw;
 }
 
 export interface IFailureResponse {

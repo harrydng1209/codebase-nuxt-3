@@ -6,7 +6,7 @@ const { isDark, toggleDark } = useTheme();
 const { currentLanguage, toggleLanguage } = useLanguage();
 const { t } = useI18n();
 
-const searchInput = ref<string>();
+const searchInput = ref<string>('');
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   label: key,
   value

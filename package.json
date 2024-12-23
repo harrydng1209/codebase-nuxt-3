@@ -20,8 +20,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,vue,json,md,css,scss,html}\"",
+    "lint": "eslint . --ext .cjs,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
+    "format": "prettier --write \"**/*.{css,html,js,json,md,scss,ts,tsx,vue}\"",
     "preinstall": "npx -y only-allow pnpm",
     "prepare": "husky",
     "precommit": "lint-staged && validate-branch-name"
