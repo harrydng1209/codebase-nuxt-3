@@ -72,6 +72,7 @@ const http = {
       toastMessage
     );
   },
+
   get: async <T = unknown, M = unknown>(
     url: string,
     config?: AxiosRequestConfig,
@@ -87,6 +88,7 @@ const http = {
       toastMessage
     );
   },
+
   patch: async <T = unknown, M = unknown>(
     url: string,
     data: unknown,
@@ -103,6 +105,7 @@ const http = {
       toastMessage
     );
   },
+
   post: async <T = unknown, M = unknown>(
     url: string,
     data: unknown,
@@ -119,6 +122,7 @@ const http = {
       toastMessage
     );
   },
+
   put: async <T = unknown, M = unknown>(
     url: string,
     data: unknown,

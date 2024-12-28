@@ -12,12 +12,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (to.meta.requiresAuth) {
     await authStore.initialize();
 
-    if (!authStore.getAuthenticated) return navigateTo(constants.routePages.AUTH.LOGIN);
+    if (!authStore.getAuthenticated) return await navigateTo(constants.routePages.AUTH.LOGIN);
 
     const requiresRoles = to.meta.roles as ERole[];
     const userRole = authStore.getUserRole;
     const hasRequiredRole = requiresRoles?.some((role) => role === userRole);
 
-    if (requiresRoles.length && !hasRequiredRole) return navigateTo(constants.routePages.FORBIDDEN);
+    if (requiresRoles.length && !hasRequiredRole)
+      return await navigateTo(constants.routePages.FORBIDDEN);
   }
 });

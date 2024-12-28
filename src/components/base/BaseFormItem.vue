@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 const attrs = useAttrs();
+const slots: Slots = useSlots();
 const { errorMessage, meta, value: modelValue } = useField(props.name);
 
 const getVeeValidateConfig = (meta: FieldMeta<unknown>, errorMessage: string | undefined) => {
@@ -35,7 +36,7 @@ const updateModelValue = (newValue: unknown) => {
 
 <template>
   <ElFormItem :label="label" v-bind="fieldProps">
-    <template v-for="(_, name) in $slots" :key="name" #[name]>
+    <template v-for="(_, name) in slots" :key="name" #[name]>
       <slot
         :name="name"
         :modelValue="modelValue"

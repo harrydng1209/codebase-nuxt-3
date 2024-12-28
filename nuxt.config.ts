@@ -64,6 +64,11 @@ export default defineNuxtConfig({
         dts: '@types/auto-imports.d.ts',
         imports: [
           {
+            from: 'vue',
+            imports: ['App', 'Slots', 'DefineComponent'],
+            type: true
+          },
+          {
             '@/apis': [['default', 'apis']],
             '@/constants': [['default', 'constants']],
             '@/utils': [['default', 'utils']]

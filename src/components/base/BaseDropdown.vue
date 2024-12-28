@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ElDropdown } from 'element-plus';
 
+const slots: Slots = useSlots();
+
 const innerRef = ref<InstanceType<typeof ElDropdown> | null>(null);
 
 defineExpose({ innerRef });
@@ -8,7 +10,7 @@ defineExpose({ innerRef });
 
 <template>
   <ElDropdown ref="innerRef" trigger="click" v-bind="$attrs">
-    <template v-for="(_, name) in $slots" :key="name" #[name]>
+    <template v-for="(_, name) in slots" :key="name" #[name]>
       <slot :name="name" />
     </template>
   </ElDropdown>

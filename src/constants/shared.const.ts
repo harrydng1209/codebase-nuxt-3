@@ -6,10 +6,12 @@ const shared = {
     POST: 'post',
     PUT: 'put'
   },
+
   COLORS: {
     BLACK: '#000',
     WHITE: '#fff'
   },
+
   HTTP_RESPONSE_STATUS_CODES: {
     BAD_REQUEST: 400,
     FORBIDDEN: 403,
@@ -18,15 +20,18 @@ const shared = {
     OK: 200,
     UNAUTHORIZED: 401
   },
+
   LOCAL_STORAGE_KEYS: {
     ACCESS_TOKEN: 'v-access-token',
     LANGUAGE: 'v-language',
     THEME: 'v-theme'
   },
+
   NODE_ENV: {
     DEVELOPMENT: 'development',
     PRODUCTION: 'production'
   },
+
   REGEX_PATTERNS: {
     ALPHA_NUMERIC: /^[a-zA-Z0-9]+$/,
     ALPHABET: /^[a-zA-Z]+$/,
@@ -40,6 +45,7 @@ const shared = {
     URL: /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ;,./?%&=]*)?$/,
     USERNAME: /^[a-zA-Z0-9_]{3,16}$/
   },
+
   SELECTOR_IDS: {
     LOGIN_BUTTON_ID: 'login-button',
     TEST_BUTTON_ID: 'test-button'

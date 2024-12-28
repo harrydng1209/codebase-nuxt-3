@@ -29,7 +29,7 @@ definePageMeta({
 
 await useAsyncData(async () => {
   if (import.meta.env.VITE_NODE_ENV !== constants.shared.NODE_ENV.DEVELOPMENT)
-    return navigateTo(constants.routePages.AUTH.LOGIN);
+    return await navigateTo(constants.routePages.AUTH.LOGIN);
   return {};
 });
 

@@ -8,6 +8,8 @@ interface IProps {
 const props = withDefaults(defineProps<IProps>(), {
   options: () => []
 });
+
+const slots: Slots = useSlots();
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const props = withDefaults(defineProps<IProps>(), {
       :key="item.id || index"
       :label="item.label"
       :value="item.value"
-      :class="{ 'no-slot': !$slots.default }"
+      :class="{ 'no-slot': !slots.default }"
     />
   </ElCheckboxGroup>
 </template>

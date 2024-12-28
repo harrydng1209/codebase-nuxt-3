@@ -3,6 +3,7 @@ const routePages = {
     LOGIN: '/auth/login',
     ROOT: '/auth'
   },
+
   BASE_COMPONENTS: '/base-components',
   FORBIDDEN: '/access-denied',
   HOME: '/',

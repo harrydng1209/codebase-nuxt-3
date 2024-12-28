@@ -9,6 +9,8 @@ const props = withDefaults(defineProps<IProps>(), {
   fetchSuggestions: () => {}
 });
 
+const slots: Slots = useSlots();
+
 const innerRef = ref<InstanceType<typeof ElAutocomplete> | null>(null);
 
 defineExpose({ innerRef });
@@ -16,7 +18,7 @@ defineExpose({ innerRef });
 
 <template>
   <ElAutocomplete ref="innerRef" :fetchSuggestions="props.fetchSuggestions" v-bind="$attrs">
-    <template v-for="(_, name) in $slots" :key="name" #[name]>
+    <template v-for="(_, name) in slots" :key="name" #[name]>
       <slot :name="name" />
     </template>
   </ElAutocomplete>
