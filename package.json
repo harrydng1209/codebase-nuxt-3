@@ -19,17 +19,18 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .cjs,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "format": "prettier --write \"**/*.{css,html,js,json,md,scss,ts,tsx,vue}\"",
+    "lint": "eslint . --ext .cjs,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
+    "type-check": "vue-tsc --build --force",
+    "check-all": "run-p format lint type-check",
     "preinstall": "npx -y only-allow pnpm",
     "prepare": "husky",
     "precommit": "lint-staged && validate-branch-name"
   },
   "lint-staged": {
     "*.{ts,vue}": [
-      "pnpm run lint",
       "pnpm run format",
+      "pnpm run lint",
       "git add ."
     ]
   },
@@ -77,6 +78,7 @@
     "eslint-plugin-vue": "^9.23.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
+    "npm-run-all2": "^6.2.6",
     "prettier": "^3.3.3",
     "sass": "1.77.6",
     "typescript": "~5.4.5",
