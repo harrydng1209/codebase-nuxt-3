@@ -5,7 +5,9 @@ import { abilitiesPlugin } from '@casl/vue';
 
 import type { IPermission } from '~/models/interfaces/auth.interface';
 
-const rolePermissions: Record<ERole, IPermission[]> = {
+type TRolePermissions = Record<ERole, IPermission[]>;
+
+const rolePermissions: TRolePermissions = {
   [ERole.Admin]: [{ action: 'manage', subject: 'Article' }],
   [ERole.Guest]: [{ action: 'read', subject: 'Article' }],
   [ERole.Moderator]: [{ action: 'moderate', subject: 'Comment' }],

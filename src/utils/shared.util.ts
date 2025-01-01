@@ -1,5 +1,5 @@
 import type { IFailureResponse } from '@/models/interfaces/shared.interface';
-import type { TLoadingTarget, TSuccessResponse } from '@/models/types/shared.type';
+import type { TLoadingTarget, TObjectUnknown, TSuccessResponse } from '@/models/types/shared.type';
 
 import { EDataType, EResponseStatus } from '@/models/enums/shared.enum';
 import { EToast } from '@/models/enums/shared.enum';
@@ -9,18 +9,18 @@ import qs from 'qs';
 import stringFormat from 'string-template';
 
 const shared = {
-  convertToCamelCase: <T>(data: Record<string, unknown> | Record<string, unknown>[]): T => {
+  convertToCamelCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToCamelCase(item)) as T;
     if (data === null || typeof data !== EDataType.Object) return data as T;
 
-    const newObject: Record<string, unknown> = {};
+    const newObject: TObjectUnknown = {};
     Object.keys(data).forEach((key) => {
       const newKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
       const value = data[key];
 
       if (typeof value === EDataType.Object && value !== null) {
-        if ((value as Record<string, unknown>).constructor === Object || Array.isArray(value)) {
-          newObject[newKey] = shared.convertToCamelCase(value as Record<string, unknown>);
+        if ((value as TObjectUnknown).constructor === Object || Array.isArray(value)) {
+          newObject[newKey] = shared.convertToCamelCase(value as TObjectUnknown);
           return;
         }
       }
@@ -29,17 +29,17 @@ const shared = {
     return newObject as T;
   },
 
-  convertToSnakeCase: <T>(data: Record<string, unknown> | Record<string, unknown>[]): T => {
+  convertToSnakeCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToSnakeCase(item)) as T;
     if (!data || typeof data !== EDataType.Object) return data as T;
 
-    const newObject: Record<string, unknown> = {};
+    const newObject: TObjectUnknown = {};
     Object.keys(data).forEach((key) => {
       const newKey = key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
       const value = data[key];
 
       if (typeof value === EDataType.Object && value !== null) {
-        newObject[newKey] = shared.convertToSnakeCase(value as Record<string, unknown>);
+        newObject[newKey] = shared.convertToSnakeCase(value as TObjectUnknown);
         return;
       }
       newObject[newKey] = value;
@@ -62,7 +62,7 @@ const shared = {
     return response.status === EResponseStatus.Success;
   },
 
-  queryClean: <T>(query: Record<string, unknown>): T => {
+  queryClean: <T>(query: TObjectUnknown): T => {
     const cleanedQuery = Object.fromEntries(
       Object.entries(query).filter(([_, value]) => value !== undefined && value !== '')
     );
@@ -70,10 +70,7 @@ const shared = {
     return cleanedQuery as T;
   },
 
-  queryStringFormat: (
-    baseUrl: string,
-    query: Record<string, unknown> | string | string[]
-  ): string => {
+  queryStringFormat: (baseUrl: string, query: string | string[] | TObjectUnknown): string => {
     if (
       !query ||
       (Array.isArray(query) && query.length === 0) ||
@@ -129,7 +126,7 @@ const shared = {
     storeService.resetAll();
   },
 
-  stringFormat: (template: string, values: Record<string, unknown> | unknown[]): string => {
+  stringFormat: (template: string, values: TObjectUnknown | unknown[]): string => {
     return stringFormat(template, values);
   }
 };

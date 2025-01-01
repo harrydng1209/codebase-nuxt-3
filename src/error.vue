@@ -8,9 +8,9 @@ const goBack = () => {
 
 <template>
   <div class="error">
-    <h1 class="error__title">Oops! Something went wrong</h1>
-    <h5 class="error__message">An unexpected error has occurred</h5>
-    <BaseButton class="error__button" @click="goBack">Go Back</BaseButton>
+    <h1>Oops! Something went wrong</h1>
+    <h5>An unexpected error has occurred</h5>
+    <BaseButton @click="goBack">Go Back</BaseButton>
   </div>
 </template>
 

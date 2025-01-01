@@ -7,7 +7,13 @@ export type TLoadingTarget =
   | (typeof constants.shared.SELECTOR_IDS)[keyof typeof constants.shared.SELECTOR_IDS]
   | false;
 
-export type TOptions<T = boolean | number | Record<string, unknown> | string> = {
+export type TObjectBoolean = Record<string, boolean>;
+
+export type TObjectString = Record<string, string>;
+
+export type TObjectUnknown = Record<string, unknown>;
+
+export type TOptions<T = boolean | number | string | TObjectUnknown> = {
   id?: number;
   label: string;
   value: T;

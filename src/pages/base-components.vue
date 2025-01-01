@@ -65,7 +65,7 @@ const { pagination } = usePagination();
 const baseSelect = ref<TOptions>();
 const baseMultipleSelect = ref<TOptions[]>([]);
 const baseInput = ref<string>('');
-const baseInputNumber = ref<number | string>('');
+const baseInputNumber = ref<number>(0);
 const baseAutocomplete = ref<string>('');
 const baseDatePicker = ref<TDate>(Date.now());
 const baseTimePicker = ref<TDate>(Date.now());
@@ -212,14 +212,7 @@ onMounted(() => {
           <BaseButton type="success" @click="handleClickButton">Success</BaseButton>
           <BaseButton type="warning" @click="handleClickButton">Warning</BaseButton>
           <BaseButton type="danger" @click="handleClickButton">Danger</BaseButton>
-        </div>
-
-        <div class="tw-mb-4">
-          <BaseButton type="primary" disabled @click="handleClickButton">Primary</BaseButton>
-          <BaseButton type="info" disabled @click="handleClickButton">Info</BaseButton>
-          <BaseButton type="success" disabled @click="handleClickButton">Success</BaseButton>
-          <BaseButton type="warning" disabled @click="handleClickButton">Warning</BaseButton>
-          <BaseButton type="danger" disabled @click="handleClickButton">Danger</BaseButton>
+          <BaseButton type="default" @click="handleClickButton">Default</BaseButton>
         </div>
 
         <div class="tw-mb-4">
@@ -228,6 +221,7 @@ onMounted(() => {
           <BaseButton type="success" plain @click="handleClickButton">Success</BaseButton>
           <BaseButton type="warning" plain @click="handleClickButton">Warning</BaseButton>
           <BaseButton type="danger" plain @click="handleClickButton">Danger</BaseButton>
+          <BaseButton type="default" plain @click="handleClickButton">Default</BaseButton>
         </div>
 
         <div>

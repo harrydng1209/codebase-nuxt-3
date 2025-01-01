@@ -52,9 +52,11 @@ const useAuthStore = defineStore('authStore', () => {
         isAuthenticated.value = false;
         userInfo.value = undefined;
       },
+
       setToken: (token: string) => {
         accessToken.value = token;
       },
+
       setUser: (data: IUserInfo) => {
         isAuthenticated.value = true;
         userInfo.value = data;

@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async (values: unknown) => {
 
     authStore.setToken(response.data.accessToken);
     await router.push(constants.routePages.HOME);
-  } catch (_error: unknown) {
+  } catch (_error) {
     utils.shared.showToast('Login error', EToast.Error);
   }
 });

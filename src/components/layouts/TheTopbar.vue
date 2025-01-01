@@ -29,7 +29,8 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
         <BaseInput
           v-model="searchInput"
           :placeholder="`${t('shared.search')}...`"
-          class="!tw-w-[200px]"
+          :clearable="true"
+          class="!tw-w-[300px]"
         >
           <template #suffix>
             <BaseIconSvg

@@ -33,7 +33,7 @@ const request = async <T = unknown, M = unknown>(
       meta: response.data.meta,
       status: EResponseStatus.Success
     } as TSuccessResponse<T, M>;
-  } catch (error: unknown) {
+  } catch (error) {
     let errorMessage = 'An error occurred';
     let errorCode = 500;
 

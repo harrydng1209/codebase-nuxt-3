@@ -3,7 +3,7 @@ import type { ElButton } from 'element-plus';
 
 interface IProps {
   round?: boolean;
-  type?: 'danger' | 'info' | 'primary' | 'success' | 'warning';
+  type?: 'danger' | 'default' | 'info' | 'primary' | 'success' | 'warning';
 }
 
 const props = withDefaults(defineProps<IProps>(), {

@@ -21,6 +21,7 @@ httpService.interceptors.request.use(
     if (token.value) config.headers.Authorization = `Bearer ${token.value}`;
     return config;
   },
+
   (error) => Promise.reject(error)
 );
 
@@ -29,6 +30,7 @@ httpService.interceptors.response.use(
     if (response.data) response.data = utils.shared.convertToCamelCase(response.data);
     return response;
   },
+
   (error) => {
     const status = error.response?.status;
     const errorData = error.response?.data || {};
