@@ -3,17 +3,19 @@ import { useLocalStorage } from '@vueuse/core';
 
 const useLanguage = () => {
   const { locale } = useI18n();
-  const currentLanguage = useLocalStorage<ELanguageCode>(
+  const language = useLocalStorage<ELanguageCode>(
     constants.shared.LOCAL_STORAGE_KEYS.LANGUAGE,
     ELanguageCode.English
   );
 
-  const toggleLanguage = (newLang: ELanguageCode) => {
-    currentLanguage.value = newLang;
+  const changeLanguage = (newLang: ELanguageCode) => {
+    language.value = newLang;
   };
 
+  const currentLanguage = computed(() => language.value);
+
   watch(
-    currentLanguage,
+    language,
     (newLang) => {
       locale.value = newLang;
     },
@@ -21,8 +23,8 @@ const useLanguage = () => {
   );
 
   return {
-    currentLanguage: computed(() => currentLanguage.value),
-    toggleLanguage
+    changeLanguage,
+    currentLanguage
   };
 };
 

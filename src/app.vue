@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { ELanguageCode } from '@/models/enums/shared.enum';
 import en from 'element-plus/dist/locale/en.mjs';
 import ja from 'element-plus/dist/locale/ja.mjs';
 import vi from 'element-plus/dist/locale/vi.mjs';
-
-import { ELanguageCode } from './models/enums/shared.enum';
 
 const { currentLanguage } = useLanguage();
 
@@ -23,9 +22,8 @@ const locale = computed(() => {
 
 <template>
   <ElConfigProvider :locale="locale">
-    <NuxtLoadingIndicator />
-
     <NuxtLayout>
+      <NuxtLoadingIndicator />
       <NuxtPage />
     </NuxtLayout>
   </ElConfigProvider>

@@ -1,9 +1,9 @@
+import type { IPermission } from '@/models/interfaces/auth.interface';
+
 import { ERole } from '@/models/enums/auth.enum';
 import useAuthStore from '@/stores/auth.store';
 import { AbilityBuilder, createMongoAbility, PureAbility } from '@casl/ability';
 import { abilitiesPlugin } from '@casl/vue';
-
-import type { IPermission } from '~/models/interfaces/auth.interface';
 
 type TRolePermissions = Record<ERole, IPermission[]>;
 

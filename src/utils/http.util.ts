@@ -3,7 +3,13 @@ import type { TLoadingTarget, TSuccessResponse } from '@/models/types/shared.typ
 
 import { EResponseStatus, EToast } from '@/models/enums/shared.enum';
 import httpService from '@/services/http.service';
-import { type AxiosRequestConfig, type AxiosResponse, isAxiosError } from 'axios';
+import useAuthStore from '@/stores/auth.store';
+import { useLocalStorage } from '@vueuse/core';
+import { AxiosError, type AxiosRequestConfig, type AxiosResponse, isAxiosError } from 'axios';
+
+interface IAxiosRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean;
+}
 
 type TApiRequestMethod =
   (typeof constants.shared.API_REQUEST_METHODS)[keyof typeof constants.shared.API_REQUEST_METHODS];
@@ -41,7 +47,6 @@ const request = async <T = unknown, M = unknown>(
       errorMessage = error.response?.data?.error?.message || errorMessage;
       errorCode = error.response?.data?.error?.code || errorCode;
     }
-
     if (toastMessage) utils.shared.showToast(errorMessage, EToast.Error);
 
     throw {
@@ -87,6 +92,28 @@ const http = {
       loadingTarget,
       toastMessage
     );
+  },
+
+  handleUnauthorizedError: async (error: AxiosError) => {
+    const authStore = useAuthStore();
+    const isSuccess = await authStore.refreshToken();
+
+    if (isSuccess) {
+      const accessToken = useLocalStorage(
+        constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
+        ''
+      ).value;
+      const originalRequest = error.config as IAxiosRequestConfig;
+
+      if (originalRequest) {
+        originalRequest.headers!.Authorization = `Bearer ${accessToken}`;
+
+        if (!originalRequest._retry) {
+          originalRequest._retry = true;
+          httpService(originalRequest);
+        }
+      }
+    }
   },
 
   patch: async <T = unknown, M = unknown>(

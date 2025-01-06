@@ -1,4 +1,4 @@
-import type { ILoginResponse, IUserInfo } from '~/models/interfaces/auth.interface';
+import type { ILoginResponse, IUserInfo } from '@/models/interfaces/auth.interface';
 
 const auth = {
   login: async (data: unknown) => {

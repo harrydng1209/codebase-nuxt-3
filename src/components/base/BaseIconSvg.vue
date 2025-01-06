@@ -14,14 +14,15 @@ watch(
   () => props.path,
   async (newPath) => {
     const importPath = `../../assets/icons/${newPath}.vue`;
+    const iconLoader = icons[importPath];
 
-    if (!icons[importPath]) {
+    if (!iconLoader) {
       iconComponent.value = null;
       return;
     }
 
-    const component = await icons[importPath]();
-    iconComponent.value = component.default as Component;
+    const component = await iconLoader();
+    iconComponent.value = component.default;
   },
   { immediate: true }
 );

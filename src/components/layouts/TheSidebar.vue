@@ -12,25 +12,29 @@ const { t } = useI18n();
     </div>
 
     <ElMenu defaultActive="1" :collapse="false" :router="true">
-      <ElMenuItem :index="constants.routePages.AUTH.LOGIN">
-        <ElIcon>
-          <BaseIconSvg
-            :path="constants.iconPaths.LAYOUTS.DASHBOARD"
-            :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-          />
-        </ElIcon>
-        <template #title>{{ t('navigator.login') }}</template>
-      </ElMenuItem>
+      <ClientOnly>
+        <ElMenuItem :index="constants.routePages.AUTH.LOGIN">
+          <ElIcon>
+            <BaseIconSvg
+              :path="constants.iconPaths.LAYOUTS.DASHBOARD"
+              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+            />
+          </ElIcon>
+          <template #title>{{ t('shared.navigator.login') }}</template>
+        </ElMenuItem>
+      </ClientOnly>
 
-      <ElMenuItem :index="constants.routePages.BASE_COMPONENTS">
-        <ElIcon>
-          <BaseIconSvg
-            :path="constants.iconPaths.LAYOUTS.FOLDER_SHARED"
-            :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-          />
-        </ElIcon>
-        <template #title>{{ t('navigator.baseComponents') }}</template>
-      </ElMenuItem>
+      <ClientOnly>
+        <ElMenuItem :index="constants.routePages.BASE_COMPONENTS">
+          <ElIcon>
+            <BaseIconSvg
+              :path="constants.iconPaths.LAYOUTS.FOLDER_SHARED"
+              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+            />
+          </ElIcon>
+          <template #title>{{ t('shared.navigator.baseComponents') }}</template>
+        </ElMenuItem>
+      </ClientOnly>
     </ElMenu>
   </div>
 </template>

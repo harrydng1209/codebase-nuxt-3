@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ERole } from '~/models/enums/auth.enum';
+import { ERole } from '@/models/enums/auth.enum';
 
 definePageMeta({
   layout: 'default',

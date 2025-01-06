@@ -52,8 +52,8 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import "src/assets/styles/root/variables";
-            @import "src/assets/styles/root/mixins";
+            @import "@/assets/styles/root/variables";
+            @import "@/assets/styles/root/mixins";
           `
         }
       }
@@ -65,7 +65,7 @@ export default defineNuxtConfig({
         imports: [
           {
             from: 'vue',
-            imports: ['App', 'Slots', 'DefineComponent'],
+            imports: ['Slots'],
             type: true
           },
           {

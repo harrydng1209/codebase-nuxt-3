@@ -1,5 +1,7 @@
+import type { IFailureResponse } from '@/models/interfaces/shared.interface';
+
 import { useLocalStorage } from '@vueuse/core';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import qs from 'qs';
 
 const httpService = axios.create({
@@ -13,15 +15,14 @@ const httpService = axios.create({
 
 httpService.interceptors.request.use(
   (config) => {
-    const token = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
+    const accessToken = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
 
     if (config.data && !(config.data instanceof FormData))
       config.data = utils.shared.convertToSnakeCase(config.data);
     if (config.params) config.params = utils.shared.convertToSnakeCase(config.params);
-    if (token.value) config.headers.Authorization = `Bearer ${token.value}`;
+    if (accessToken.value) config.headers.Authorization = `Bearer ${accessToken.value}`;
     return config;
   },
-
   (error) => Promise.reject(error)
 );
 
@@ -30,28 +31,30 @@ httpService.interceptors.response.use(
     if (response.data) response.data = utils.shared.convertToCamelCase(response.data);
     return response;
   },
-
-  (error) => {
+  (error: AxiosError) => {
     const status = error.response?.status;
-    const errorData = error.response?.data || {};
+    const errorData = error.response?.data as IFailureResponse;
 
-    if (!status) throw new Error(errorData.message || 'An unknown error occurred');
+    if (!status) throw new Error(errorData.error.message || 'An unknown error occurred');
 
     switch (status) {
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.BAD_REQUEST:
-        throw new Error(errorData.message || 'The request was invalid');
+        throw new Error(errorData.error.message || 'The request was invalid');
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.UNAUTHORIZED:
-        throw new Error(errorData.message || 'Authentication is required');
+        utils.http.handleUnauthorizedError(error);
+        throw new Error(errorData.error.message || 'Authentication failed after token refresh');
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.FORBIDDEN:
-        throw new Error(errorData.message || 'You do not have permission to access this resource');
+        throw new Error(
+          errorData.error.message || 'You do not have permission to access this resource'
+        );
 
       case constants.shared.HTTP_RESPONSE_STATUS_CODES.NOT_FOUND:
-        throw new Error(errorData.message || 'The requested resource was not found');
+        throw new Error(errorData.error.message || 'The requested resource was not found');
 
       default:
-        throw new Error(errorData.message || 'An unexpected error occurred');
+        throw new Error(errorData.error.message || 'An unexpected error occurred');
     }
   }
 );

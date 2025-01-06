@@ -1,7 +1,7 @@
 import plugin from 'tailwindcss/plugin';
 
 export default {
-  content: ['./src/**/*.vue'],
+  content: ['./src/**/*'],
   plugins: [
     plugin(function ({ addUtilities }) {
       const newUtilities = {

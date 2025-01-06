@@ -1,3 +1,3 @@
-export type Actions = 'create' | 'delete' | 'manage' | 'moderate' | 'read' | 'update';
+export type TActions = 'create' | 'delete' | 'manage' | 'moderate' | 'read' | 'update';
 
-export type Subjects = 'all' | 'Article' | 'Comment' | 'User';
+export type TSubjects = 'all' | 'Article' | 'Comment' | 'User';

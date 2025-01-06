@@ -12,8 +12,8 @@ const useConfirmDialog = () => {
 
   const showConfirm = async (options: IOptions) => {
     const {
-      cancelButtonText = t('button.cancel'),
-      confirmButtonText = t('button.ok'),
+      cancelButtonText = t('shared.button.cancel'),
+      confirmButtonText = t('shared.button.ok'),
       message,
       onCancel,
       onConfirm,

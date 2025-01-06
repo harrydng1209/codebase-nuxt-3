@@ -1,13 +1,13 @@
 import type { ERole } from '../enums/auth.enum';
-import type { Actions, Subjects } from '../types/auth.type';
+import type { TActions, TSubjects } from '../types/auth.type';
 
 export interface ILoginResponse {
   accessToken: string;
 }
 
 export interface IPermission {
-  action: Actions;
-  subject: Subjects;
+  action: TActions;
+  subject: TSubjects;
 }
 
 export interface IUserInfo {

@@ -1,6 +1,6 @@
-import { ELanguageCode } from '@/models/enums/shared.enum';
+import type { TObjectString } from '@/models/types/shared.type';
 
-import type { TObjectString } from '~/models/types/shared.type';
+import { ELanguageCode } from '@/models/enums/shared.enum';
 
 type TLocales = Record<string, { default: TObjectString }>;
 type TMessages = Record<ELanguageCode, TObjectString>;

@@ -1,16 +1,18 @@
 {
-  "hello": "Xin chào",
   "shared": {
+    "hello": "Xin chào",
     "dashboard": "Bảng điều khiển",
     "settings": "Cài đặt",
-    "search": "Tìm kiếm"
-  },
-  "navigator": {
-    "login": "Đăng nhập",
-    "baseComponents": "Thành phần cơ sở"
-  },
-  "button": {
-    "ok": "Đồng ý",
-    "cancel": "Hủy"
+    "search": "Tìm kiếm",
+
+    "navigator": {
+      "login": "Đăng nhập",
+      "baseComponents": "Thành phần cơ sở"
+    },
+
+    "button": {
+      "ok": "Đồng ý",
+      "cancel": "Hủy"
+    }
   }
 }

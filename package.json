@@ -19,7 +19,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "format": "prettier --write \"**/*.{css,html,js,json,md,scss,ts,tsx,vue}\"",
+    "format": "prettier --write \"**/*.{css,html,js,jsx,json,md,scss,ts,tsx,vue}\"",
     "lint": "eslint . --ext .cjs,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "type-check": "vue-tsc --build --force",
     "check-all": "run-p format lint type-check",
@@ -28,7 +28,7 @@
     "precommit": "lint-staged && validate-branch-name"
   },
   "lint-staged": {
-    "*.{ts,vue}": [
+    "*.{js,ts,vue}": [
       "pnpm run format",
       "pnpm run lint",
       "git add ."
@@ -41,7 +41,7 @@
     "@casl/ability": "^6.7.2",
     "@casl/vue": "^2.2.2",
     "@element-plus/nuxt": "^1.1.1",
-    "@nuxtjs/i18n": "9.0.0-rc.2",
+    "@nuxtjs/i18n": "^9.1.1",
     "@pinia/nuxt": "^0.7.0",
     "@vee-validate/nuxt": "^4.14.7",
     "@vee-validate/yup": "^4.14.7",
@@ -50,7 +50,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.7",
     "lodash-es": "^4.17.21",
-    "nuxt": "^3.14.1592",
+    "nuxt": "^3.15.1",
     "pinia": "^2.2.6",
     "qs": "^6.13.1",
     "string-template": "^1.0.0",

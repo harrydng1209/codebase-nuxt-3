@@ -1,6 +1,6 @@
 import vueTippy from 'vue-tippy';
 
-const tippyOptions = {
+const options = {
   component: 'tippy',
   componentSingleton: 'tippy-singleton',
   defaultProps: {
@@ -13,5 +13,5 @@ const tippyOptions = {
 };
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(vueTippy, tippyOptions);
+  nuxtApp.vueApp.use(vueTippy, options);
 });

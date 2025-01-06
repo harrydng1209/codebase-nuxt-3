@@ -1,6 +1,6 @@
-import useAuthStore from '@/stores/auth.store';
+import type { ERole } from '@/models/enums/auth.enum';
 
-import type { ERole } from '~/models/enums/auth.enum';
+import useAuthStore from '@/stores/auth.store';
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const authStore = useAuthStore();
