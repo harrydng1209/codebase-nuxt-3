@@ -1,11 +1,16 @@
 import type { TDate } from '@/models/types/shared.type';
 
-import { ERegionalLocale } from '@/models/enums/shared.enum';
-import { useDateFormat, type UseDateFormatOptions } from '@vueuse/core';
+import { ELanguageCode } from '@/models/enums/shared.enum';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
 
 interface IProps {
   date: TDate;
   format?: TFormat;
+  isUTC?: boolean;
+  locale?: ELanguageCode;
 }
 
 type TFormat =
@@ -13,44 +18,51 @@ type TFormat =
   | 'HH:mm'
   | 'HH:mm:ss YYYY/MM/DD (dddd)'
   | 'MM/DD'
+  | 'MMM DD, YYYY'
   | 'YYYY-MM-DD'
   | 'YYYY/MM/DD'
   | 'YYYY/MM/DD (dddd)'
   | 'YYYY/MM/DD HH:mm';
 
-const useDateFormatByLocales = (props: IProps): ComputedRef<string> => {
-  const { date } = props || {};
+dayjs.extend(utc);
+dayjs.extend(localizedFormat);
+dayjs.extend(advancedFormat);
+
+const useDateFormat = (props: IProps): ComputedRef<string> => {
+  const { date, isUTC = false, locale = ELanguageCode.English } = props || {};
   let { format = 'YYYY/MM/DD' } = props || {};
 
-  const localeOptions: UseDateFormatOptions = {
-    locales: ERegionalLocale.EnglishUS
-  };
+  dayjs.locale(locale);
 
-  switch (true) {
-    case localeOptions.locales === ERegionalLocale.JapaneseJP && format === 'YYYY/MM/DD':
-    case localeOptions.locales === ERegionalLocale.JapaneseJP && format === 'YYYY/MM/DD HH:mm':
-    case localeOptions.locales === ERegionalLocale.JapaneseJP && format === 'YYYY/MM/DD (dddd)':
-    case localeOptions.locales === ERegionalLocale.JapaneseJP &&
-      format === 'HH:mm:ss YYYY/MM/DD (dddd)':
-      format = format
-        .replace(/(YYYY\/)/g, 'YYYY年')
-        .replace(/(MM\/)/g, 'MM月')
-        .replace(/(DD)/g, 'DD日') as TFormat;
-      break;
+  if (locale === ELanguageCode.Japanese) {
+    switch (format) {
+      case 'HH:mm:ss YYYY/MM/DD (dddd)':
+      case 'YYYY/MM/DD':
+      case 'YYYY/MM/DD (dddd)':
+      case 'YYYY/MM/DD HH:mm':
+        format = format
+          .replace(/(YYYY\/)/g, 'YYYY年')
+          .replace(/(MM\/)/g, 'MM月')
+          .replace(/(DD)/g, 'DD日') as TFormat;
+        break;
 
-    case localeOptions.locales === ERegionalLocale.JapaneseJP && format === 'YYYY-MM-DD':
-      format = format
-        .replace(/(YYYY-)/g, 'YYYY年')
-        .replace(/(MM-)/g, 'MM月')
-        .replace(/(DD)/g, 'DD日') as TFormat;
-      break;
+      case 'MM/DD':
+        format = format.replace(/(MM\/)/g, 'MM月').replace(/(DD)/g, 'DD日') as TFormat;
+        break;
 
-    case localeOptions.locales === ERegionalLocale.JapaneseJP && format === 'MM/DD':
-      format = format.replace(/(MM\/)/g, 'MM月').replace(/(DD)/g, 'DD日') as TFormat;
-      break;
+      case 'YYYY-MM-DD':
+        format = format
+          .replace(/(YYYY-)/g, 'YYYY年')
+          .replace(/(MM-)/g, 'MM月')
+          .replace(/(DD)/g, 'DD日') as TFormat;
+        break;
+    }
   }
 
-  return useDateFormat(date, format, localeOptions);
+  return computed(() => {
+    const dayjsDate = isUTC ? dayjs.utc(date) : dayjs(date);
+    return dayjsDate.format(format);
+  });
 };
 
-export default useDateFormatByLocales;
+export default useDateFormat;
