@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { EToast } from '@/models/enums/shared.enum';
+import type { ILogin } from '@/models/interfaces/auth.interface';
+
 import useAuthStore from '@/stores/auth.store';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
+
+const { MODULES, SHARED } = constants.iconPaths;
 
 definePageMeta({
   layout: 'guest',
@@ -12,6 +15,10 @@ definePageMeta({
   roles: [],
   title: 'Authentication'
 });
+
+const { t } = useI18n();
+const authStore = useAuthStore();
+const router = useRouter();
 
 const schema = toTypedSchema(
   yupObject({
@@ -24,11 +31,7 @@ const schema = toTypedSchema(
       .min(6, 'Password must be at least 6 characters long')
   })
 );
-
-const { t } = useI18n();
-const authStore = useAuthStore();
-const router = useRouter();
-const { handleSubmit } = useForm({
+const { handleSubmit } = useForm<ILogin>({
   initialValues: {},
   validationSchema: schema
 });
@@ -39,7 +42,7 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-const onSubmit = handleSubmit(async (values: unknown) => {
+const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await apis.auth.login(values);
     if (!utils.shared.isSuccessResponse(response)) throw new Error(response.error.message);
@@ -48,7 +51,6 @@ const onSubmit = handleSubmit(async (values: unknown) => {
     await router.push(constants.routePages.HOME);
   } catch (error) {
     console.error(error);
-    utils.shared.showToast('Login error', EToast.Error);
   }
 });
 </script>
@@ -68,7 +70,7 @@ const onSubmit = handleSubmit(async (values: unknown) => {
         <BaseFormItem name="email">
           <template #label>
             <span>{{ t('auth.email') }}</span>
-            <BaseIconSvg width="5" height="10" :path="constants.iconPaths.SHARED.REQUIRED" />
+            <BaseIconSvg width="5" height="10" :path="SHARED.REQUIRED" />
           </template>
 
           <template #default="{ modelValue, updateModelValue }">
@@ -83,7 +85,7 @@ const onSubmit = handleSubmit(async (values: unknown) => {
         <BaseFormItem name="password">
           <template #label>
             <span>{{ t('auth.password') }}</span>
-            <BaseIconSvg width="5" height="10" :path="constants.iconPaths.SHARED.REQUIRED" />
+            <BaseIconSvg width="5" height="10" :path="SHARED.REQUIRED" />
           </template>
 
           <template #default="{ modelValue, updateModelValue }">
@@ -97,11 +99,7 @@ const onSubmit = handleSubmit(async (values: unknown) => {
                 <BaseIconSvg
                   width="20"
                   height="20"
-                  :path="
-                    showPassword
-                      ? constants.iconPaths.MODULES.AUTH.EYE
-                      : constants.iconPaths.MODULES.AUTH.EYE_CLOSED
-                  "
+                  :path="showPassword ? MODULES.AUTH.EYE : MODULES.AUTH.EYE_CLOSED"
                   @click="togglePasswordVisibility"
                 />
               </template>
@@ -109,16 +107,14 @@ const onSubmit = handleSubmit(async (values: unknown) => {
           </template>
         </BaseFormItem>
 
-        <div>
-          <BaseButton
-            type="primary"
-            nativeType="submit"
-            class="tw-w-full"
-            :id="constants.shared.SELECTOR_IDS.LOGIN_BUTTON_ID"
-          >
-            {{ t('auth.login') }}
-          </BaseButton>
-        </div>
+        <BaseButton
+          type="primary"
+          nativeType="submit"
+          class="tw-w-full"
+          :id="constants.shared.SELECTOR_IDS.LOGIN_BUTTON_ID"
+        >
+          {{ t('auth.login') }}
+        </BaseButton>
       </ElForm>
     </section>
   </div>

@@ -12,17 +12,17 @@ const headerStyle = computed(() => ({
 </script>
 
 <template>
-  <ElContainer class="default">
-    <ElAside class="default__sidebar">
+  <ElContainer class="default-layout">
+    <ElAside class="default-layout__sidebar">
       <TheSidebar />
     </ElAside>
 
-    <ElContainer class="default__main">
-      <ElHeader class="default__main-header" :style="headerStyle">
+    <ElContainer class="default-layout__main">
+      <ElHeader class="default-layout__main--header" :style="headerStyle">
         <TheTopbar />
       </ElHeader>
 
-      <ElMain class="default__main-view">
+      <ElMain class="default-layout__main--view">
         <NuxtPage />
       </ElMain>
     </ElContainer>
@@ -30,5 +30,5 @@ const headerStyle = computed(() => ({
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/layouts/default.scss';
+@import '@/assets/styles/layouts/default-layout.scss';
 </style>

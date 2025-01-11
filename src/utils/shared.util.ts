@@ -1,14 +1,30 @@
 import type { IFailureResponse } from '@/models/interfaces/shared.interface';
-import type { TLoadingTarget, TObjectUnknown, TSuccessResponse } from '@/models/types/shared.type';
+import type {
+  TDate,
+  TLoadingTarget,
+  TObjectUnknown,
+  TSuccessResponse
+} from '@/models/types/shared.type';
 
 import { EDataType, EResponseStatus } from '@/models/enums/shared.enum';
 import { EToast } from '@/models/enums/shared.enum';
 import storeService from '@/services/store.service';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { capitalize } from 'lodash-es';
 import qs from 'qs';
-import stringFormat from 'string-template';
+import stringTemplate from 'string-template';
+
+dayjs.extend(utc);
 
 const shared = {
+  cleanQuery: <T>(query: TObjectUnknown): T => {
+    const cleanedQuery = Object.fromEntries(
+      Object.entries(query).filter(([_, value]) => value !== undefined && value !== '')
+    );
+    return cleanedQuery as T;
+  },
+
   convertToCamelCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToCamelCase(item)) as T;
     if (data === null || typeof data !== EDataType.Object) return data as T;
@@ -47,6 +63,27 @@ const shared = {
     return newObject as T;
   },
 
+  formatDateUTC: (date: TDate) => {
+    return dayjs(date).utc().toISOString();
+  },
+
+  formatQueryString: (baseUrl: string, query: string | string[] | TObjectUnknown): string => {
+    if (
+      !query ||
+      (Array.isArray(query) && query.length === 0) ||
+      (typeof query === EDataType.Object && Object.keys(query).length === 0)
+    )
+      return baseUrl;
+
+    const queryString =
+      typeof query === EDataType.String ? query : qs.stringify(query, { arrayFormat: 'brackets' });
+    return `${baseUrl}?${queryString}`;
+  },
+
+  formatString: (template: string, values: TObjectUnknown | unknown[]): string => {
+    return stringTemplate(template, values);
+  },
+
   hideLoading: (loadingInstance: null | ReturnType<typeof ElLoading.service>) => {
     if (loadingInstance) {
       loadingInstance.close();
@@ -60,27 +97,6 @@ const shared = {
     response: IFailureResponse | TSuccessResponse<T, M>
   ): response is TSuccessResponse<T, M> {
     return response.status === EResponseStatus.Success;
-  },
-
-  queryClean: <T>(query: TObjectUnknown): T => {
-    const cleanedQuery = Object.fromEntries(
-      Object.entries(query).filter(([_, value]) => value !== undefined && value !== '')
-    );
-
-    return cleanedQuery as T;
-  },
-
-  queryStringFormat: (baseUrl: string, query: string | string[] | TObjectUnknown): string => {
-    if (
-      !query ||
-      (Array.isArray(query) && query.length === 0) ||
-      (typeof query === EDataType.Object && Object.keys(query).length === 0)
-    )
-      return baseUrl;
-
-    const queryString =
-      typeof query === EDataType.String ? query : qs.stringify(query, { arrayFormat: 'brackets' });
-    return `${baseUrl}?${queryString}`;
   },
 
   showLoading: (target: TLoadingTarget) => {
@@ -97,7 +113,6 @@ const shared = {
         target: element as HTMLElement
       });
     }
-
     return null;
   },
 
@@ -124,10 +139,6 @@ const shared = {
 
   storeResetAll: () => {
     storeService.resetAll();
-  },
-
-  stringFormat: (template: string, values: TObjectUnknown | unknown[]): string => {
-    return stringFormat(template, values);
   }
 };
 

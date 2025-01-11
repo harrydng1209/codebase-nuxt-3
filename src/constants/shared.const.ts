@@ -9,6 +9,7 @@ const shared = {
 
   COLORS: {
     BLACK: '#000',
+    PRIMARY: '#01c0c8',
     WHITE: '#fff'
   },
 

@@ -18,6 +18,9 @@ import {
   string as yupString
 } from 'yup';
 
+const { LAYOUTS, SHARED } = constants.iconPaths;
+const { BLACK, WHITE } = constants.shared.COLORS;
+
 definePageMeta({
   layout: 'default',
   middleware: 'auth-middleware',
@@ -194,7 +197,7 @@ onMounted(() => {
             <template v-for="(iconPath, iconName) in category" :key="iconName">
               <BaseIconSvg
                 :path="String(iconPath)"
-                :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+                :fill="isDark ? WHITE : BLACK"
                 v-tippy="iconPath"
                 @click="handleClickIconSvg"
               />
@@ -226,55 +229,41 @@ onMounted(() => {
         <div>
           <BaseButton type="primary" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.LAYOUTS.SEARCH"
-              />
+              <BaseIconSvg width="14" height="14" :fill="WHITE" :path="LAYOUTS.SEARCH" />
             </template>
           </BaseButton>
 
           <BaseButton type="info" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.LAYOUTS.SETTINGS"
-              />
+              <BaseIconSvg width="14" height="14" :fill="WHITE" :path="LAYOUTS.SETTINGS" />
             </template>
           </BaseButton>
 
           <BaseButton type="success" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.LAYOUTS.DASHBOARD"
-              />
+              <BaseIconSvg width="14" height="14" :fill="WHITE" :path="LAYOUTS.DASHBOARD" />
             </template>
           </BaseButton>
 
           <BaseButton type="warning" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.LAYOUTS.FOLDER_SHARED"
-              />
+              <BaseIconSvg width="14" height="14" :fill="WHITE" :path="LAYOUTS.FOLDER_SHARED" />
             </template>
           </BaseButton>
 
           <BaseButton type="danger" circle @click="handleClickButton">
             <template #icon>
+              <BaseIconSvg width="14" height="14" :fill="WHITE" :path="SHARED.DELETE" />
+            </template>
+          </BaseButton>
+
+          <BaseButton type="default" circle @click="handleClickButton">
+            <template #icon>
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="constants.shared.COLORS.WHITE"
-                :path="constants.iconPaths.SHARED.DELETE"
+                :fill="isDark ? WHITE : BLACK"
+                :path="LAYOUTS.NOTIFICATION"
               />
             </template>
           </BaseButton>
