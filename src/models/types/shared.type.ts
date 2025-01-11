@@ -3,7 +3,7 @@ import type { EResponseStatus } from '@/models/enums/shared.enum';
 export type TDate = Date | number | string;
 
 export type TLoadingTarget =
-  | 'full-screen'
+  | 'fullscreen'
   | (typeof constants.shared.SELECTOR_IDS)[keyof typeof constants.shared.SELECTOR_IDS]
   | false;
 

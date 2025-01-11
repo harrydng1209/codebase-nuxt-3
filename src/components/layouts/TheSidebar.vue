@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { isDark } = useTheme();
 const { t } = useI18n();
+const route = useRoute();
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const { t } = useI18n();
       </NuxtLink>
     </div>
 
-    <ElMenu defaultActive="1" :collapse="false" :router="true">
+    <ElMenu :defaultActive="route.path" :collapse="false" :router="true">
       <ClientOnly>
         <ElMenuItem :index="constants.routePages.AUTH.LOGIN">
           <ElIcon>
@@ -32,7 +33,7 @@ const { t } = useI18n();
               :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
             />
           </ElIcon>
-          <template #title>{{ t('shared.navigator.baseComponents') }}</template>
+          <template #title>{{ t('shared.navigator.base-components') }}</template>
         </ElMenuItem>
       </ClientOnly>
     </ElMenu>

@@ -6,8 +6,9 @@
     "search": "検索",
 
     "navigator": {
+      "home": "ホーム",
       "login": "ログイン",
-      "baseComponents": "ベースコンポーネント"
+      "base-components": "ベースコンポーネント"
     },
 
     "button": {

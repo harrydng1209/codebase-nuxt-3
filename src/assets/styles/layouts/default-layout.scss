@@ -20,7 +20,7 @@
       box-shadow: 0 2px 6px var(--v-box-shadow-color);
       border-radius: 18px;
       width: calc(100vw - var(--el-aside-width) - $layout-margin * 3 - $scrollbar-width);
-      z-index: 1000;
+      z-index: 999;
     }
 
     &--view {

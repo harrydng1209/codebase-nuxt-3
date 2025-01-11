@@ -6,7 +6,7 @@ const shared = {
     return await utils.http.get<unknown>(
       url,
       undefined,
-      constants.shared.SELECTOR_IDS.TEST_BUTTON_ID,
+      constants.shared.SELECTOR_IDS.APIS_SECTION_ID,
       'All systems are go! Health check successful'
     );
   }

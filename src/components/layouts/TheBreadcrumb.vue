@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import type { IBreadcrumbItem } from '@/models/interfaces/shared.interface';
 
-interface IProps {
-  items: IBreadcrumbItem[];
-}
+const { t } = useI18n();
+const route = useRoute();
 
-const props = defineProps<IProps>();
+const items = ref<IBreadcrumbItem[]>([]);
+
+watch(
+  route,
+  () => {
+    const pathNames = route.path.split('/').filter((item) => item);
+    items.value = pathNames.map((path) => ({
+      text: t(`shared.navigator.${path}`),
+      to: `/${path}`
+    }));
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <ElBreadcrumb v-bind="$attrs">
-    <ElBreadcrumbItem :to="{ path: '/' }">Home</ElBreadcrumbItem>
+  <ElBreadcrumb>
+    <ElBreadcrumbItem :to="{ path: constants.routePages.HOME }">
+      {{ t('shared.navigator.home') }}
+    </ElBreadcrumbItem>
 
-    <ElBreadcrumbItem v-for="(item, index) in props.items" :key="index" :to="item.to">
+    <ElBreadcrumbItem v-for="(item, index) in items" :key="index" :to="item.to">
       {{ item.text }}
     </ElBreadcrumbItem>
   </ElBreadcrumb>

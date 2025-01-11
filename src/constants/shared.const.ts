@@ -48,8 +48,9 @@ const shared = {
   },
 
   SELECTOR_IDS: {
-    LOGIN_BUTTON_ID: 'login-button',
-    TEST_BUTTON_ID: 'test-button'
+    APIS_SECTION_ID: 'apis-section',
+    LOADING_SECTION_ID: 'loading-section',
+    LOGIN_BUTTON_ID: 'login-button'
   }
 } as const;
 

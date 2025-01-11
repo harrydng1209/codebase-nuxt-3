@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import TheBreadcrumb from '@/components/layouts/TheBreadcrumb.vue';
 import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
 
 const { changeTheme, isDark } = useTheme();
 const { changeLanguage, currentLanguage } = useLanguage();
-const { t } = useI18n();
 
-const searchInput = ref<string>('');
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   label: key,
   value
@@ -25,21 +24,7 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
 <template>
   <div class="the-topbar">
     <section>
-      <ClientOnly>
-        <BaseInput
-          v-model="searchInput"
-          :placeholder="`${t('shared.search')}...`"
-          :clearable="true"
-          class="!tw-w-[300px]"
-        >
-          <template #suffix>
-            <BaseIconSvg
-              :path="constants.iconPaths.LAYOUTS.SEARCH"
-              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-            />
-          </template>
-        </BaseInput>
-      </ClientOnly>
+      <TheBreadcrumb />
     </section>
 
     <section class="the-topbar__profile">

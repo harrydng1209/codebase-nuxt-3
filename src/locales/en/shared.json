@@ -6,8 +6,9 @@
     "search": "Search",
 
     "navigator": {
+      "home": "Home",
       "login": "Login",
-      "baseComponents": "Base Components"
+      "base-components": "Base Components"
     },
 
     "button": {

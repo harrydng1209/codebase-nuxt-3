@@ -102,7 +102,7 @@ const shared = {
   showLoading: (target: TLoadingTarget) => {
     if (target === false) return null;
 
-    if (target === 'full-screen')
+    if (target === 'fullscreen')
       return ElLoading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true, text: 'Loading' });
 
     const element = document.getElementById(target);

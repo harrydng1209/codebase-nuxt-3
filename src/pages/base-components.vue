@@ -77,6 +77,7 @@ const baseCheckbox = ref<boolean>(false);
 const baseCheckboxGroup = ref<string[]>([]);
 const baseCheckboxAll = ref<boolean>(false);
 const isIndeterminate = ref<boolean>(false);
+const searchInput = ref<string>('');
 
 const handleClickButton = useDebounceFn(() => {
   utils.shared.showToast('handleClickButton');
@@ -170,6 +171,20 @@ const confirmDelete = () => {
   });
 };
 
+const handleLoadingFullscreen = async () => {
+  let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
+  loadingInstance = utils.shared.showLoading('fullscreen');
+  await utils.shared.sleep(3);
+  utils.shared.hideLoading(loadingInstance);
+};
+
+const handleLoadingSection = async () => {
+  let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
+  loadingInstance = utils.shared.showLoading(constants.shared.SELECTOR_IDS.LOADING_SECTION_ID);
+  await utils.shared.sleep(3);
+  utils.shared.hideLoading(loadingInstance);
+};
+
 onMounted(() => {
   pagination.value.total = 1000;
 });
@@ -185,9 +200,15 @@ onMounted(() => {
         </div>
       </section>
 
-      <section :id="constants.shared.SELECTOR_IDS.TEST_BUTTON_ID">
+      <section :id="constants.shared.SELECTOR_IDS.APIS_SECTION_ID">
         <h4>-- Apis --</h4>
         <BaseButton @click="handleGetHealthCheck">Health Check</BaseButton>
+      </section>
+
+      <section :id="constants.shared.SELECTOR_IDS.LOADING_SECTION_ID">
+        <h4>-- The Loading --</h4>
+        <BaseButton @click="handleLoadingFullscreen">Fullscreen</BaseButton>
+        <BaseButton @click="handleLoadingSection">Section</BaseButton>
       </section>
 
       <section>
@@ -332,20 +353,36 @@ onMounted(() => {
 
       <section>
         <h4>-- Base Inputs --</h4>
-        <BaseInput
-          v-model="baseInput"
-          placeholder="Please input"
-          @input="handleChangeInput"
-          class="!tw-w-[200px]"
-        />
+        <div class="tw-flex tw-gap-2">
+          <BaseInput
+            v-model="baseInput"
+            placeholder="Please input"
+            @input="handleChangeInput"
+            class="!tw-w-[200px]"
+          />
 
-        <BaseInputNumber
-          v-model="baseInputNumber"
-          controlsPosition="right"
-          placeholder="Please input number"
-          @change="handleChangeInput"
-          class="!tw-w-[200px] tw-ml-4"
-        />
+          <BaseInputNumber
+            v-model="baseInputNumber"
+            controlsPosition="right"
+            placeholder="Please input number"
+            @change="handleChangeInput"
+            class="!tw-w-[200px]"
+          />
+
+          <BaseInput
+            v-model="searchInput"
+            :placeholder="`${t('shared.search')}...`"
+            :clearable="true"
+            class="!tw-w-[300px]"
+          >
+            <template #suffix>
+              <BaseIconSvg
+                :path="constants.iconPaths.LAYOUTS.SEARCH"
+                :fill="isDark ? WHITE : BLACK"
+              />
+            </template>
+          </BaseInput>
+        </div>
       </section>
 
       <section>
