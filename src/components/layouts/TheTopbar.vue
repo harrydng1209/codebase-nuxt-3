@@ -3,6 +3,9 @@ import TheBreadcrumb from '@/components/layouts/TheBreadcrumb.vue';
 import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
 
+const { LAYOUTS, SHARED } = constants.iconPaths;
+const { BLACK, WHITE } = constants.shared.COLORS;
+
 const { changeTheme, isDark } = useTheme();
 const { changeLanguage, currentLanguage } = useLanguage();
 
@@ -13,9 +16,9 @@ const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
 
 const getIconPathForLanguage = (lang: ELanguageCode) => {
   const iconPaths = {
-    [ELanguageCode.English]: constants.iconPaths.LAYOUTS.ENGLISH,
-    [ELanguageCode.Japanese]: constants.iconPaths.LAYOUTS.JAPANESE,
-    [ELanguageCode.Vietnamese]: constants.iconPaths.LAYOUTS.VIETNAMESE
+    [ELanguageCode.English]: LAYOUTS.ENGLISH,
+    [ELanguageCode.Japanese]: LAYOUTS.JAPANESE,
+    [ELanguageCode.Vietnamese]: LAYOUTS.VIETNAMESE
   };
   return iconPaths[lang];
 };
@@ -29,10 +32,8 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
 
     <section class="the-topbar__profile">
       <BaseIconSvg
-        :path="
-          isDark ? constants.iconPaths.SHARED.LIGHT_MODE : constants.iconPaths.SHARED.DARK_MODE
-        "
-        :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
+        :path="isDark ? SHARED.LIGHT_MODE : SHARED.DARK_MODE"
+        :fill="isDark ? WHITE : BLACK"
         @click="changeTheme()"
       />
 
@@ -60,10 +61,7 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
       <BaseDropdown>
         <span>
           <ElBadge :value="notifications.length">
-            <BaseIconSvg
-              :path="constants.iconPaths.LAYOUTS.NOTIFICATION"
-              :fill="isDark ? constants.shared.COLORS.WHITE : constants.shared.COLORS.BLACK"
-            />
+            <BaseIconSvg :path="LAYOUTS.NOTIFICATION" :fill="isDark ? WHITE : BLACK" />
           </ElBadge>
         </span>
 

@@ -16,10 +16,6 @@ definePageMeta({
   title: 'Authentication'
 });
 
-const { t } = useI18n();
-const authStore = useAuthStore();
-const router = useRouter();
-
 const schema = toTypedSchema(
   yupObject({
     email: yupString()
@@ -35,6 +31,9 @@ const { handleSubmit } = useForm<ILogin>({
   initialValues: {},
   validationSchema: schema
 });
+const { t } = useI18n();
+const authStore = useAuthStore();
+const router = useRouter();
 
 const showPassword = ref<boolean>(false);
 

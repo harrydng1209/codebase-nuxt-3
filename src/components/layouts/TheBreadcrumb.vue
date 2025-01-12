@@ -21,7 +21,7 @@ watch(
 
 <template>
   <ElBreadcrumb>
-    <ElBreadcrumbItem :to="{ path: constants.routePages.HOME }">
+    <ElBreadcrumbItem v-if="items.length > 0" :to="{ path: constants.routePages.HOME }">
       {{ t('shared.navigator.home') }}
     </ElBreadcrumbItem>
 

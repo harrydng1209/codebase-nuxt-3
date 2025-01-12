@@ -54,7 +54,6 @@ const schema = toTypedSchema(
     type: yupString().required('Account type is required')
   })
 );
-
 const { handleSubmit, resetForm } = useForm({
   initialValues: {},
   validationSchema: schema

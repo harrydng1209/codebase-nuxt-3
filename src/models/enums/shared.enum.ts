@@ -1,13 +1,3 @@
-export enum EDataType {
-  Array = 'array',
-  Boolean = 'boolean',
-  Null = 'null',
-  Number = 'number',
-  Object = 'object',
-  String = 'string',
-  Undefined = 'undefined'
-}
-
 export enum ELanguageCode {
   English = 'en',
   Japanese = 'ja',

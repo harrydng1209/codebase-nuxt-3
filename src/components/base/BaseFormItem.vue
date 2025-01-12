@@ -40,7 +40,7 @@ const updateModelValue = (newValue: unknown) => {
       <slot
         :name="name"
         :modelValue="modelValue"
-        :updateModelValue="(value: any) => updateModelValue(value)"
+        :updateModelValue="(value: unknown) => updateModelValue(value)"
       />
     </template>
   </ElFormItem>

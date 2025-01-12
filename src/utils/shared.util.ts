@@ -6,7 +6,7 @@ import type {
   TSuccessResponse
 } from '@/models/types/shared.type';
 
-import { EDataType, EResponseStatus } from '@/models/enums/shared.enum';
+import { EResponseStatus } from '@/models/enums/shared.enum';
 import { EToast } from '@/models/enums/shared.enum';
 import storeService from '@/services/store.service';
 import dayjs from 'dayjs';
@@ -27,14 +27,14 @@ const shared = {
 
   convertToCamelCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToCamelCase(item)) as T;
-    if (data === null || typeof data !== EDataType.Object) return data as T;
+    if (data === null || typeof data !== 'object') return data as T;
 
     const newObject: TObjectUnknown = {};
     Object.keys(data).forEach((key) => {
       const newKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
       const value = data[key];
 
-      if (typeof value === EDataType.Object && value !== null) {
+      if (typeof value === 'object' && value !== null) {
         if ((value as TObjectUnknown).constructor === Object || Array.isArray(value)) {
           newObject[newKey] = shared.convertToCamelCase(value as TObjectUnknown);
           return;
@@ -47,14 +47,14 @@ const shared = {
 
   convertToSnakeCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
     if (Array.isArray(data)) return data.map((item) => shared.convertToSnakeCase(item)) as T;
-    if (!data || typeof data !== EDataType.Object) return data as T;
+    if (!data || typeof data !== 'object') return data as T;
 
     const newObject: TObjectUnknown = {};
     Object.keys(data).forEach((key) => {
       const newKey = key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
       const value = data[key];
 
-      if (typeof value === EDataType.Object && value !== null) {
+      if (typeof value === 'object' && value !== null) {
         newObject[newKey] = shared.convertToSnakeCase(value as TObjectUnknown);
         return;
       }
@@ -71,12 +71,12 @@ const shared = {
     if (
       !query ||
       (Array.isArray(query) && query.length === 0) ||
-      (typeof query === EDataType.Object && Object.keys(query).length === 0)
+      (typeof query === 'object' && Object.keys(query).length === 0)
     )
       return baseUrl;
 
     const queryString =
-      typeof query === EDataType.String ? query : qs.stringify(query, { arrayFormat: 'brackets' });
+      typeof query === 'string' ? query : qs.stringify(query, { arrayFormat: 'brackets' });
     return `${baseUrl}?${queryString}`;
   },
 

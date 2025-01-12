@@ -8,9 +8,7 @@ export type TLoadingTarget =
   | false;
 
 export type TObjectBoolean = Record<string, boolean>;
-
 export type TObjectString = Record<string, string>;
-
 export type TObjectUnknown = Record<string, unknown>;
 
 export type TOptions<T = boolean | number | string | TObjectUnknown> = {
