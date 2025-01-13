@@ -11,11 +11,10 @@ interface IAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
 }
 
-type TApiRequestMethod =
-  (typeof constants.shared.API_REQUEST_METHODS)[keyof typeof constants.shared.API_REQUEST_METHODS];
+type TApiMethods = (typeof constants.shared.API_METHODS)[keyof typeof constants.shared.API_METHODS];
 
 const request = async <T = unknown, M = unknown>(
-  method: TApiRequestMethod,
+  method: TApiMethods,
   url: string,
   data: unknown,
   config?: AxiosRequestConfig,
@@ -69,7 +68,7 @@ const http = {
     toastMessage?: string
   ) => {
     return await request<T, M>(
-      constants.shared.API_REQUEST_METHODS.DELETE,
+      constants.shared.API_METHODS.DELETE,
       url,
       undefined,
       config,
@@ -85,7 +84,7 @@ const http = {
     toastMessage?: string
   ) => {
     return await request<T, M>(
-      constants.shared.API_REQUEST_METHODS.GET,
+      constants.shared.API_METHODS.GET,
       url,
       undefined,
       config,
@@ -99,10 +98,7 @@ const http = {
     const isSuccess = await authStore.refreshToken();
 
     if (isSuccess) {
-      const accessToken = useLocalStorage(
-        constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
-        ''
-      ).value;
+      const accessToken = useLocalStorage(constants.shared.STORAGE_KEYS.ACCESS_TOKEN, '').value;
       const originalRequest = error.config as IAxiosRequestConfig;
 
       if (originalRequest) {
@@ -124,7 +120,7 @@ const http = {
     toastMessage?: string
   ) => {
     return await request<T, M>(
-      constants.shared.API_REQUEST_METHODS.PATCH,
+      constants.shared.API_METHODS.PATCH,
       url,
       data,
       config,
@@ -141,7 +137,7 @@ const http = {
     toastMessage?: string
   ) => {
     return await request<T, M>(
-      constants.shared.API_REQUEST_METHODS.POST,
+      constants.shared.API_METHODS.POST,
       url,
       data,
       config,
@@ -158,7 +154,7 @@ const http = {
     toastMessage?: string
   ) => {
     return await request<T, M>(
-      constants.shared.API_REQUEST_METHODS.PUT,
+      constants.shared.API_METHODS.PUT,
       url,
       data,
       config,

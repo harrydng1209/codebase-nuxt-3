@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 
 const useAuthStore = defineStore('authStore', () => {
   const router = useRouter();
-  const accessToken = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
+  const accessToken = useLocalStorage(constants.shared.STORAGE_KEYS.ACCESS_TOKEN, '');
 
   const isAuthenticated = ref<boolean>(false);
   const userInfo = ref<IUserInfo>();

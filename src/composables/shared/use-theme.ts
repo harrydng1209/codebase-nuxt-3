@@ -3,7 +3,7 @@ import { useToggle } from '@vueuse/shared';
 
 const useTheme = () => {
   const isDark = useDark({
-    storageKey: constants.shared.LOCAL_STORAGE_KEYS.THEME
+    storageKey: constants.shared.STORAGE_KEYS.THEME
   });
   const changeTheme = useToggle(isDark);
 

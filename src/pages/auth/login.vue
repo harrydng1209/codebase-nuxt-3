@@ -110,7 +110,7 @@ const onSubmit = handleSubmit(async (values) => {
           type="primary"
           nativeType="submit"
           class="tw-w-full"
-          :id="constants.shared.SELECTOR_IDS.LOGIN_BUTTON_ID"
+          :id="constants.shared.SELECTORS.LOGIN_BUTTON"
         >
           {{ t('auth.login') }}
         </BaseButton>

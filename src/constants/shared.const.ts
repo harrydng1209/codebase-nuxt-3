@@ -1,5 +1,5 @@
 const shared = {
-  API_REQUEST_METHODS: {
+  API_METHODS: {
     DELETE: 'delete',
     GET: 'get',
     PATCH: 'patch',
@@ -13,27 +13,14 @@ const shared = {
     WHITE: '#fff'
   },
 
-  HTTP_RESPONSE_STATUS_CODES: {
-    BAD_REQUEST: 400,
-    FORBIDDEN: 403,
-    INTERNAL_SERVER_ERROR: 500,
-    NOT_FOUND: 404,
-    OK: 200,
-    UNAUTHORIZED: 401
+  NODE_ENVS: {
+    DEVELOP: 'develop',
+    PRODUCTION: 'production',
+    STAGING: 'staging',
+    TESTING: 'testing'
   },
 
-  LOCAL_STORAGE_KEYS: {
-    ACCESS_TOKEN: 'v-access-token',
-    LANGUAGE: 'v-language',
-    THEME: 'v-theme'
-  },
-
-  NODE_ENV: {
-    DEVELOPMENT: 'development',
-    PRODUCTION: 'production'
-  },
-
-  REGEX_PATTERNS: {
+  REGEXES: {
     ALPHA_NUMERIC: /^[a-zA-Z0-9]+$/,
     ALPHABET: /^[a-zA-Z]+$/,
     DATE: /^(19|20)\d\d[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[01])$/,
@@ -47,10 +34,25 @@ const shared = {
     USERNAME: /^[a-zA-Z0-9_]{3,16}$/
   },
 
-  SELECTOR_IDS: {
-    APIS_SECTION_ID: 'apis-section',
-    LOADING_SECTION_ID: 'loading-section',
-    LOGIN_BUTTON_ID: 'login-button'
+  SELECTORS: {
+    APIS_SECTION: 'apis-section',
+    LOADING_SECTION: 'loading-section',
+    LOGIN_BUTTON: 'login-button'
+  },
+
+  STATUS_CODES: {
+    BAD_REQUEST: 400,
+    FORBIDDEN: 403,
+    INTERNAL_SERVER_ERROR: 500,
+    NOT_FOUND: 404,
+    OK: 200,
+    UNAUTHORIZED: 401
+  },
+
+  STORAGE_KEYS: {
+    ACCESS_TOKEN: 'v-access-token',
+    LANGUAGE: 'v-language',
+    THEME: 'v-theme'
   }
 } as const;
 

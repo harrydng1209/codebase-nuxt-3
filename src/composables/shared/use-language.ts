@@ -4,7 +4,7 @@ import { useLocalStorage } from '@vueuse/core';
 const useLanguage = () => {
   const { locale } = useI18n();
   const language = useLocalStorage<ELanguageCode>(
-    constants.shared.LOCAL_STORAGE_KEYS.LANGUAGE,
+    constants.shared.STORAGE_KEYS.LANGUAGE,
     ELanguageCode.English
   );
 

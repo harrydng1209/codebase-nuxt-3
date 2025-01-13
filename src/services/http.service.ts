@@ -15,7 +15,7 @@ const httpService = axios.create({
 
 httpService.interceptors.request.use(
   (config) => {
-    const accessToken = useLocalStorage(constants.shared.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, '');
+    const accessToken = useLocalStorage(constants.shared.STORAGE_KEYS.ACCESS_TOKEN, '');
 
     if (config.data && !(config.data instanceof FormData))
       config.data = utils.shared.convertToSnakeCase(config.data);
@@ -38,19 +38,19 @@ httpService.interceptors.response.use(
     if (!status) throw new Error(errorData.error.message || 'An unknown error occurred');
 
     switch (status) {
-      case constants.shared.HTTP_RESPONSE_STATUS_CODES.BAD_REQUEST:
+      case constants.shared.STATUS_CODES.BAD_REQUEST:
         throw new Error(errorData.error.message || 'The request was invalid');
 
-      case constants.shared.HTTP_RESPONSE_STATUS_CODES.UNAUTHORIZED:
+      case constants.shared.STATUS_CODES.UNAUTHORIZED:
         utils.http.handleUnauthorizedError(error);
         throw new Error(errorData.error.message || 'Authentication failed after token refresh');
 
-      case constants.shared.HTTP_RESPONSE_STATUS_CODES.FORBIDDEN:
+      case constants.shared.STATUS_CODES.FORBIDDEN:
         throw new Error(
           errorData.error.message || 'You do not have permission to access this resource'
         );
 
-      case constants.shared.HTTP_RESPONSE_STATUS_CODES.NOT_FOUND:
+      case constants.shared.STATUS_CODES.NOT_FOUND:
         throw new Error(errorData.error.message || 'The requested resource was not found');
 
       default:

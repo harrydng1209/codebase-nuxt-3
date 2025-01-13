@@ -20,7 +20,7 @@ import {
 
 const { LAYOUTS, SHARED } = constants.iconPaths;
 const { BLACK, WHITE } = constants.shared.COLORS;
-const { NODE_ENV, SELECTOR_IDS } = constants.shared;
+const { NODE_ENVS, SELECTORS } = constants.shared;
 
 definePageMeta({
   layout: 'default',
@@ -31,7 +31,7 @@ definePageMeta({
 });
 
 await useAsyncData(async () => {
-  if (import.meta.env.VITE_NODE_ENV !== NODE_ENV.DEVELOPMENT)
+  if (import.meta.env.VITE_NODE_ENV !== NODE_ENVS.DEVELOP)
     return await navigateTo(constants.routePages.AUTH.LOGIN);
   return {};
 });
@@ -180,7 +180,7 @@ const handleLoadingFullscreen = async () => {
 
 const handleLoadingSection = async () => {
   let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
-  loadingInstance = utils.shared.showLoading(SELECTOR_IDS.LOADING_SECTION_ID);
+  loadingInstance = utils.shared.showLoading(SELECTORS.LOADING_SECTION);
   await utils.shared.sleep(3);
   utils.shared.hideLoading(loadingInstance);
 };
@@ -200,12 +200,12 @@ onMounted(() => {
         </div>
       </section>
 
-      <section :id="SELECTOR_IDS.APIS_SECTION_ID">
+      <section :id="SELECTORS.APIS_SECTION">
         <h4>-- Apis --</h4>
         <BaseButton @click="handleGetHealthCheck">Health Check</BaseButton>
       </section>
 
-      <section :id="SELECTOR_IDS.LOADING_SECTION_ID">
+      <section :id="SELECTORS.LOADING_SECTION">
         <h4>-- The Loading --</h4>
         <BaseButton @click="handleLoadingFullscreen">Fullscreen</BaseButton>
         <BaseButton @click="handleLoadingSection">Section</BaseButton>
