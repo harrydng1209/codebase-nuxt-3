@@ -1,8 +1,10 @@
+const { HEALTH_CHECK } = constants.routeApis;
+
 const shared = {
   healthCheck: async () => {
-    // const url = utils.shared.formatQueryString(constants.routeApis.HEALTH_CHECK, 'date=2024-08-21');
-    // const url = utils.shared.formatString(constants.routeApis.HEALTH_CHECK, { id: companyId })
-    const url = constants.routeApis.HEALTH_CHECK;
+    // const url = utils.shared.formatQueryString(HEALTH_CHECK, 'date=2024-08-21');
+    // const url = utils.shared.formatString(HEALTH_CHECK, { id: companyId })
+    const url = HEALTH_CHECK;
     return await utils.http.get<unknown>(
       url,
       undefined,

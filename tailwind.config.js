@@ -13,7 +13,6 @@ export default {
           '@apply tw-flex tw-justify-center tw-items-center': {}
         }
       };
-
       addUtilities(newUtilities);
     })
   ],

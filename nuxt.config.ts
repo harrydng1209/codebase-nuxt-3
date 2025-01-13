@@ -6,25 +6,33 @@ dotenv.config();
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
+
   components: {
     dirs: []
   },
+
   css: ['./src/assets/styles/root/main.scss'],
+
   devtools: {
     enabled: process.env.VITE_DEVTOOLS === 'true'
   },
+
   dir: {
     middleware: 'middlewares'
   },
+
   elementPlus: {
     icon: false
   },
+
   i18n: {
     vueI18n: './vue-i18n.config.ts'
   },
+
   imports: {
     dirs: []
   },
+
   modules: [
     '@nuxtjs/i18n',
     '@pinia/nuxt',
@@ -32,21 +40,26 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@element-plus/nuxt'
   ],
+
   postcss: {
     plugins: {
       autoprefixer: {},
       tailwindcss: {}
     }
   },
+
   sourcemap: {
     client: true,
     server: true
   },
+
   srcDir: 'src/',
   ssr: process.env.VITE_SSR === 'true',
+
   typescript: {
     typeCheck: true
   },
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -58,6 +71,7 @@ export default defineNuxtConfig({
         }
       }
     },
+
     plugins: [
       autoImport({
         dirs: ['composables/shared/**'],
@@ -76,6 +90,7 @@ export default defineNuxtConfig({
         ],
         vueTemplate: true
       }),
+
       components({
         dirs: ['components/base/**'],
         dts: '@types/components.d.ts'

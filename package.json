@@ -9,7 +9,7 @@
     "email": "harrydng1209@gmail.com",
     "url": "https://github.com/harrydng1209"
   },
-  "devEngines": {
+  "engines": {
     "node": ">=20.x",
     "npm": ">=10.x"
   },
@@ -28,7 +28,7 @@
     "precommit": "lint-staged && validate-branch-name"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": [
+    "*.{js,jsx,ts,tsx,vue}": [
       "pnpm run format",
       "pnpm run lint",
       "git add ."
