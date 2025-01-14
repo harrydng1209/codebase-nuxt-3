@@ -7,9 +7,9 @@ const options = {
     allowHTML: true,
     duration: [200, 200],
     placement: 'top',
-    theme: 'material'
+    theme: 'material',
   },
-  directive: 'tippy'
+  directive: 'tippy',
 };
 
 export default defineNuxtPlugin((nuxtApp) => {

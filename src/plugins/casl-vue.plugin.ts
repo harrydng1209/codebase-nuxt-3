@@ -1,8 +1,9 @@
 import type { IPermission } from '@/models/interfaces/auth.interface';
+import type { PureAbility } from '@casl/ability';
 
 import { ERole } from '@/models/enums/auth.enum';
 import useAuthStore from '@/stores/auth.store';
-import { AbilityBuilder, createMongoAbility, PureAbility } from '@casl/ability';
+import { AbilityBuilder, createMongoAbility } from '@casl/ability';
 import { abilitiesPlugin } from '@casl/vue';
 
 type TRolePermissions = Record<ERole, IPermission[]>;
@@ -12,7 +13,7 @@ const rolePermissions: TRolePermissions = {
   [ERole.Guest]: [{ action: 'read', subject: 'Article' }],
   [ERole.Moderator]: [{ action: 'moderate', subject: 'Comment' }],
   [ERole.SuperAdmin]: [{ action: 'manage', subject: 'all' }],
-  [ERole.User]: [{ action: 'create', subject: 'Article' }]
+  [ERole.User]: [{ action: 'create', subject: 'Article' }],
 };
 
 const defineAbilitiesFor = (role: ERole): PureAbility => {

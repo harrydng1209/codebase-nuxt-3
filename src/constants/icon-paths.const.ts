@@ -7,14 +7,14 @@ const iconPaths = {
     NOTIFICATION: 'layouts/IconNotification',
     SEARCH: 'layouts/IconSearch',
     SETTINGS: 'layouts/IconSettings',
-    VIETNAMESE: 'layouts/IconVietnamese'
+    VIETNAMESE: 'layouts/IconVietnamese',
   },
 
   MODULES: {
     AUTH: {
       EYE: 'modules/auth/IconEye',
-      EYE_CLOSED: 'modules/auth/IconEyeClosed'
-    }
+      EYE_CLOSED: 'modules/auth/IconEyeClosed',
+    },
   },
 
   SHARED: {
@@ -22,8 +22,8 @@ const iconPaths = {
     DELETE: 'shared/IconDelete',
     LIGHT_MODE: 'shared/IconLightMode',
     LOGO: 'shared/IconLogo',
-    REQUIRED: 'shared/IconRequired'
-  }
+    REQUIRED: 'shared/IconRequired',
+  },
 } as const;
 
 export default iconPaths;

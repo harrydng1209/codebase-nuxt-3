@@ -19,6 +19,8 @@ logs
 .idea
 
 # Other files
+.globalsrc.json
+
 .env
 .env.*
 !.env.sample

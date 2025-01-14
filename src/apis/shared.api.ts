@@ -9,9 +9,9 @@ const shared = {
       url,
       undefined,
       constants.shared.SELECTORS.APIS_SECTION,
-      'All systems are go! Health check successful'
+      'All systems are go! Health check successful',
     );
-  }
+  },
 };
 
 export default shared;

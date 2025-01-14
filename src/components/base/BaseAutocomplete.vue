@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  fetchSuggestions: () => {}
+  fetchSuggestions: () => {},
 });
 
 const slots: Slots = useSlots();

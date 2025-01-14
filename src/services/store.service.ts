@@ -19,7 +19,7 @@ const storeService = {
   resetAll: () => {
     const pinia = storeService.getPinia();
     pinia.storeMap.forEach((store) => store.$reset());
-  }
+  },
 };
 
 export default storeService;

@@ -4,20 +4,20 @@ const shared = {
     GET: 'get',
     PATCH: 'patch',
     POST: 'post',
-    PUT: 'put'
+    PUT: 'put',
   },
 
   COLORS: {
     BLACK: '#000',
     PRIMARY: '#01c0c8',
-    WHITE: '#fff'
+    WHITE: '#fff',
   },
 
   NODE_ENVS: {
     DEVELOP: 'develop',
     PRODUCTION: 'production',
     STAGING: 'staging',
-    TESTING: 'testing'
+    TESTING: 'testing',
   },
 
   REGEXES: {
@@ -31,13 +31,13 @@ const shared = {
     PHONE: /^\+?[1-9]\d{1,14}$/,
     TIME: /^([01]\d|2[0-3]):([0-5]\d)$/,
     URL: /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ;,./?%&=]*)?$/,
-    USERNAME: /^[a-zA-Z0-9_]{3,16}$/
+    USERNAME: /^[a-zA-Z0-9_]{3,16}$/,
   },
 
   SELECTORS: {
     APIS_SECTION: 'apis-section',
     LOADING_SECTION: 'loading-section',
-    LOGIN_BUTTON: 'login-button'
+    LOGIN_BUTTON: 'login-button',
   },
 
   STATUS_CODES: {
@@ -46,14 +46,14 @@ const shared = {
     INTERNAL_SERVER_ERROR: 500,
     NOT_FOUND: 404,
     OK: 200,
-    UNAUTHORIZED: 401
+    UNAUTHORIZED: 401,
   },
 
   STORAGE_KEYS: {
     ACCESS_TOKEN: 'v-access-token',
     LANGUAGE: 'v-language',
-    THEME: 'v-theme'
-  }
+    THEME: 'v-theme',
+  },
 } as const;
 
 export default shared;

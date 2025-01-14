@@ -1,6 +1,15 @@
 import type { ERole } from '../enums/auth.enum';
 import type { TActions, TSubjects } from '../types/auth.type';
 
+export interface IForm {
+  email: string;
+  fullName: string;
+  password: string;
+  passwordConfirm: string;
+  terms: boolean;
+  type: string;
+}
+
 export interface ILogin {
   email: string;
   password: string;

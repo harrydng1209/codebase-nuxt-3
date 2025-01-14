@@ -8,7 +8,7 @@ const usePagination = () => {
   const pagination = ref<IPagination>({
     currentPage: 1,
     pageSize: 100,
-    total: 0
+    total: 0,
   });
 
   const totalPages = computed(() => {
@@ -17,7 +17,7 @@ const usePagination = () => {
 
   return {
     pagination,
-    totalPages
+    totalPages,
   };
 };
 

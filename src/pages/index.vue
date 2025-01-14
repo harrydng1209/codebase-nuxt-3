@@ -6,7 +6,7 @@ definePageMeta({
   middleware: 'auth-middleware',
   requiresAuth: false,
   roles: [ERole.Admin, ERole.Guest, ERole.Moderator, ERole.SuperAdmin, ERole.User],
-  title: 'Home'
+  title: 'Home',
 });
 </script>
 

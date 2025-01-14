@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  label: ''
+  label: '',
 });
 
 const attrs = useAttrs();
@@ -20,13 +20,13 @@ const getVeeValidateConfig = (meta: FieldMeta<unknown>, errorMessage: string | u
   return {
     error: errorMessage,
     required: meta.required,
-    validateEvent: false
+    validateEvent: false,
   };
 };
 
 const fieldProps = computed(() => ({
   ...attrs,
-  ...getVeeValidateConfig(meta, errorMessage.value)
+  ...getVeeValidateConfig(meta, errorMessage.value),
 }));
 
 const updateModelValue = (newValue: unknown) => {
@@ -36,9 +36,9 @@ const updateModelValue = (newValue: unknown) => {
 
 <template>
   <ElFormItem :label="label" v-bind="fieldProps">
-    <template v-for="(_, name) in slots" :key="name" #[name]>
+    <template v-for="(_, slotName) in slots" :key="slotName" #[slotName]>
       <slot
-        :name="name"
+        :name="slotName"
         :modelValue="modelValue"
         :updateModelValue="(value: unknown) => updateModelValue(value)"
       />

@@ -6,7 +6,7 @@ type TLocales = Record<string, { default: TObjectString }>;
 type TMessages = Record<ELanguageCode, TObjectString>;
 
 const locales: TLocales = import.meta.glob('@/locales/**/*.json', {
-  eager: true
+  eager: true,
 });
 
 const messages: TMessages = Object.values(ELanguageCode).reduce((acc, lang) => {
@@ -30,5 +30,5 @@ Object.keys(locales).forEach((path) => {
 export default defineI18nConfig(() => ({
   legacy: false,
   locale: ELanguageCode.English,
-  messages
+  messages,
 }));

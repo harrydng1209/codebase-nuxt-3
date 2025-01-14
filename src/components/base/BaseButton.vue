@@ -8,7 +8,7 @@ interface IProps {
 
 const props = withDefaults(defineProps<IProps>(), {
   round: true,
-  type: 'primary'
+  type: 'primary',
 });
 
 const slots: Slots = useSlots();

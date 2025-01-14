@@ -1,23 +1,23 @@
 export enum ELanguageCode {
   English = 'en',
   Japanese = 'ja',
-  Vietnamese = 'vi'
+  Vietnamese = 'vi',
 }
 
 export enum ERegionalLocale {
   EnglishUS = 'en-US',
   JapaneseJP = 'ja-JP',
-  VietnameseVN = 'vi-VN'
+  VietnameseVN = 'vi-VN',
 }
 
 export enum EResponseStatus {
   Failure = 'failure',
-  Success = 'success'
+  Success = 'success',
 }
 
 export enum EToast {
   Error = 'error',
   Info = 'info',
   Success = 'success',
-  Warning = 'warning'
+  Warning = 'warning',
 }

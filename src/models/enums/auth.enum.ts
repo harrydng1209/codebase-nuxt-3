@@ -3,5 +3,5 @@ export enum ERole {
   Guest = 'guest',
   Moderator = 'moderator',
   SuperAdmin = 'superAdmin',
-  User = 'user'
+  User = 'user',
 }

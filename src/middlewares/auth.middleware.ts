@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const authStore = useAuthStore();
 
   useHead({
-    title: String(to.meta.title) || 'Code Base Nuxt 3'
+    title: String(to.meta.title) || 'Code Base Nuxt 3',
   });
 
   if (to.meta.requiresAuth) {

@@ -12,10 +12,10 @@ watch(
     const pathNames = route.path.split('/').filter((item) => item);
     items.value = pathNames.map((path) => ({
       text: t(`shared.navigator.${path}`),
-      to: `/${path}`
+      to: `/${path}`,
     }));
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 

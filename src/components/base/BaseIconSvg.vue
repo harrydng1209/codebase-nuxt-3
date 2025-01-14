@@ -24,7 +24,7 @@ watch(
     const component = await iconLoader();
     iconComponent.value = component.default;
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 

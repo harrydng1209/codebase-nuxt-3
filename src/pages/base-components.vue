@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { IForm } from '@/models/interfaces/auth.interface';
 import type { TDate, TOptions } from '@/models/types/shared.type';
 
 import {
   baseCheckboxOptions,
   baseSelectOptions,
   suggestions,
-  tableData
+  tableData,
 } from '@/mocks/base-components.mock';
 import { EToast } from '@/models/enums/shared.enum';
 import { toTypedSchema } from '@vee-validate/yup';
@@ -15,7 +16,7 @@ import {
   boolean as yupBoolean,
   object as yupObject,
   ref as yupRef,
-  string as yupString
+  string as yupString,
 } from 'yup';
 
 const { LAYOUTS, SHARED } = constants.iconPaths;
@@ -27,7 +28,7 @@ definePageMeta({
   middleware: 'auth-middleware',
   requiresAuth: false,
   roles: [],
-  title: 'Base Components'
+  title: 'Base Components',
 });
 
 await useAsyncData(async () => {
@@ -36,28 +37,33 @@ await useAsyncData(async () => {
   return {};
 });
 
-const schema = toTypedSchema(
-  yupObject({
-    email: yupString()
-      .required('Email is required')
-      .email('Invalid email format')
-      .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Custom email regex validation failed'),
-    fullName: yupString()
-      .required('Full name is required')
-      .matches(/^[A-Za-z\s]+$/, 'Name can only contain letters and spaces'),
-    password: yupString()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters long'),
-    passwordConfirm: yupString()
-      .required('Password confirmation is required')
-      .oneOf([yupRef('password')], 'Passwords must match'),
-    terms: yupBoolean().required().isTrue('You must agree to the terms and conditions'),
-    type: yupString().required('Account type is required')
-  })
-);
-const { handleSubmit, resetForm } = useForm({
-  initialValues: {},
-  validationSchema: schema
+const schema = yupObject({
+  email: yupString()
+    .required('Email is required')
+    .email('Invalid email format')
+    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Custom email regex validation failed'),
+  fullName: yupString()
+    .required('Full name is required')
+    .matches(/^[A-Za-z\s]+$/, 'Name can only contain letters and spaces'),
+  password: yupString()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long'),
+  passwordConfirm: yupString()
+    .required('Password confirmation is required')
+    .oneOf([yupRef('password')], 'Passwords must match'),
+  terms: yupBoolean().required().isTrue('You must agree to the terms and conditions'),
+  type: yupString().required('Account type is required'),
+});
+const { handleSubmit, resetForm } = useForm<IForm>({
+  initialValues: {
+    email: '',
+    fullName: '',
+    password: '',
+    passwordConfirm: '',
+    terms: false,
+    type: '',
+  },
+  validationSchema: toTypedSchema(schema),
 });
 const { t } = useI18n();
 const { showConfirm } = useConfirmDialog();
@@ -122,7 +128,7 @@ const handleChangePagination = (currentPage: number, pageSize: number) => {
   utils.shared.showToast(`currentPage: ${currentPage} & pageSize: ${pageSize}`);
 };
 
-const onSubmit = handleSubmit((_values: unknown) => {
+const onSubmit = handleSubmit((_values: IForm) => {
   utils.shared.showToast('onSubmit: check console');
 });
 
@@ -135,11 +141,11 @@ const fetchSuggestions = (
   callback: (
     data: {
       value: string;
-    }[]
-  ) => void
+    }[],
+  ) => void,
 ) => {
   const results = suggestions.filter((suggestion) =>
-    suggestion.value.toLowerCase().includes(queryString.toLowerCase())
+    suggestion.value.toLowerCase().includes(queryString.toLowerCase()),
   );
   callback(results);
 };
@@ -167,7 +173,7 @@ const confirmDelete = () => {
     onConfirm: () => {
       utils.shared.showToast('File has been successfully deleted');
     },
-    title: 'Warning'
+    title: 'Warning',
   });
 };
 
@@ -217,9 +223,9 @@ onMounted(() => {
           <template v-for="(category, categoryName) in constants.iconPaths" :key="categoryName">
             <template v-for="(iconPath, iconName) in category" :key="iconName">
               <BaseIconSvg
+                v-tippy="iconPath"
                 :path="String(iconPath)"
                 :fill="isDark ? WHITE : BLACK"
-                v-tippy="iconPath"
                 @click="handleClickIconSvg"
               />
             </template>
@@ -297,8 +303,8 @@ onMounted(() => {
           v-model="baseSelect"
           :options="baseSelectOptions"
           placeholder="Please select"
-          @change="handleChangeSelect"
           class="!tw-w-[150px]"
+          @change="handleChangeSelect"
         />
 
         <BaseSelect
@@ -308,8 +314,8 @@ onMounted(() => {
           collapseTagsTooltip
           placeholder="Please multiple select"
           :options="baseSelectOptions"
-          @change="handleChangeSelect"
           class="!tw-w-[200px] tw-ml-4"
+          @change="handleChangeSelect"
         />
       </section>
 
@@ -324,8 +330,8 @@ onMounted(() => {
         <BaseCheckbox
           v-model="baseCheckboxAll"
           :indeterminate="isIndeterminate"
-          @change="handleCheckAllChange"
           class="tw-mt-4"
+          @change="handleCheckAllChange"
         >
           Check all
         </BaseCheckbox>
@@ -357,16 +363,16 @@ onMounted(() => {
           <BaseInput
             v-model="baseInput"
             placeholder="Please input"
-            @input="handleChangeInput"
             class="!tw-w-[200px]"
+            @input="handleChangeInput"
           />
 
           <BaseInputNumber
             v-model="baseInputNumber"
             controlsPosition="right"
             placeholder="Please input number"
-            @change="handleChangeInput"
             class="!tw-w-[200px]"
+            @change="handleChangeInput"
           />
 
           <BaseInput
@@ -446,7 +452,7 @@ onMounted(() => {
 
       <section>
         <h4>-- Base Forms --</h4>
-        <ElForm @submit="onSubmit" labelWidth="auto" labelPosition="top" style="max-width: 600px">
+        <ElForm labelWidth="auto" labelPosition="top" style="max-width: 600px" @submit="onSubmit">
           <div class="tw-grid tw-grid-cols-2 tw-gap-4">
             <BaseFormItem name="fullName" label="Full name">
               <template #default="{ modelValue, updateModelValue }">
@@ -462,9 +468,9 @@ onMounted(() => {
               <template #default="{ modelValue, updateModelValue }">
                 <BaseSelect
                   :modelValue="modelValue"
-                  @change="updateModelValue"
                   placeholder="Choose a type"
                   :options="baseSelectOptions"
+                  @change="updateModelValue"
                 />
               </template>
             </BaseFormItem>
@@ -486,8 +492,8 @@ onMounted(() => {
                 <BaseInput
                   placeholder="Create a password"
                   :modelValue="modelValue"
-                  @input="updateModelValue"
                   showPassword
+                  @input="updateModelValue"
                 />
               </template>
             </BaseFormItem>
@@ -497,8 +503,8 @@ onMounted(() => {
                 <BaseInput
                   placeholder="Re-enter your password"
                   :modelValue="modelValue"
-                  @input="updateModelValue"
                   showPassword
+                  @input="updateModelValue"
                 />
               </template>
             </BaseFormItem>

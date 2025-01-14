@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  options: () => []
+  options: () => [],
 });
 
 const slots: Slots = useSlots();

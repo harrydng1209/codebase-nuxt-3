@@ -7,7 +7,7 @@ const { y } = useWindowScroll();
 
 const headerStyle = computed(() => ({
   marginTop: y.value > 50 ? '-20px' : '0',
-  transition: 'margin-top 0.3s ease'
+  transition: 'margin-top 0.3s ease',
 }));
 </script>
 

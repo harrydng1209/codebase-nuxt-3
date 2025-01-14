@@ -7,7 +7,7 @@ interface IProps {
 
 const props = withDefaults(defineProps<IProps>(), {
   pagerCount: 7,
-  pageSizes: () => [100, 200, 300, 400]
+  pageSizes: () => [100, 200, 300, 400],
 });
 </script>
 

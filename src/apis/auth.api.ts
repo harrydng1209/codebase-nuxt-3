@@ -16,9 +16,9 @@ const auth = {
   refreshToken: async () => {
     const url = AUTH.REFRESH_TOKEN;
     return await utils.http.post<ILoginResponse>(url, null, {
-      withCredentials: true
+      withCredentials: true,
     });
-  }
+  },
 };
 
 export default auth;

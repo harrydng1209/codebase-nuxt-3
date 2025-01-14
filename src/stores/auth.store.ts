@@ -14,7 +14,7 @@ const useAuthStore = defineStore('authStore', () => {
     return {
       getAuthenticated: computed(() => isAuthenticated.value),
       getUserInfo: computed(() => userInfo.value),
-      getUserRole: computed(() => userInfo.value?.role)
+      getUserRole: computed(() => userInfo.value?.role),
     };
   };
 
@@ -64,7 +64,7 @@ const useAuthStore = defineStore('authStore', () => {
       setUser: (data: IUserInfo) => {
         isAuthenticated.value = true;
         userInfo.value = data;
-      }
+      },
     };
   };
 

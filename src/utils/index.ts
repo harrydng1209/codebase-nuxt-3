@@ -8,7 +8,7 @@ interface IUtils {
 
 const utils: IUtils = {
   http,
-  shared
+  shared,
 };
 
 export default utils;

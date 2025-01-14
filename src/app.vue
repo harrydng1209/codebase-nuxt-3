@@ -8,14 +8,14 @@ const { currentLanguage } = useLanguage();
 
 const locale = computed(() => {
   switch (currentLanguage.value) {
-    case ELanguageCode.English:
-      return en;
-
     case ELanguageCode.Japanese:
       return ja;
 
     case ELanguageCode.Vietnamese:
       return vi;
+
+    default:
+      return en;
   }
 });
 </script>

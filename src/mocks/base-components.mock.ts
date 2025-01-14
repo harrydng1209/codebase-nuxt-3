@@ -1,13 +1,13 @@
 export const baseSelectOptions = [
   { id: 1, label: 'select label 1', value: 'select value 1' },
   { id: 2, label: 'select label 2', value: 'select value 2' },
-  { id: 3, label: 'select label 3', value: 'select value 3' }
+  { id: 3, label: 'select label 3', value: 'select value 3' },
 ];
 
 export const baseCheckboxOptions = [
   { id: 1, label: 'checkbox label 1', value: 'checkbox value 1' },
   { id: 2, label: 'checkbox label 2', value: 'checkbox value 2' },
-  { id: 3, label: 'checkbox label 3', value: 'checkbox value 3' }
+  { id: 3, label: 'checkbox label 3', value: 'checkbox value 3' },
 ];
 
 export const suggestions = [
@@ -36,7 +36,7 @@ export const suggestions = [
   { value: 'Watermelon' },
   { value: 'Xigua' },
   { value: 'Yellow Passion Fruit' },
-  { value: 'Zucchini' }
+  { value: 'Zucchini' },
 ];
 
 export const tableData = [
@@ -53,7 +53,7 @@ export const tableData = [
     occupation: 'Engineer',
     phone: '(123) 456-7890',
     salary: 80000,
-    zipCode: '90001'
+    zipCode: '90001',
   },
   {
     address: 'No. 120, Sunset Blvd, Los Angeles',
@@ -68,7 +68,7 @@ export const tableData = [
     occupation: 'Designer',
     phone: '(234) 567-8901',
     salary: 75000,
-    zipCode: '90002'
+    zipCode: '90002',
   },
   {
     address: 'No. 340, Elm St, San Francisco',
@@ -83,7 +83,7 @@ export const tableData = [
     occupation: 'Developer',
     phone: '(345) 678-9012',
     salary: 85000,
-    zipCode: '94101'
+    zipCode: '94101',
   },
   {
     address: 'No. 75, Oak St, New York',
@@ -98,7 +98,7 @@ export const tableData = [
     occupation: 'Manager',
     phone: '(456) 789-0123',
     salary: 90000,
-    zipCode: '10001'
+    zipCode: '10001',
   },
   {
     address: 'No. 999, Pine St, Chicago',
@@ -113,7 +113,7 @@ export const tableData = [
     occupation: 'Director',
     phone: '(567) 890-1234',
     salary: 120000,
-    zipCode: '60601'
+    zipCode: '60601',
   },
   {
     address: 'No. 230, Maple Ave, Seattle',
@@ -128,7 +128,7 @@ export const tableData = [
     occupation: 'Analyst',
     phone: '(678) 901-2345',
     salary: 70000,
-    zipCode: '98101'
+    zipCode: '98101',
   },
   {
     address: 'No. 189, Grove St, Los Angeles',
@@ -143,7 +143,7 @@ export const tableData = [
     occupation: 'Engineer',
     phone: '(123) 456-7890',
     salary: 80000,
-    zipCode: '90001'
+    zipCode: '90001',
   },
   {
     address: 'No. 120, Sunset Blvd, Los Angeles',
@@ -158,7 +158,7 @@ export const tableData = [
     occupation: 'Designer',
     phone: '(234) 567-8901',
     salary: 75000,
-    zipCode: '90002'
+    zipCode: '90002',
   },
   {
     address: 'No. 340, Elm St, San Francisco',
@@ -173,7 +173,7 @@ export const tableData = [
     occupation: 'Developer',
     phone: '(345) 678-9012',
     salary: 85000,
-    zipCode: '94101'
+    zipCode: '94101',
   },
   {
     address: 'No. 75, Oak St, New York',
@@ -188,7 +188,7 @@ export const tableData = [
     occupation: 'Manager',
     phone: '(456) 789-0123',
     salary: 90000,
-    zipCode: '10001'
+    zipCode: '10001',
   },
   {
     address: 'No. 999, Pine St, Chicago',
@@ -203,7 +203,7 @@ export const tableData = [
     occupation: 'Director',
     phone: '(567) 890-1234',
     salary: 120000,
-    zipCode: '60601'
+    zipCode: '60601',
   },
   {
     address: 'No. 230, Maple Ave, Seattle',
@@ -218,6 +218,6 @@ export const tableData = [
     occupation: 'Analyst',
     phone: '(678) 901-2345',
     salary: 70000,
-    zipCode: '98101'
-  }
+    zipCode: '98101',
+  },
 ];

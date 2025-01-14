@@ -8,7 +8,7 @@ interface IApis {
 
 const apis: IApis = {
   auth,
-  shared
+  shared,
 };
 
 export default apis;

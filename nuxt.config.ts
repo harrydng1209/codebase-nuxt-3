@@ -8,56 +8,57 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
 
   components: {
-    dirs: []
+    dirs: [],
   },
 
   css: ['./src/assets/styles/root/main.scss'],
 
   devtools: {
-    enabled: process.env.VITE_DEVTOOLS === 'true'
+    enabled: process.env.VITE_DEVTOOLS === 'true',
   },
 
   dir: {
-    middleware: 'middlewares'
+    middleware: 'middlewares',
   },
 
   elementPlus: {
-    icon: false
+    icon: false,
   },
 
   i18n: {
-    vueI18n: './vue-i18n.config.ts'
+    vueI18n: './vue-i18n.config.ts',
   },
 
   imports: {
-    dirs: []
+    dirs: [],
   },
 
   modules: [
+    '@nuxt/eslint',
     '@nuxtjs/i18n',
+    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
-    '@nuxtjs/tailwindcss',
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
   ],
 
   postcss: {
     plugins: {
       autoprefixer: {},
-      tailwindcss: {}
-    }
+      tailwindcss: {},
+    },
   },
 
   sourcemap: {
     client: true,
-    server: true
+    server: true,
   },
 
   srcDir: 'src/',
   ssr: process.env.VITE_SSR === 'true',
 
   typescript: {
-    typeCheck: true
+    typeCheck: true,
   },
 
   vite: {
@@ -67,34 +68,42 @@ export default defineNuxtConfig({
           additionalData: `
             @import "@/assets/styles/root/variables";
             @import "@/assets/styles/root/mixins";
-          `
-        }
-      }
+          `,
+        },
+      },
     },
 
     plugins: [
       autoImport({
         dirs: ['composables/shared/**'],
         dts: '@types/auto-imports.d.ts',
+
+        eslintrc: {
+          enabled: true,
+          filepath: './.globalsrc.json',
+          globalsPropValue: true,
+        },
+
         imports: [
           {
             from: 'vue',
             imports: ['Slots'],
-            type: true
+            type: true,
           },
           {
             '@/apis': [['default', 'apis']],
             '@/constants': [['default', 'constants']],
-            '@/utils': [['default', 'utils']]
-          }
+            '@/utils': [['default', 'utils']],
+          },
         ],
-        vueTemplate: true
+
+        vueTemplate: true,
       }),
 
       components({
         dirs: ['components/base/**'],
-        dts: '@types/components.d.ts'
-      })
-    ]
-  }
+        dts: '@types/components.d.ts',
+      }),
+    ],
+  },
 });

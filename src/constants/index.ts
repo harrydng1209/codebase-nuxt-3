@@ -14,7 +14,7 @@ const constants: IConstants = {
   iconPaths,
   routeApis,
   routePages,
-  shared
+  shared,
 };
 
 export default constants;

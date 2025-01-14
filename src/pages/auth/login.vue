@@ -13,23 +13,24 @@ definePageMeta({
   middleware: 'auth-middleware',
   requiresAuth: false,
   roles: [],
-  title: 'Authentication'
+  title: 'Authentication',
 });
 
-const schema = toTypedSchema(
-  yupObject({
-    email: yupString()
-      .required('Email is required')
-      .email('Invalid email format')
-      .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Custom email regex validation failed'),
-    password: yupString()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters long')
-  })
-);
+const schema = yupObject({
+  email: yupString()
+    .required('Email is required')
+    .email('Invalid email format')
+    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Custom email regex validation failed'),
+  password: yupString()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long'),
+});
 const { handleSubmit } = useForm<ILogin>({
-  initialValues: {},
-  validationSchema: schema
+  initialValues: {
+    email: '',
+    password: '',
+  },
+  validationSchema: toTypedSchema(schema),
 });
 const { t } = useI18n();
 const authStore = useAuthStore();
@@ -60,11 +61,11 @@ const onSubmit = handleSubmit(async (values) => {
       <h4>{{ t('auth.login') }}</h4>
 
       <ElForm
-        @submit="onSubmit"
         labelWidth="auto"
         labelPosition="top"
         hideRequiredAsterisk
         style="width: 100%"
+        @submit="onSubmit"
       >
         <BaseFormItem name="email">
           <template #label>
@@ -91,8 +92,8 @@ const onSubmit = handleSubmit(async (values) => {
             <BaseInput
               :placeholder="t('auth.inputPassword')"
               :modelValue="modelValue"
-              @input="updateModelValue"
               :type="showPassword ? 'text' : 'password'"
+              @input="updateModelValue"
             >
               <template #suffix>
                 <BaseIconSvg
@@ -107,10 +108,10 @@ const onSubmit = handleSubmit(async (values) => {
         </BaseFormItem>
 
         <BaseButton
+          :id="constants.shared.SELECTORS.LOGIN_BUTTON"
           type="primary"
           nativeType="submit"
           class="tw-w-full"
-          :id="constants.shared.SELECTORS.LOGIN_BUTTON"
         >
           {{ t('auth.login') }}
         </BaseButton>

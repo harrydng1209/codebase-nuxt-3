@@ -11,14 +11,14 @@ const { changeLanguage, currentLanguage } = useLanguage();
 
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   label: key,
-  value
+  value,
 }));
 
 const getIconPathForLanguage = (lang: ELanguageCode) => {
   const iconPaths = {
     [ELanguageCode.English]: LAYOUTS.ENGLISH,
     [ELanguageCode.Japanese]: LAYOUTS.JAPANESE,
-    [ELanguageCode.Vietnamese]: LAYOUTS.VIETNAMESE
+    [ELanguageCode.Vietnamese]: LAYOUTS.VIETNAMESE,
   };
   return iconPaths[lang];
 };

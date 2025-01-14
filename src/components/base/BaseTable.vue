@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  loading: false
+  loading: false,
 });
 
 const innerRef = ref<InstanceType<typeof ElTable> | null>(null);
@@ -18,10 +18,10 @@ defineExpose({ innerRef });
 <template>
   <ElTable
     ref="innerRef"
+    v-loading="props.loading"
     :data="props.data"
     :defaultExpandAll="true"
     :border="true"
-    v-loading="props.loading"
     v-bind="$attrs"
   >
     <slot />
