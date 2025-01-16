@@ -1,77 +1,49 @@
 # code-base-nuxt-3
 
-This template should help get you started developing with Nuxt 3 in Vite.
+This template should help you get started developing with Nuxt 3 in Vite.
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Overview
 
-## Setup
+- **Name**: code-base-nuxt-3
+- **Description**: This template should help you get started developing with Nuxt 3 in Vite
+- **Version**: 0.1.0
+- **License**: MIT
+- **Type**: Module
 
-Make sure to install dependencies:
+## Author
+
+- **Name**: HXRRY
+- **Email**: [harrydng1209@gmail.com](mailto:harrydng1209@gmail.com)
+- **GitHub**: [harrydng1209](https://github.com/harrydng1209)
+
+## Requirements
+
+- **Node.js**: >= 20.x
+- **npm**: >= 10.x
+
+## Scripts
+
+This project includes several scripts to assist with development:
+
+- `build`: Build the project for production.
+- `dev`: Start the development server using Nuxt.
+- `generate`: Generate a static version of your project.
+- `preview`: Preview the generated project.
+- `postinstall`: Prepare the Nuxt project after installation.
+- `format`: Format code using Prettier.
+- `lint`: Lint code using ESLint and fix issues.
+- `type-check`: Perform type checking with Vue TypeScript Compiler.
+- `check-all`: Run format, lint, and type-check scripts in parallel.
+- `preinstall`: Ensure only pnpm is used as the package manager.
+- `prepare`: Prepare Husky for Git hooks.
+- `precommit`: Run lint-staged and validate branch names before committing.
+
+## Getting Started
+
+To get started with this template, clone the repository and install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
+git clone https://github.com/harrydng1209/code-base-nuxt-3.git
+cd code-base-nuxt-3
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
