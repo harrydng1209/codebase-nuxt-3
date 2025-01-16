@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import autoImport from 'unplugin-auto-import/vite';
 import components from 'unplugin-vue-components/vite';
-
-dotenv.config();
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',

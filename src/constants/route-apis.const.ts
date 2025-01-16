@@ -1,7 +1,7 @@
 const routeApis = {
   AUTH: {
     LOGIN: '/auth/login',
-    ME: '/auth/me',
+    PROFILE: '/auth/profile',
     REFRESH_TOKEN: '/auth/refresh-token',
   },
 

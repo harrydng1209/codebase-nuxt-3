@@ -7,14 +7,19 @@ import useAuthStore from '@/stores/auth.store';
 import { useLocalStorage } from '@vueuse/core';
 import { type AxiosError, type AxiosRequestConfig, type AxiosResponse, isAxiosError } from 'axios';
 
+const { ACCESS_TOKEN } = constants.shared.STORAGE_KEYS;
+const { DELETE, GET, PATCH, POST, PUT } = constants.shared.HTTP_METHODS;
+const { hideLoading, showLoading, showToast } = utils.shared;
+
 interface IAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
 }
 
-type TApiMethods = (typeof constants.shared.API_METHODS)[keyof typeof constants.shared.API_METHODS];
+type THttpMethods =
+  (typeof constants.shared.HTTP_METHODS)[keyof typeof constants.shared.HTTP_METHODS];
 
 const request = async <T = unknown, M = unknown>(
-  method: TApiMethods,
+  method: THttpMethods,
   url: string,
   data: unknown,
   config?: AxiosRequestConfig,
@@ -24,14 +29,14 @@ const request = async <T = unknown, M = unknown>(
   let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
 
   try {
-    loadingInstance = utils.shared.showLoading(loadingTarget || false);
+    loadingInstance = showLoading(loadingTarget || false);
 
     const response: AxiosResponse<TSuccessResponse<T, M>> = await httpService[method](
       url,
       data,
       config,
     );
-    if (toastMessage) utils.shared.showToast(toastMessage);
+    if (toastMessage) showToast(toastMessage);
 
     return {
       data: response.data.data,
@@ -46,7 +51,7 @@ const request = async <T = unknown, M = unknown>(
       errorMessage = error.response?.data?.error?.message || errorMessage;
       errorCode = error.response?.data?.error?.code || errorCode;
     }
-    if (toastMessage) utils.shared.showToast(errorMessage, EToast.Error);
+    if (toastMessage) showToast(errorMessage, EToast.Error);
 
     throw {
       error: {
@@ -56,25 +61,18 @@ const request = async <T = unknown, M = unknown>(
       status: EResponseStatus.Failure,
     } as IFailureResponse;
   } finally {
-    utils.shared.hideLoading(loadingInstance);
+    hideLoading(loadingInstance);
   }
 };
 
 const http = {
-  del: async <T = unknown, M = unknown>(
+  delete: async <T = unknown, M = unknown>(
     url: string,
     config?: AxiosRequestConfig,
     loadingTarget?: TLoadingTarget,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(
-      constants.shared.API_METHODS.DELETE,
-      url,
-      undefined,
-      config,
-      loadingTarget,
-      toastMessage,
-    );
+    return await request<T, M>(DELETE, url, undefined, config, loadingTarget, toastMessage);
   },
 
   get: async <T = unknown, M = unknown>(
@@ -83,14 +81,7 @@ const http = {
     loadingTarget?: TLoadingTarget,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(
-      constants.shared.API_METHODS.GET,
-      url,
-      undefined,
-      config,
-      loadingTarget,
-      toastMessage,
-    );
+    return await request<T, M>(GET, url, undefined, config, loadingTarget, toastMessage);
   },
 
   handleUnauthorizedError: async (error: AxiosError) => {
@@ -98,7 +89,7 @@ const http = {
     const isSuccess = await authStore.refreshToken();
 
     if (isSuccess) {
-      const accessToken = useLocalStorage(constants.shared.STORAGE_KEYS.ACCESS_TOKEN, '').value;
+      const accessToken = useLocalStorage(ACCESS_TOKEN, '').value;
       const originalRequest = error.config as IAxiosRequestConfig;
 
       if (originalRequest) {
@@ -119,14 +110,7 @@ const http = {
     loadingTarget?: TLoadingTarget,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(
-      constants.shared.API_METHODS.PATCH,
-      url,
-      data,
-      config,
-      loadingTarget,
-      toastMessage,
-    );
+    return await request<T, M>(PATCH, url, data, config, loadingTarget, toastMessage);
   },
 
   post: async <T = unknown, M = unknown>(
@@ -136,14 +120,7 @@ const http = {
     loadingTarget?: TLoadingTarget,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(
-      constants.shared.API_METHODS.POST,
-      url,
-      data,
-      config,
-      loadingTarget,
-      toastMessage,
-    );
+    return await request<T, M>(POST, url, data, config, loadingTarget, toastMessage);
   },
 
   put: async <T = unknown, M = unknown>(
@@ -153,14 +130,7 @@ const http = {
     loadingTarget?: TLoadingTarget,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(
-      constants.shared.API_METHODS.PUT,
-      url,
-      data,
-      config,
-      loadingTarget,
-      toastMessage,
-    );
+    return await request<T, M>(PUT, url, data, config, loadingTarget, toastMessage);
   },
 };
 

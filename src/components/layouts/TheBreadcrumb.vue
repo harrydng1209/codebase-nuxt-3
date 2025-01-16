@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { IBreadcrumbItem } from '@/models/interfaces/shared.interface';
 
+const { HOME } = constants.routePages;
+
 const { t } = useI18n();
 const route = useRoute();
 
@@ -21,7 +23,7 @@ watch(
 
 <template>
   <ElBreadcrumb>
-    <ElBreadcrumbItem v-if="items.length > 0" :to="{ path: constants.routePages.HOME }">
+    <ElBreadcrumbItem v-if="items.length > 0" :to="{ path: HOME }">
       {{ t('shared.navigator.home') }}
     </ElBreadcrumbItem>
 

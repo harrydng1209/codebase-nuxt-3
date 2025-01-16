@@ -1,21 +1,22 @@
 import type { ILoginResponse, IUserInfo } from '@/models/interfaces/auth.interface';
 
 const { AUTH } = constants.routeApis;
+const { get, post } = utils.http;
 
 const auth = {
   login: async (data: unknown) => {
     const url = AUTH.LOGIN;
-    return await utils.http.post<ILoginResponse>(url, data, { withCredentials: true });
+    return await post<ILoginResponse>(url, data, { withCredentials: true });
   },
 
-  me: async () => {
-    const url = AUTH.ME;
-    return await utils.http.get<IUserInfo>(url);
+  profile: async () => {
+    const url = AUTH.PROFILE;
+    return await get<IUserInfo>(url);
   },
 
   refreshToken: async () => {
     const url = AUTH.REFRESH_TOKEN;
-    return await utils.http.post<ILoginResponse>(url, null, {
+    return await post<ILoginResponse>(url, null, {
       withCredentials: true,
     });
   },

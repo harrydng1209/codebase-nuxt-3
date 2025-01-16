@@ -1,16 +1,27 @@
 const shared = {
-  API_METHODS: {
+  COLORS: {
+    BLACK: '#000',
+    PRIMARY: '#01c0c8',
+    WHITE: '#fff',
+  },
+
+  HTTP_CODES: {
+    BAD_REQUEST: 400,
+    CREATED: 201,
+    FORBIDDEN: 403,
+    INTERNAL_SERVER_ERROR: 500,
+    NO_CONTENT: 204,
+    NOT_FOUND: 404,
+    OK: 200,
+    UNAUTHORIZED: 401,
+  },
+
+  HTTP_METHODS: {
     DELETE: 'delete',
     GET: 'get',
     PATCH: 'patch',
     POST: 'post',
     PUT: 'put',
-  },
-
-  COLORS: {
-    BLACK: '#000',
-    PRIMARY: '#01c0c8',
-    WHITE: '#fff',
   },
 
   NODE_ENVS: {
@@ -38,15 +49,6 @@ const shared = {
     APIS_SECTION: 'apis-section',
     LOADING_SECTION: 'loading-section',
     LOGIN_BUTTON: 'login-button',
-  },
-
-  STATUS_CODES: {
-    BAD_REQUEST: 400,
-    FORBIDDEN: 403,
-    INTERNAL_SERVER_ERROR: 500,
-    NOT_FOUND: 404,
-    OK: 200,
-    UNAUTHORIZED: 401,
   },
 
   STORAGE_KEYS: {

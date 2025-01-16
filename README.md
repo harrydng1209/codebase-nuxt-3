@@ -1,5 +1,7 @@
 # code-base-nuxt-3
 
+This template should help get you started developing with Nuxt 3 in Vite.
+
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
