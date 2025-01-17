@@ -1,12 +1,9 @@
-import type { IFailureResponse } from '@/models/interfaces/shared.interface';
-import type {
-  TDate,
-  TLoadingTarget,
-  TObjectUnknown,
-  TSuccessResponse,
-} from '@/models/types/shared.type';
+import type { IFailureResponse } from '@/models/interfaces/auth.interface';
+import type { TSuccessResponse } from '@/models/types/auth.type';
+import type { TDate, TLoadingTarget, TObjectUnknown } from '@/models/types/shared.type';
 
-import { EResponseStatus, EToast } from '@/models/enums/shared.enum';
+import { EResponseStatus } from '@/models/enums/auth.enum';
+import { EToast } from '@/models/enums/shared.enum';
 import storeService from '@/services/store.service';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -90,6 +87,15 @@ const shared = {
       if (element && element instanceof HTMLElement)
         element.classList.remove('tw-pointer-events-none');
     }
+  },
+
+  isFailureResponse(response: Error | IFailureResponse): response is IFailureResponse {
+    return (
+      typeof response === 'object' &&
+      response !== null &&
+      'status' in response &&
+      response.status === EResponseStatus.Failure
+    );
   },
 
   isSuccessResponse<T, M>(

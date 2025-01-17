@@ -10,11 +10,6 @@ export enum ERegionalLocale {
   VietnameseVN = 'vi-VN',
 }
 
-export enum EResponseStatus {
-  Failure = 'failure',
-  Success = 'success',
-}
-
 export enum EToast {
   Error = 'error',
   Info = 'info',

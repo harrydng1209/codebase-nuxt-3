@@ -1,4 +1,4 @@
-interface IOptions {
+interface IProps {
   cancelButtonText?: string;
   confirmButtonText?: string;
   message: string;
@@ -10,7 +10,7 @@ interface IOptions {
 const useConfirmDialog = () => {
   const { t } = useI18n();
 
-  const showConfirm = async (options: IOptions) => {
+  const showConfirmDialog = async (props: IProps) => {
     const {
       cancelButtonText = t('shared.button.cancel'),
       confirmButtonText = t('shared.button.ok'),
@@ -18,7 +18,7 @@ const useConfirmDialog = () => {
       onCancel,
       onConfirm,
       title,
-    } = options || {};
+    } = props || {};
 
     ElMessageBox.confirm(message, title, {
       cancelButtonText,
@@ -32,7 +32,7 @@ const useConfirmDialog = () => {
       .catch(() => onCancel());
   };
 
-  return { showConfirm };
+  return { showConfirmDialog };
 };
 
 export default useConfirmDialog;

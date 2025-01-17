@@ -6,8 +6,12 @@ interface IPinia extends Pinia {
 
 const storeService = {
   disposeAll: () => {
-    const pinia = storeService.getPinia();
-    pinia.storeMap.forEach((store) => store.$dispose());
+    try {
+      const pinia = storeService.getPinia();
+      pinia.storeMap.forEach((store) => store.$dispose());
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   getPinia: (): IPinia => {
@@ -17,8 +21,12 @@ const storeService = {
   },
 
   resetAll: () => {
-    const pinia = storeService.getPinia();
-    pinia.storeMap.forEach((store) => store.$reset());
+    try {
+      const pinia = storeService.getPinia();
+      pinia.storeMap.forEach((store) => store.$reset());
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 

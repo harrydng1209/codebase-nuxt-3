@@ -1,12 +1,18 @@
-import type { ILoginResponse, IUserInfo } from '@/models/interfaces/auth.interface';
+import type {
+  ILoginRequest,
+  ILoginResponse,
+  IRegister,
+  IUserInfo,
+} from '@/models/interfaces/auth.interface';
 
 const { AUTH } = constants.routeApis;
+const { LOGIN_BUTTON } = constants.shared.SELECTORS;
 const { get, post } = utils.http;
 
 const auth = {
-  login: async (data: unknown) => {
+  login: async (data: ILoginRequest) => {
     const url = AUTH.LOGIN;
-    return await post<ILoginResponse>(url, data, { withCredentials: true });
+    return await post<ILoginResponse>(url, data, { withCredentials: true }, LOGIN_BUTTON);
   },
 
   profile: async () => {
@@ -16,9 +22,14 @@ const auth = {
 
   refreshToken: async () => {
     const url = AUTH.REFRESH_TOKEN;
-    return await post<ILoginResponse>(url, null, {
+    return await post<ILoginResponse>(url, undefined, {
       withCredentials: true,
     });
+  },
+
+  register: async (data: IRegister) => {
+    const url = AUTH.REGISTER;
+    return await post<unknown>(url, data);
   },
 };
 

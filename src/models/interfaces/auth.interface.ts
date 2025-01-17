@@ -1,16 +1,15 @@
-import type { ERole } from '../enums/auth.enum';
-import type { TActions, TSubjects } from '../types/auth.type';
+import type { EResponseStatus, ERole } from '../enums/auth.enum';
+import type { TActions, TErrorCodes, TSubjects } from '../types/auth.type';
 
-export interface IForm {
-  email: string;
-  fullName: string;
-  password: string;
-  passwordConfirm: string;
-  terms: boolean;
-  type: string;
+export interface IFailureResponse {
+  error: {
+    code: TErrorCodes;
+    message: string;
+  };
+  status: EResponseStatus;
 }
 
-export interface ILogin {
+export interface ILoginRequest {
   email: string;
   password: string;
 }
@@ -22,6 +21,13 @@ export interface ILoginResponse {
 export interface IPermission {
   action: TActions;
   subject: TSubjects;
+}
+
+export interface IRegister {
+  displayName: string;
+  email: string;
+  password: string;
+  username: string;
 }
 
 export interface IUserInfo {

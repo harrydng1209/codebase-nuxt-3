@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ILogin } from '@/models/interfaces/auth.interface';
+import type { ILoginRequest } from '@/models/interfaces/auth.interface';
 
 import useAuthStore from '@/stores/auth.store';
 import { toTypedSchema } from '@vee-validate/yup';
@@ -28,7 +28,7 @@ const schema = yupObject({
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters long'),
 });
-const { handleSubmit } = useForm<ILogin>({
+const { handleSubmit } = useForm<ILoginRequest>({
   initialValues: {
     email: '',
     password: '',
@@ -38,6 +38,7 @@ const { handleSubmit } = useForm<ILogin>({
 const { t } = useI18n();
 const authStore = useAuthStore();
 const router = useRouter();
+const { handleCatchError } = useHandleCatchError();
 
 const showPassword = ref<boolean>(false);
 
@@ -48,12 +49,12 @@ const togglePasswordVisibility = () => {
 const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await apis.auth.login(values);
-    if (!isSuccessResponse(response)) throw new Error(response.error.message);
+    if (!isSuccessResponse(response)) throw response;
 
     authStore.setToken(response.data.accessToken);
     await router.push(HOME);
   } catch (error) {
-    console.error(error);
+    handleCatchError(error);
   }
 });
 </script>

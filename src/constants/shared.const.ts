@@ -5,6 +5,10 @@ const shared = {
     WHITE: '#fff',
   },
 
+  ERROR_CODES: {
+    ERR_500: 'ERR_500',
+  },
+
   HTTP_CODES: {
     BAD_REQUEST: 400,
     CREATED: 201,

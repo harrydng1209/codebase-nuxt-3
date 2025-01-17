@@ -32,7 +32,7 @@ const useAuthStore = defineStore('authStore', () => {
 
         try {
           const response = await apis.auth.profile();
-          if (!isSuccessResponse(response)) throw new Error(response.error.message);
+          if (!isSuccessResponse(response)) throw response;
 
           getActions().setUser(response.data);
         } catch (error) {
@@ -50,7 +50,7 @@ const useAuthStore = defineStore('authStore', () => {
         let result = true;
         try {
           const response = await apis.auth.refreshToken();
-          if (!isSuccessResponse(response)) throw new Error(response.error.message);
+          if (!isSuccessResponse(response)) throw response;
 
           accessToken.value = response.data.accessToken;
         } catch (error) {

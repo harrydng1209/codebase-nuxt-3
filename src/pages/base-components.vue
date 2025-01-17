@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { IForm } from '@/models/interfaces/auth.interface';
 import type { TDate, TOptions } from '@/models/types/shared.type';
 
 import {
@@ -24,6 +23,15 @@ const { BLACK, WHITE } = constants.shared.COLORS;
 const { NODE_ENVS, SELECTORS } = constants.shared;
 const { AUTH } = constants.routePages;
 const { hideLoading, showLoading, showToast, sleep } = utils.shared;
+
+interface IForm {
+  email: string;
+  fullName: string;
+  password: string;
+  passwordConfirm: string;
+  terms: boolean;
+  type: string;
+}
 
 definePageMeta({
   layout: 'default',
@@ -67,7 +75,7 @@ const { handleSubmit, resetForm } = useForm<IForm>({
   validationSchema: toTypedSchema(schema),
 });
 const { t } = useI18n();
-const { showConfirm } = useConfirmDialog();
+const { showConfirmDialog } = useConfirmDialog();
 const { isDark } = useTheme();
 const { pagination } = usePagination();
 
@@ -129,7 +137,8 @@ const handleChangePagination = (currentPage: number, pageSize: number) => {
   showToast(`currentPage: ${currentPage} & pageSize: ${pageSize}`);
 };
 
-const onSubmit = handleSubmit((_values: IForm) => {
+const onSubmit = handleSubmit((values) => {
+  console.info('onSubmit:', values);
   showToast('onSubmit: check console');
 });
 
@@ -164,7 +173,7 @@ const handleCheckboxGroupChange = (value: string[]) => {
 };
 
 const confirmDelete = () => {
-  showConfirm({
+  showConfirmDialog({
     cancelButtonText: 'No, Cancel',
     confirmButtonText: 'Yes, Delete',
     message: 'Proxy will permanently delete the file. Continue?',
