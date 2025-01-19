@@ -8,8 +8,7 @@ import { object as yupObject, string as yupString } from 'yup';
 
 const { MODULES, SHARED } = constants.iconPaths;
 const { LOGIN_BUTTON } = constants.shared.SELECTORS;
-const { HOME } = constants.routePages;
-const { isSuccessResponse } = utils.shared;
+const { AUTH, HOME } = constants.routePages;
 
 definePageMeta({
   layout: 'guest',
@@ -23,7 +22,7 @@ const schema = yupObject({
   email: yupString()
     .required('Email is required')
     .email('Invalid email format')
-    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Custom email regex validation failed'),
+    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Invalid email format'),
   password: yupString()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters long'),
@@ -49,8 +48,6 @@ const togglePasswordVisibility = () => {
 const onSubmit = handleSubmit(async (values) => {
   try {
     const response = await apis.auth.login(values);
-    if (!isSuccessResponse(response)) throw response;
-
     authStore.setToken(response.data.accessToken);
     await router.push(HOME);
   } catch (error) {
@@ -103,7 +100,9 @@ const onSubmit = handleSubmit(async (values) => {
                 <BaseIconSvg
                   width="20"
                   height="20"
-                  :path="showPassword ? MODULES.AUTH.EYE : MODULES.AUTH.EYE_CLOSED"
+                  :path="
+                    showPassword ? MODULES.AUTH.EYE : MODULES.AUTH.EYE_CLOSED
+                  "
                   @click="togglePasswordVisibility"
                 />
               </template>
@@ -111,10 +110,20 @@ const onSubmit = handleSubmit(async (values) => {
           </template>
         </BaseFormItem>
 
-        <BaseButton :id="LOGIN_BUTTON" type="primary" nativeType="submit" class="tw-w-full">
+        <BaseButton
+          :id="LOGIN_BUTTON"
+          type="primary"
+          nativeType="submit"
+          class="tw-w-full tw-mt-2"
+        >
           {{ t('auth.login') }}
         </BaseButton>
       </ElForm>
+
+      <div class="login__register-now">
+        <p>{{ t('auth.noAccount') }}</p>
+        <RouterLink :to="AUTH.REGISTER">{{ t('auth.registerNow') }}</RouterLink>
+      </div>
     </section>
   </div>
 </template>

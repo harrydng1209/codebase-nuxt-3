@@ -3,8 +3,8 @@
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string;
   readonly VITE_NODE_ENV: string;
-  readonly VITE_PORT: string;
-  readonly VITE_PORT_PREVIEW: string;
+  readonly VITE_SSR: string;
+  readonly VITE_DEVTOOLS: string;
 }
 
 interface ImportMeta {

@@ -20,18 +20,36 @@ const route = useRoute();
       <ClientOnly>
         <ElMenuItem :index="AUTH.LOGIN">
           <ElIcon>
-            <BaseIconSvg :path="LAYOUTS.DASHBOARD" :fill="isDark ? WHITE : BLACK" />
+            <BaseIconSvg
+              :path="LAYOUTS.DASHBOARD"
+              :fill="isDark ? WHITE : BLACK"
+            />
           </ElIcon>
           <template #title>{{ t('shared.navigator.login') }}</template>
         </ElMenuItem>
       </ClientOnly>
 
+      <ElMenuItem :index="AUTH.REGISTER">
+        <ElIcon>
+          <BaseIconSvg
+            :path="LAYOUTS.SETTINGS"
+            :fill="isDark ? WHITE : BLACK"
+          />
+        </ElIcon>
+        <template #title>{{ t('shared.navigator.register') }}</template>
+      </ElMenuItem>
+
       <ClientOnly>
         <ElMenuItem :index="BASE_COMPONENTS">
           <ElIcon>
-            <BaseIconSvg :path="LAYOUTS.FOLDER_SHARED" :fill="isDark ? WHITE : BLACK" />
+            <BaseIconSvg
+              :path="LAYOUTS.FOLDER_SHARED"
+              :fill="isDark ? WHITE : BLACK"
+            />
           </ElIcon>
-          <template #title>{{ t('shared.navigator.base-components') }}</template>
+          <template #title>
+            {{ t('shared.navigator.base-components') }}
+          </template>
         </ElMenuItem>
       </ClientOnly>
     </ElMenu>

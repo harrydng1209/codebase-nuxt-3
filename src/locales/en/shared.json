@@ -8,6 +8,7 @@
     "navigator": {
       "home": "Home",
       "login": "Login",
+      "register": "Register",
       "base-components": "Base Components"
     },
 

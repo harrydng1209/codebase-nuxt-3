@@ -48,7 +48,9 @@ const useFormatDate = () => {
           break;
 
         case 'MM/DD':
-          format = format.replace(/(MM\/)/g, 'MM月').replace(/(DD)/g, 'DD日') as TFormat;
+          format = format
+            .replace(/(MM\/)/g, 'MM月')
+            .replace(/(DD)/g, 'DD日') as TFormat;
           break;
 
         case 'YYYY-MM-DD':

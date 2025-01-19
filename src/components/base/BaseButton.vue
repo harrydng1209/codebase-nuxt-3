@@ -19,7 +19,12 @@ defineExpose({ innerRef });
 </script>
 
 <template>
-  <ElButton ref="innerRef" :type="props.type" :round="props.round" v-bind="$attrs">
+  <ElButton
+    ref="innerRef"
+    :type="props.type"
+    :round="props.round"
+    v-bind="$attrs"
+  >
     <template v-for="(_, name) in slots" :key="name" #[name]>
       <slot :name="name" />
     </template>

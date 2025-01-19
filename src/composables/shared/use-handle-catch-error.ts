@@ -1,4 +1,4 @@
-import type { IFailureResponse } from '@/models/interfaces/auth.interface';
+import type { TFailureResponse } from '@/models/types/auth.type';
 
 import { EToast } from '@/models/enums/shared.enum';
 
@@ -7,18 +7,19 @@ const { isFailureResponse, showToast } = utils.shared;
 const useHandleCatchError = () => {
   const { t } = useI18n();
 
-  const handleCatchError = (props: unknown) => {
+  const handleCatchError = <D>(props: unknown) => {
     switch (true) {
-      case isFailureResponse(props as IFailureResponse): {
-        const errorProp = props as IFailureResponse;
-        const errorMessageKey = errorProp.error.code;
-        const translatedMessage = t(errorMessageKey);
+      case isFailureResponse(props as TFailureResponse<D>): {
+        const errorProp = props as TFailureResponse<D>;
+        const errorData = errorProp.error.data;
+        const errorCode = errorProp.error.code;
+        const translatedMessage = t(errorCode);
         const errorMessage =
-          translatedMessage !== String(errorMessageKey)
+          translatedMessage !== String(errorCode)
             ? translatedMessage
             : errorProp.error.message;
         showToast(errorMessage, EToast.Error);
-        break;
+        return errorData;
       }
 
       case props instanceof Error:

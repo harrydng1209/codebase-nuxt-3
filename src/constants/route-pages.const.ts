@@ -1,6 +1,7 @@
 const routePages = {
   AUTH: {
     LOGIN: '/auth/login',
+    REGISTER: '/auth/register',
     ROOT: '/auth',
   },
 

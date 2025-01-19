@@ -1,138 +1,191 @@
-import type { IFailureResponse } from '@/models/interfaces/auth.interface';
-import type { TSuccessResponse } from '@/models/types/auth.type';
-import type { TLoadingTarget } from '@/models/types/shared.type';
+import type {
+  TFailureResponse,
+  TSuccessResponse,
+} from '@/models/types/auth.type';
+import type { TLoadingTargets } from '@/models/types/shared.type';
+import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
+import type { FetchResponse, ResolvedFetchOptions } from 'ofetch';
 
 import { EResponseStatus } from '@/models/enums/auth.enum';
-import { EToast } from '@/models/enums/shared.enum';
 import httpService from '@/services/http.service';
 import useAuthStore from '@/stores/auth.store';
-import { useLocalStorage } from '@vueuse/core';
-import { type AxiosError, type AxiosRequestConfig, type AxiosResponse, isAxiosError } from 'axios';
 
 const { ACCESS_TOKEN } = constants.shared.STORAGE_KEYS;
-const { DELETE, GET, PATCH, POST, PUT } = constants.shared.HTTP_METHODS;
 const { ERR_500 } = constants.shared.ERROR_CODES;
+const { AUTH } = constants.routePages;
 
-interface IAxiosRequestConfig extends AxiosRequestConfig {
-  _retry?: boolean;
-}
+type THttpConfig = NitroFetchOptions<NitroFetchRequest, THttpMethods>;
+type THttpMethods = 'delete' | 'get' | 'patch' | 'post' | 'put';
 
-type THttpMethods =
-  (typeof constants.shared.HTTP_METHODS)[keyof typeof constants.shared.HTTP_METHODS];
-
-const request = async <T = unknown, M = unknown>(
+const request = async <D = unknown, M = unknown>(
   method: THttpMethods,
   url: string,
   data: unknown,
-  config?: AxiosRequestConfig,
-  loadingTarget?: TLoadingTarget,
+  config?: THttpConfig,
+  loadingTarget?: TLoadingTargets,
   toastMessage?: string,
-): Promise<IFailureResponse | TSuccessResponse<T, M>> => {
+) => {
   let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
 
   try {
     loadingInstance = utils.shared.showLoading(loadingTarget || false);
+    const body =
+      typeof data === 'object' && data !== null ? data : JSON.stringify(data);
 
-    const response: AxiosResponse<TSuccessResponse<T, M>> = await httpService[method](
-      url,
-      data,
-      config,
-    );
+    const response = await httpService.raw<TSuccessResponse<D, M>>(url, {
+      body,
+      method,
+      ...config,
+    });
     if (toastMessage) utils.shared.showToast(toastMessage);
 
-    return {
-      data: response.data.data,
-      meta: response.data.meta,
+    const result: TSuccessResponse<D, M> = {
+      data: response._data!.data,
+      meta: response._data!.meta,
       status: EResponseStatus.Success,
-    } as TSuccessResponse<T, M>;
+      statusCode: response.status,
+    };
+    return result;
   } catch (error) {
-    let errorMessage = 'An error occurred';
+    const errorResponse = error as FetchResponse<TFailureResponse>;
     let errorCode = ERR_500;
+    let errorData = null;
+    let errorMessage = 'An error occurred';
+    let statusCode = 500;
 
-    if (isAxiosError<IFailureResponse>(error)) {
-      errorMessage = error.response?.data.error.message || errorMessage;
-      errorCode = error.response?.data.error.code || errorCode;
+    if (errorResponse) {
+      errorCode = errorResponse._data?.error.code || errorCode;
+      errorData = errorResponse._data?.error.data || errorData;
+      errorMessage = errorResponse._data?.error.message || errorMessage;
+      statusCode = errorResponse.status || statusCode;
     }
-    if (toastMessage) utils.shared.showToast(errorMessage, EToast.Error);
 
-    throw {
+    const result: TFailureResponse = {
       error: {
         code: errorCode,
+        data: errorData,
         message: errorMessage,
       },
       status: EResponseStatus.Failure,
-    } as IFailureResponse;
+      statusCode,
+    };
+    return Promise.reject(result);
   } finally {
     utils.shared.hideLoading(loadingInstance);
   }
 };
 
 const http = {
-  delete: async <T = unknown, M = unknown>(
+  delete: async <D = unknown, M = unknown>(
     url: string,
-    config?: AxiosRequestConfig,
-    loadingTarget?: TLoadingTarget,
+    config?: THttpConfig,
+    loadingTarget?: TLoadingTargets,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(DELETE, url, undefined, config, loadingTarget, toastMessage);
+    return await request<D, M>(
+      'delete',
+      url,
+      undefined,
+      config,
+      loadingTarget,
+      toastMessage,
+    );
   },
 
-  get: async <T = unknown, M = unknown>(
+  get: async <D = unknown, M = unknown>(
     url: string,
-    config?: AxiosRequestConfig,
-    loadingTarget?: TLoadingTarget,
+    config?: THttpConfig,
+    loadingTarget?: TLoadingTargets,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(GET, url, undefined, config, loadingTarget, toastMessage);
+    return await request<D, M>(
+      'get',
+      url,
+      undefined,
+      config,
+      loadingTarget,
+      toastMessage,
+    );
   },
 
-  handleUnauthorizedError: async (error: AxiosError<IFailureResponse>) => {
+  handleUnauthorizedError: async (
+    options: ResolvedFetchOptions,
+    response: FetchResponse<TFailureResponse>,
+  ) => {
+    if (options.retry && options.retry >= 1) return;
+
     const authStore = useAuthStore();
-    const isSuccess = await authStore.refreshToken();
+    const isTokenRefreshed = await authStore.refreshToken();
 
-    if (isSuccess) {
-      const accessToken = useLocalStorage(ACCESS_TOKEN, '').value;
-      const originalRequest = error.config as IAxiosRequestConfig;
-
-      if (originalRequest) {
-        originalRequest.headers!.Authorization = `Bearer ${accessToken}`;
-
-        if (!originalRequest._retry) {
-          originalRequest._retry = true;
-          httpService(originalRequest);
-        }
-      }
+    if (!isTokenRefreshed) {
+      authStore.logout();
+      window.location.href = AUTH.LOGIN;
+      return;
     }
+
+    const accessToken = useCookie(ACCESS_TOKEN);
+    const retryRequest: THttpConfig = {
+      body: options.body,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${accessToken.value}`,
+      },
+      method: options.method as THttpMethods,
+      retry: (options.retry || 0) + 1,
+    };
+
+    await httpService(response.url, retryRequest);
   },
 
-  patch: async <T = unknown, M = unknown>(
+  patch: async <D = unknown, M = unknown>(
     url: string,
     data: unknown,
-    config?: AxiosRequestConfig,
-    loadingTarget?: TLoadingTarget,
+    config?: THttpConfig,
+    loadingTarget?: TLoadingTargets,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(PATCH, url, data, config, loadingTarget, toastMessage);
+    return await request<D, M>(
+      'patch',
+      url,
+      data,
+      config,
+      loadingTarget,
+      toastMessage,
+    );
   },
 
-  post: async <T = unknown, M = unknown>(
+  post: async <D = unknown, M = unknown>(
     url: string,
     data: unknown,
-    config?: AxiosRequestConfig,
-    loadingTarget?: TLoadingTarget,
+    config?: THttpConfig,
+    loadingTarget?: TLoadingTargets,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(POST, url, data, config, loadingTarget, toastMessage);
+    return await request<D, M>(
+      'post',
+      url,
+      data,
+      config,
+      loadingTarget,
+      toastMessage,
+    );
   },
 
-  put: async <T = unknown, M = unknown>(
+  put: async <D = unknown, M = unknown>(
     url: string,
     data: unknown,
-    config?: AxiosRequestConfig,
-    loadingTarget?: TLoadingTarget,
+    config?: THttpConfig,
+    loadingTarget?: TLoadingTargets,
     toastMessage?: string,
   ) => {
-    return await request<T, M>(PUT, url, data, config, loadingTarget, toastMessage);
+    return await request<D, M>(
+      'put',
+      url,
+      data,
+      config,
+      loadingTarget,
+      toastMessage,
+    );
   },
 };
 

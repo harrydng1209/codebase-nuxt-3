@@ -20,6 +20,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const userRole = authStore.getUserRole;
     const hasRequiredRole = requiresRoles?.some((role) => role === userRole);
 
-    if (requiresRoles.length && !hasRequiredRole) return await navigateTo(FORBIDDEN);
+    if (requiresRoles.length && !hasRequiredRole)
+      return await navigateTo(FORBIDDEN);
   }
 });

@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import type { IBreadcrumbItem } from '@/models/interfaces/shared.interface';
+import type { RouteLocationRaw } from 'vue-router';
+
+export interface IBreadcrumbItem {
+  text: string;
+  to: RouteLocationRaw;
+}
 
 const { HOME } = constants.routePages;
 

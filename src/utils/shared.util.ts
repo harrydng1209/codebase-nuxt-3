@@ -1,6 +1,9 @@
-import type { IFailureResponse } from '@/models/interfaces/auth.interface';
-import type { TSuccessResponse } from '@/models/types/auth.type';
-import type { TDate, TLoadingTarget, TObjectUnknown } from '@/models/types/shared.type';
+import type { TFailureResponse } from '@/models/types/auth.type';
+import type {
+  TDate,
+  TLoadingTargets,
+  TObjectUnknown,
+} from '@/models/types/shared.type';
 
 import { EResponseStatus } from '@/models/enums/auth.enum';
 import { EToast } from '@/models/enums/shared.enum';
@@ -16,13 +19,16 @@ dayjs.extend(utc);
 const shared = {
   cleanQuery: <T>(query: TObjectUnknown): T => {
     const cleanedQuery = Object.fromEntries(
-      Object.entries(query).filter(([_, value]) => value !== undefined && value !== ''),
+      Object.entries(query).filter(
+        ([_, value]) => value !== undefined && value !== '',
+      ),
     );
     return cleanedQuery as T;
   },
 
   convertToCamelCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
-    if (Array.isArray(data)) return data.map((item) => shared.convertToCamelCase(item)) as T;
+    if (Array.isArray(data))
+      return data.map((item) => shared.convertToCamelCase(item)) as T;
     if (data === null || typeof data !== 'object') return data as T;
 
     const newObject: TObjectUnknown = {};
@@ -31,8 +37,13 @@ const shared = {
       const value = data[key];
 
       if (typeof value === 'object' && value !== null) {
-        if ((value as TObjectUnknown).constructor === Object || Array.isArray(value)) {
-          newObject[newKey] = shared.convertToCamelCase(value as TObjectUnknown);
+        if (
+          (value as TObjectUnknown).constructor === Object ||
+          Array.isArray(value)
+        ) {
+          newObject[newKey] = shared.convertToCamelCase(
+            value as TObjectUnknown,
+          );
           return;
         }
       }
@@ -42,12 +53,16 @@ const shared = {
   },
 
   convertToSnakeCase: <T>(data: TObjectUnknown | TObjectUnknown[]): T => {
-    if (Array.isArray(data)) return data.map((item) => shared.convertToSnakeCase(item)) as T;
+    if (Array.isArray(data))
+      return data.map((item) => shared.convertToSnakeCase(item)) as T;
     if (!data || typeof data !== 'object') return data as T;
 
     const newObject: TObjectUnknown = {};
     Object.keys(data).forEach((key) => {
-      const newKey = key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
+      const newKey = key.replace(
+        /[A-Z]/g,
+        (match) => `_${match.toLowerCase()}`,
+      );
       const value = data[key];
 
       if (typeof value === 'object' && value !== null) {
@@ -63,7 +78,10 @@ const shared = {
     return dayjs(date).utc().toISOString();
   },
 
-  formatQueryString: (baseUrl: string, query: string | string[] | TObjectUnknown): string => {
+  formatQueryString: (
+    baseUrl: string,
+    query: string | string[] | TObjectUnknown,
+  ): string => {
     if (
       !query ||
       (Array.isArray(query) && query.length === 0) ||
@@ -72,15 +90,22 @@ const shared = {
       return baseUrl;
 
     const queryString =
-      typeof query === 'string' ? query : qs.stringify(query, { arrayFormat: 'brackets' });
+      typeof query === 'string'
+        ? query
+        : qs.stringify(query, { arrayFormat: 'brackets' });
     return `${baseUrl}?${queryString}`;
   },
 
-  formatString: (template: string, values: TObjectUnknown | unknown[]): string => {
+  formatString: (
+    template: string,
+    values: TObjectUnknown | unknown[],
+  ): string => {
     return stringTemplate(template, values);
   },
 
-  hideLoading: (loadingInstance: null | ReturnType<typeof ElLoading.service>) => {
+  hideLoading: (
+    loadingInstance: null | ReturnType<typeof ElLoading.service>,
+  ) => {
     if (loadingInstance) {
       loadingInstance.close();
       const element = loadingInstance.target.value;
@@ -89,7 +114,9 @@ const shared = {
     }
   },
 
-  isFailureResponse(response: Error | IFailureResponse): response is IFailureResponse {
+  isFailureResponse(
+    response: Error | TFailureResponse,
+  ): response is TFailureResponse {
     return (
       typeof response === 'object' &&
       response !== null &&
@@ -98,17 +125,15 @@ const shared = {
     );
   },
 
-  isSuccessResponse<T, M>(
-    response: IFailureResponse | TSuccessResponse<T, M>,
-  ): response is TSuccessResponse<T, M> {
-    return response.status === EResponseStatus.Success;
-  },
-
-  showLoading: (target: TLoadingTarget) => {
+  showLoading: (target: TLoadingTargets) => {
     if (target === false) return null;
 
     if (target === 'fullscreen')
-      return ElLoading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true, text: 'Loading' });
+      return ElLoading.service({
+        background: 'rgba(0, 0, 0, 0.7)',
+        lock: true,
+        text: 'Loading',
+      });
 
     const element = document.getElementById(target);
     if (element) {
@@ -121,7 +146,11 @@ const shared = {
     return null;
   },
 
-  showToast: (message: string, type: EToast = EToast.Success, title: string = capitalize(type)) => {
+  showToast: (
+    message: string,
+    type: EToast = EToast.Success,
+    title: string = capitalize(type),
+  ) => {
     ElNotification({
       duration: 3000,
       message,

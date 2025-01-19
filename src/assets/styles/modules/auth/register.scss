@@ -1,9 +1,8 @@
-.login {
+.register {
   height: 100vh;
   @include flexbox-style;
 
   > section {
-    height: 370px;
     width: 420px;
     border: 1px solid var(--v-background-container-color);
     box-shadow:
@@ -27,7 +26,7 @@
     }
   }
 
-  &__register-now {
+  &__login-now {
     margin-top: 12px;
     @include flexbox-style(4px);
     @include text-style(12px);

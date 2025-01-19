@@ -1,15 +1,11 @@
 import type { IUserInfo } from '@/models/interfaces/auth.interface';
 
-import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 
-const { AUTH } = constants.routePages;
 const { ACCESS_TOKEN } = constants.shared.STORAGE_KEYS;
-const { isSuccessResponse } = utils.shared;
 
 const useAuthStore = defineStore('authStore', () => {
-  const router = useRouter();
-  const accessToken = useLocalStorage(ACCESS_TOKEN, '');
+  const accessToken = useCookie(ACCESS_TOKEN);
 
   const isAuthenticated = ref<boolean>(false);
   const userInfo = ref<IUserInfo>();
@@ -27,13 +23,11 @@ const useAuthStore = defineStore('authStore', () => {
       initialize: async () => {
         if (isAuthenticated.value) return;
 
-        const isLoggedIn = !!accessToken.value;
+        const isLoggedIn = Boolean(accessToken.value);
         if (!isLoggedIn) return;
 
         try {
           const response = await apis.auth.profile();
-          if (!isSuccessResponse(response)) throw response;
-
           getActions().setUser(response.data);
         } catch (error) {
           console.error(error);
@@ -50,13 +44,10 @@ const useAuthStore = defineStore('authStore', () => {
         let result = true;
         try {
           const response = await apis.auth.refreshToken();
-          if (!isSuccessResponse(response)) throw response;
-
           accessToken.value = response.data.accessToken;
         } catch (error) {
-          result = false;
           console.error(error);
-          await router.push(AUTH.LOGIN);
+          result = false;
         }
         return result;
       },

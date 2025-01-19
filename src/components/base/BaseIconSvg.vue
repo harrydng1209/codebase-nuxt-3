@@ -29,5 +29,9 @@ watch(
 </script>
 
 <template>
-  <component :is="iconComponent" class="tw-cursor-pointer tw-outline-none" v-bind="$attrs" />
+  <component
+    :is="iconComponent"
+    class="tw-cursor-pointer tw-outline-none"
+    v-bind="$attrs"
+  />
 </template>

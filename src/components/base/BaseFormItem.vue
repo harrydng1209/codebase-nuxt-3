@@ -16,7 +16,10 @@ const attrs = useAttrs();
 const slots: Slots = useSlots();
 const { errorMessage, meta, value: modelValue } = useField(props.name);
 
-const getVeeValidateConfig = (meta: FieldMeta<unknown>, errorMessage: string | undefined) => {
+const getVeeValidateConfig = (
+  meta: FieldMeta<unknown>,
+  errorMessage: string | undefined,
+) => {
   return {
     error: errorMessage,
     required: meta.required,

@@ -2,12 +2,16 @@
 import TheBreadcrumb from '@/components/layouts/TheBreadcrumb.vue';
 import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
+import useAuthStore from '@/stores/auth.store';
 
 const { LAYOUTS, SHARED } = constants.iconPaths;
 const { BLACK, WHITE } = constants.shared.COLORS;
+const { AUTH } = constants.routePages;
 
 const { changeTheme, isDark } = useTheme();
 const { changeLanguage, currentLanguage } = useLanguage();
+const router = useRouter();
+const authStore = useAuthStore();
 
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   label: key,
@@ -21,6 +25,11 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
     [ELanguageCode.Vietnamese]: LAYOUTS.VIETNAMESE,
   };
   return iconPaths[lang];
+};
+
+const handleLogout = async () => {
+  authStore.logout();
+  await router.push(AUTH.LOGIN);
 };
 </script>
 
@@ -61,13 +70,19 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
       <BaseDropdown>
         <span>
           <ElBadge :value="notifications.length">
-            <BaseIconSvg :path="LAYOUTS.NOTIFICATION" :fill="isDark ? WHITE : BLACK" />
+            <BaseIconSvg
+              :path="LAYOUTS.NOTIFICATION"
+              :fill="isDark ? WHITE : BLACK"
+            />
           </ElBadge>
         </span>
 
         <template #dropdown>
           <ElDropdownMenu>
-            <ElDropdownItem v-for="notification in notifications" :key="notification.id">
+            <ElDropdownItem
+              v-for="notification in notifications"
+              :key="notification.id"
+            >
               <div>
                 <p>{{ notification.message }}</p>
                 <p>{{ notification.time }}</p>
@@ -88,7 +103,9 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
           <ElDropdownMenu>
             <ElDropdownItem>Profile</ElDropdownItem>
             <ElDropdownItem>Settings</ElDropdownItem>
-            <ElDropdownItem divided>Logout</ElDropdownItem>
+            <ElDropdownItem divided @click="handleLogout">
+              Logout
+            </ElDropdownItem>
           </ElDropdownMenu>
         </template>
       </BaseDropdown>

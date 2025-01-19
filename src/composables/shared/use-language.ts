@@ -5,7 +5,10 @@ const { LANGUAGE } = constants.shared.STORAGE_KEYS;
 
 const useLanguage = () => {
   const { locale } = useI18n();
-  const language = useLocalStorage<ELanguageCode>(LANGUAGE, ELanguageCode.English);
+  const language = useLocalStorage<ELanguageCode>(
+    LANGUAGE,
+    ELanguageCode.English,
+  );
 
   const changeLanguage = (newLang: ELanguageCode) => {
     language.value = newLang;
