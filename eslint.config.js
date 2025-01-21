@@ -12,6 +12,7 @@ export default withNuxt([
   {
     ignores: [
       '**/.git/',
+      '**/.husky/',
       '**/.nuxt/',
       '**/.output/',
       '**/node_modules/',

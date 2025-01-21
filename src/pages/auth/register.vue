@@ -7,7 +7,7 @@ import { object as yupObject, ref as yupRef, string as yupString } from 'yup';
 
 const { AUTH } = constants.routePages;
 const { MODULES, SHARED } = constants.iconPaths;
-const { REGISTER_BUTTON } = constants.shared.SELECTORS;
+const { REGISTER_SECTION } = constants.shared.SELECTORS;
 
 definePageMeta({
   layout: 'guest',
@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="register">
-    <section>
+    <section :id="REGISTER_SECTION">
       <h4>{{ t('auth.register') }}</h4>
 
       <ElForm
@@ -187,7 +187,6 @@ const onSubmit = handleSubmit(async (values) => {
         </BaseFormItem>
 
         <BaseButton
-          :id="REGISTER_BUTTON"
           type="primary"
           nativeType="submit"
           class="tw-w-full tw-mt-2"

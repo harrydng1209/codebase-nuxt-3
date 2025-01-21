@@ -33,8 +33,8 @@ const shared = {
   SELECTORS: {
     APIS_SECTION: 'apis-section',
     LOADING_SECTION: 'loading-section',
-    LOGIN_BUTTON: 'login-button',
-    REGISTER_BUTTON: 'register-button',
+    LOGIN_SECTION: 'login-section',
+    REGISTER_SECTION: 'register-section',
   },
 
   STORAGE_KEYS: {
