@@ -6,7 +6,7 @@ import type {
 } from '@/models/interfaces/auth.interface';
 
 const { AUTH } = constants.routeApis;
-const { LOGIN_SECTION, REGISTER_SECTION } = constants.shared.SELECTORS;
+const { SELECTORS } = constants.shared;
 const { get, post } = utils.http;
 
 const auth = {
@@ -16,7 +16,7 @@ const auth = {
       url,
       data,
       { credentials: 'include' },
-      LOGIN_SECTION,
+      SELECTORS.LOGIN_SECTION,
     );
   },
 
@@ -38,7 +38,7 @@ const auth = {
       url,
       data,
       undefined,
-      REGISTER_SECTION,
+      SELECTORS.REGISTER_SECTION,
       'Registration successful',
     );
   },

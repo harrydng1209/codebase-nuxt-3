@@ -7,7 +7,7 @@ import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 
 const { MODULES, SHARED } = constants.iconPaths;
-const { LOGIN_SECTION } = constants.shared.SELECTORS;
+const { REGEXES, SELECTORS } = constants.shared;
 const { AUTH, HOME } = constants.routePages;
 
 definePageMeta({
@@ -22,7 +22,7 @@ const schema = yupObject({
   email: yupString()
     .required('Email is required')
     .email('Invalid email format')
-    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Invalid email format'),
+    .matches(REGEXES.EMAIL, 'Invalid email format'),
   password: yupString()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters long'),
@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="login">
-    <section :id="LOGIN_SECTION">
+    <section :id="SELECTORS.LOGIN_SECTION">
       <h4>{{ t('auth.login') }}</h4>
 
       <ElForm

@@ -20,9 +20,10 @@ import {
 } from 'yup';
 
 const { LAYOUTS, SHARED } = constants.iconPaths;
-const { BLACK, WHITE } = constants.shared.COLORS;
-const { NODE_ENVS, SELECTORS } = constants.shared;
+const { NODE_ENVS, REGEXES, SELECTORS } = constants.shared;
 const { AUTH } = constants.routePages;
+const { themeColors } = constants;
+const { DEFAULT } = constants.themeColors;
 const { hideLoading, showLoading, showToast, sleep } = utils.shared;
 
 interface IForm {
@@ -52,10 +53,10 @@ const schema = yupObject({
   email: yupString()
     .required('Email is required')
     .email('Invalid email format')
-    .matches(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Invalid email format'),
+    .matches(REGEXES.EMAIL, 'Invalid email format'),
   fullName: yupString()
     .required('Full name is required')
-    .matches(/^[A-Za-z\s]+$/, 'Name can only contain letters and spaces'),
+    .matches(REGEXES.DISPLAY_NAME, 'Name can only contain letters and spaces'),
   password: yupString()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters long'),
@@ -80,7 +81,7 @@ const { handleSubmit, resetForm } = useForm<IForm>({
 });
 const { t } = useI18n();
 const { showConfirmDialog } = useConfirmDialog();
-const { isDark } = useTheme();
+const { theme } = useTheme();
 const { pagination } = usePagination();
 const { handleCatchError } = useHandleCatchError();
 
@@ -248,7 +249,7 @@ onMounted(() => {
               <BaseIconSvg
                 v-tippy="iconPath"
                 :path="String(iconPath)"
-                :fill="isDark ? WHITE : BLACK"
+                :fill="themeColors[theme].ICON_SVG"
                 @click="handleClickIconSvg"
               />
             </template>
@@ -304,7 +305,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="WHITE"
+                :fill="DEFAULT.WHITE"
                 :path="LAYOUTS.SEARCH"
               />
             </template>
@@ -315,7 +316,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="WHITE"
+                :fill="DEFAULT.WHITE"
                 :path="LAYOUTS.SETTINGS"
               />
             </template>
@@ -326,7 +327,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="WHITE"
+                :fill="DEFAULT.WHITE"
                 :path="LAYOUTS.DASHBOARD"
               />
             </template>
@@ -337,7 +338,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="WHITE"
+                :fill="DEFAULT.WHITE"
                 :path="LAYOUTS.FOLDER_SHARED"
               />
             </template>
@@ -348,7 +349,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="WHITE"
+                :fill="DEFAULT.WHITE"
                 :path="SHARED.DELETE"
               />
             </template>
@@ -359,7 +360,7 @@ onMounted(() => {
               <BaseIconSvg
                 width="14"
                 height="14"
-                :fill="isDark ? WHITE : BLACK"
+                :fill="themeColors[theme].ICON_SVG"
                 :path="LAYOUTS.NOTIFICATION"
               />
             </template>
@@ -458,7 +459,7 @@ onMounted(() => {
             <template #suffix>
               <BaseIconSvg
                 :path="LAYOUTS.SEARCH"
-                :fill="isDark ? WHITE : BLACK"
+                :fill="themeColors[theme].ICON_SVG"
               />
             </template>
           </BaseInput>

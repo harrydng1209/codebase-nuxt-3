@@ -5,11 +5,11 @@ import { ELanguageCode } from '@/models/enums/shared.enum';
 import useAuthStore from '@/stores/auth.store';
 
 const { LAYOUTS, SHARED } = constants.iconPaths;
-const { BLACK, WHITE } = constants.shared.COLORS;
 const { AUTH } = constants.routePages;
+const { themeColors } = constants;
 
-const { changeTheme, isDark } = useTheme();
-const { changeLanguage, currentLanguage } = useLanguage();
+const { changeTheme, isDark, theme } = useTheme();
+const { language, setLanguage } = useLanguage();
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -42,13 +42,13 @@ const handleLogout = async () => {
     <section class="the-topbar__profile">
       <BaseIconSvg
         :path="isDark ? SHARED.LIGHT_MODE : SHARED.DARK_MODE"
-        :fill="isDark ? WHITE : BLACK"
+        :fill="themeColors[theme].ICON_SVG"
         @click="changeTheme()"
       />
 
       <BaseDropdown>
         <span>
-          <BaseIconSvg :path="getIconPathForLanguage(currentLanguage)" />
+          <BaseIconSvg :path="getIconPathForLanguage(language)" />
         </span>
 
         <template #dropdown>
@@ -56,7 +56,7 @@ const handleLogout = async () => {
             <ElDropdownItem
               v-for="(item, index) in i18nOptions"
               :key="index"
-              @click="changeLanguage(item.value)"
+              @click="setLanguage(item.value)"
             >
               <div class="tw-flex-center tw-gap-2">
                 <BaseIconSvg :path="getIconPathForLanguage(item.value)" />
@@ -72,7 +72,7 @@ const handleLogout = async () => {
           <ElBadge :value="notifications.length">
             <BaseIconSvg
               :path="LAYOUTS.NOTIFICATION"
-              :fill="isDark ? WHITE : BLACK"
+              :fill="themeColors[theme].ICON_SVG"
             />
           </ElBadge>
         </span>

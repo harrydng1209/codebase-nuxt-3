@@ -10,8 +10,7 @@ import { EResponseStatus } from '@/models/enums/auth.enum';
 import httpService from '@/services/http.service';
 import useAuthStore from '@/stores/auth.store';
 
-const { ACCESS_TOKEN } = constants.shared.STORAGE_KEYS;
-const { ERR_500 } = constants.shared.ERROR_CODES;
+const { ERROR_CODES, STORAGE_KEYS } = constants.shared;
 const { AUTH } = constants.routePages;
 
 type THttpConfig = NitroFetchOptions<NitroFetchRequest, THttpMethods>;
@@ -48,7 +47,7 @@ const request = async <D = unknown, M = unknown>(
     return result;
   } catch (error) {
     const errorResponse = error as FetchResponse<TFailureResponse>;
-    let errorCode = ERR_500;
+    let errorCode = ERROR_CODES.ERR_500;
     let errorData = null;
     let errorMessage = 'An error occurred';
     let statusCode = 500;
@@ -123,7 +122,7 @@ const http = {
       return;
     }
 
-    const accessToken = useCookie(ACCESS_TOKEN);
+    const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
     const retryRequest: THttpConfig = {
       body: options.body,
       headers: {

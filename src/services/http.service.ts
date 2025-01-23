@@ -2,7 +2,7 @@ import type { TObjectUnknown } from '@/models/types/shared.type';
 
 import { EHttpStatusCode } from '@/models/enums/auth.enum';
 
-const { ACCESS_TOKEN } = constants.shared.STORAGE_KEYS;
+const { STORAGE_KEYS } = constants.shared;
 
 const httpService = $fetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -11,7 +11,7 @@ const httpService = $fetch.create({
     'Content-Type': 'application/json',
   },
   onRequest({ options }) {
-    const accessToken = useCookie(ACCESS_TOKEN);
+    const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
 
     if (options.body && !(options.body instanceof FormData))
       options.body = utils.shared.convertToSnakeCase(

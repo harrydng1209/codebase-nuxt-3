@@ -5,10 +5,10 @@ import ja from 'element-plus/dist/locale/ja.mjs';
 import vi from 'element-plus/dist/locale/vi.mjs';
 
 useTheme();
-const { currentLanguage } = useLanguage();
+const { language } = useLanguage();
 
 const locale = computed(() => {
-  switch (currentLanguage.value) {
+  switch (language.value) {
     case ELanguageCode.Japanese:
       return ja;
 
