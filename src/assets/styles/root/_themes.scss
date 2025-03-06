@@ -2,7 +2,7 @@
 :root {
   --v-text-color: #{$color-black};
   --v-background-body-color: #e0f8f9;
-  --v-background-container-color: #{$color-white};
+  --v-background-content-color: #{$color-white};
   --v-box-shadow-color: #2553b91a;
   --v-scrollbar-color: #b0b0b0;
 }
@@ -11,7 +11,7 @@
 html.dark {
   --v-text-color: #{$color-white};
   --v-background-body-color: #16293e;
-  --v-background-container-color: #111c2d;
+  --v-background-content-color: #111c2d;
   --v-box-shadow-color: #2553b91a;
   --v-scrollbar-color: #555;
 }

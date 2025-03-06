@@ -37,6 +37,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vee-validate/nuxt',
     '@element-plus/nuxt',
+    'nuxt-svgo-loader',
   ],
 
   postcss: {

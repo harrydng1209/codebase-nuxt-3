@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { TDate, TOptions } from '@/models/types/shared.type';
 
+import IconDashboard from '@/assets/icons/shared/IconDashboard.svg';
+import IconDelete from '@/assets/icons/shared/IconDelete.svg';
+import IconFolderShared from '@/assets/icons/shared/IconFolderShared.svg';
+import IconNotification from '@/assets/icons/shared/IconNotification.svg';
+import IconSearch from '@/assets/icons/shared/IconSearch.svg';
+import IconSettings from '@/assets/icons/shared/IconSettings.svg';
 import {
   baseCheckboxOptions,
   baseSelectOptions,
@@ -19,7 +25,6 @@ import {
   string as yupString,
 } from 'yup';
 
-const { LAYOUTS, SHARED } = constants.iconPaths;
 const { NODE_ENVS, REGEXES, SELECTORS } = constants.shared;
 const { AUTH } = constants.routePages;
 const { themeColors } = constants;
@@ -34,6 +39,8 @@ interface IForm {
   terms: boolean;
   type: string;
 }
+
+type TIcons = Record<string, { default: Component }>;
 
 definePageMeta({
   layout: 'default',
@@ -99,6 +106,7 @@ const baseCheckboxGroup = ref<string[]>([]);
 const baseCheckboxAll = ref<boolean>(false);
 const isIndeterminate = ref<boolean>(false);
 const searchInput = ref<string>('');
+const svgIcons = shallowRef<Record<string, Component>>({});
 
 const handleClickButton = useDebounceFn(() => {
   showToast('handleClickButton');
@@ -212,14 +220,26 @@ const handleLoadingSection = async () => {
   hideLoading(loadingInstance);
 };
 
+const loadSvgIcons = async () => {
+  const icons: TIcons = import.meta.glob('@/assets/icons/**/*.svg', {
+    eager: true,
+  });
+
+  Object.entries(icons).forEach(([path, module]) => {
+    const iconName = path.split('/').pop()?.replace('.svg', '');
+    if (iconName) svgIcons.value[iconName] = module.default;
+  });
+};
+
 onMounted(() => {
   pagination.value.total = 1000;
+  loadSvgIcons();
 });
 </script>
 
 <template>
   <ClientOnly>
-    <div class="base-components">
+    <div class="container">
       <section>
         <h4>-- i18n --</h4>
         <div class="tw-flex tw-items-center tw-gap-4">
@@ -228,7 +248,7 @@ onMounted(() => {
       </section>
 
       <section :id="SELECTORS.APIS_SECTION">
-        <h4>-- Apis --</h4>
+        <h4>-- APIs --</h4>
         <BaseButton @click="handleGetHealthCheck">Health Check</BaseButton>
       </section>
 
@@ -239,21 +259,15 @@ onMounted(() => {
       </section>
 
       <section>
-        <h4>-- Base Icons SVG --</h4>
+        <h4>-- SVG Icons --</h4>
         <div class="tw-flex tw-gap-2">
-          <template
-            v-for="(category, categoryName) in constants.iconPaths"
-            :key="categoryName"
-          >
-            <template v-for="(iconPath, iconName) in category" :key="iconName">
-              <BaseIconSvg
-                v-tippy="iconPath"
-                :path="String(iconPath)"
-                :fill="themeColors[theme].ICON_SVG"
-                @click="handleClickIconSvg"
-              />
-            </template>
-          </template>
+          <component
+            :is="IconComponent"
+            v-for="(IconComponent, iconName) in svgIcons"
+            :key="iconName"
+            v-tippy="iconName"
+            @click="handleClickIconSvg"
+          />
         </div>
       </section>
 
@@ -302,67 +316,37 @@ onMounted(() => {
         <div>
           <BaseButton type="primary" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="DEFAULT.WHITE"
-                :path="LAYOUTS.SEARCH"
-              />
+              <IconSearch :fill="DEFAULT.WHITE" />
             </template>
           </BaseButton>
 
           <BaseButton type="info" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="DEFAULT.WHITE"
-                :path="LAYOUTS.SETTINGS"
-              />
+              <IconSettings :fill="DEFAULT.WHITE" />
             </template>
           </BaseButton>
 
           <BaseButton type="success" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="DEFAULT.WHITE"
-                :path="LAYOUTS.DASHBOARD"
-              />
+              <IconDashboard :fill="DEFAULT.WHITE" />
             </template>
           </BaseButton>
 
           <BaseButton type="warning" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="DEFAULT.WHITE"
-                :path="LAYOUTS.FOLDER_SHARED"
-              />
+              <IconFolderShared :fill="DEFAULT.WHITE" />
             </template>
           </BaseButton>
 
           <BaseButton type="danger" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="DEFAULT.WHITE"
-                :path="SHARED.DELETE"
-              />
+              <IconDelete />
             </template>
           </BaseButton>
 
           <BaseButton type="default" circle @click="handleClickButton">
             <template #icon>
-              <BaseIconSvg
-                width="14"
-                height="14"
-                :fill="themeColors[theme].ICON_SVG"
-                :path="LAYOUTS.NOTIFICATION"
-              />
+              <IconNotification :fill="themeColors[theme].ICON_SVG" />
             </template>
           </BaseButton>
         </div>
@@ -457,10 +441,7 @@ onMounted(() => {
             class="!tw-w-[300px]"
           >
             <template #suffix>
-              <BaseIconSvg
-                :path="LAYOUTS.SEARCH"
-                :fill="themeColors[theme].ICON_SVG"
-              />
+              <IconSearch :fill="themeColors[theme].ICON_SVG" />
             </template>
           </BaseInput>
         </div>
@@ -618,5 +599,5 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/modules/base-components.scss';
+@import '@/assets/styles/components/base-components.scss';
 </style>

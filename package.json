@@ -10,8 +10,11 @@
     "url": "https://github.com/harrydng1209"
   },
   "engines": {
-    "node": ">=20.x",
-    "npm": ">=10.x"
+    "node": ">= 22",
+    "pnpm": ">= 10",
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm",
+    "bun": "please-use-pnpm"
   },
   "scripts": {
     "build": "nuxt build",
@@ -28,7 +31,7 @@
     "precommit": "lint-staged && validate-branch-name"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue}": [
+    "*.{js,ts,vue}": [
       "pnpm run format",
       "pnpm run lint",
       "git add ."
@@ -79,13 +82,14 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "npm-run-all2": "^6.2.6",
+    "nuxt-svgo-loader": "^0.4.1",
     "prettier": "^3.4.2",
     "sass": "1.77.6",
-    "typescript": "^5.7.3",
+    "typescript": "~5.7.3",
     "typescript-eslint": "^8.20.0",
     "unplugin-auto-import": "^0.18.6",
     "unplugin-vue-components": "^0.27.5",
     "validate-branch-name": "^1.3.1",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.1.0"
   }
 }

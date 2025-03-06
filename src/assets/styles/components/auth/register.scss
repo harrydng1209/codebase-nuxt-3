@@ -1,16 +1,16 @@
-.register {
+.container {
   height: 100vh;
   @include flexbox-style;
 
   > section {
     width: 420px;
-    border: 1px solid var(--v-background-container-color);
+    border: 1px solid var(--v-background-content-color);
     box-shadow:
       0px 0px 6px rgba(0, 0, 0, 0.12),
       0px 4px 4px rgba(0, 0, 0, 0.04);
     border-radius: 20px;
     padding: 52px;
-    background-color: var(--v-background-container-color);
+    background-color: var(--v-background-content-color);
 
     > h4 {
       text-align: center;

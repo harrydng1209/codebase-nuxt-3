@@ -10,7 +10,7 @@ export type TObjectString = Record<string, string>;
 export type TObjectUnknown = Record<string, unknown>;
 
 export type TOptions<V = boolean | number | string | TObjectUnknown> = {
-  id?: number;
+  id?: number | string;
   label: string;
   value: V;
 };

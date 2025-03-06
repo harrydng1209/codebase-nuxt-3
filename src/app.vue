@@ -24,6 +24,7 @@ const locale = computed(() => {
 <template>
   <ElConfigProvider :locale="locale">
     <NuxtLoadingIndicator />
+
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

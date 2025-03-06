@@ -15,25 +15,34 @@ body::-webkit-scrollbar-thumb {
 }
 
 h1 {
-  @include text-style(40px, 700);
+  @include text-style(48px, 800, 1.25);
 }
 
 h2 {
-  @include text-style(30px, 700);
+  @include text-style(36px, 700, 1.25);
 }
 
 h3 {
-  @include text-style(24px, 600);
+  @include text-style(30px, 700, 1.25);
 }
 
 h4 {
-  @include text-style(20px, 600);
+  @include text-style(24px, 700, 1.25);
 }
 
 h5 {
-  @include text-style(16px, 500);
+  @include text-style(20px, 700, 1.25);
+}
+
+h6 {
+  @include text-style(16px, 700, 1.25);
 }
 
 p {
   @include text-style;
+}
+
+svg {
+  cursor: pointer;
+  outline: none;
 }

@@ -6,8 +6,6 @@ const { STORAGE_KEYS } = constants.shared;
 const useTheme = () => {
   const isDark = useDark({
     storageKey: STORAGE_KEYS.THEME,
-    valueDark: 'dark',
-    valueLight: 'light',
   });
   const changeTheme = useToggle(isDark);
 

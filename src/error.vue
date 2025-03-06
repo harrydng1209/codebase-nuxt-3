@@ -1,23 +1,12 @@
 <script setup lang="ts">
-const router = useRouter();
+const { HOME } = constants.routePages;
 
-const goBack = () => {
-  router.back();
-};
+const router = useRouter();
 </script>
 
 <template>
-  <div class="error">
-    <h1>Oops! Something went wrong</h1>
-    <h5>An unexpected error has occurred</h5>
-    <BaseButton @click="goBack">Go Back</BaseButton>
+  <div class="tw-fixed-center">
+    <h6 class="tw-mb-[16px]">This screen does not exist</h6>
+    <BaseButton @click="router.push(HOME)">Go to home screen</BaseButton>
   </div>
 </template>
-
-<style scoped lang="scss">
-.error {
-  width: 100vw;
-  height: 100vh;
-  @include flexbox-style(12px, center, center, column);
-}
-</style>

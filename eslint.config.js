@@ -5,7 +5,7 @@ import vueLint from 'eslint-plugin-vue';
 import globals from 'globals';
 import tsLint from 'typescript-eslint';
 
-import globalsrc from './.globalsrc.json' assert { type: 'json' };
+import globalsrc from './.globalsrc.json' with { type: 'json' };
 import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt([
@@ -28,7 +28,7 @@ export default withNuxt([
   configPrettier,
 
   {
-    files: ['**/*.{cjs,cts,mjs,mts,js,jsx,ts,tsx,vue}'],
+    files: ['**/*.{cjs,cts,mjs,mts,js,ts,vue}'],
 
     languageOptions: {
       globals: {

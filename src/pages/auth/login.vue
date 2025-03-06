@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { ILoginRequest } from '@/models/interfaces/auth.interface';
 
+import IconEye from '@/assets/icons/modules/auth/IconEye.svg';
+import IconEyeClosed from '@/assets/icons/modules/auth/IconEyeClosed.svg';
+import IconRequired from '@/assets/icons/shared/IconRequired.svg';
 import useAuthStore from '@/stores/auth.store';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 
-const { MODULES, SHARED } = constants.iconPaths;
 const { REGEXES, SELECTORS } = constants.shared;
 const { AUTH, HOME } = constants.routePages;
 
@@ -39,10 +41,10 @@ const authStore = useAuthStore();
 const router = useRouter();
 const { handleCatchError } = useHandleCatchError();
 
-const showPassword = ref<boolean>(false);
+const isShowPassword = ref<boolean>(false);
 
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
+const toggleIsShowPassword = () => {
+  isShowPassword.value = !isShowPassword.value;
 };
 
 const onSubmit = handleSubmit(async (values) => {
@@ -57,7 +59,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="login">
+  <div class="container">
     <section :id="SELECTORS.LOGIN_SECTION">
       <h4>{{ t('auth.login') }}</h4>
 
@@ -71,7 +73,7 @@ const onSubmit = handleSubmit(async (values) => {
         <BaseFormItem name="email">
           <template #label>
             <span>{{ t('auth.email') }}</span>
-            <BaseIconSvg width="5" height="10" :path="SHARED.REQUIRED" />
+            <IconRequired />
           </template>
 
           <template #default="{ modelValue, updateModelValue }">
@@ -86,24 +88,20 @@ const onSubmit = handleSubmit(async (values) => {
         <BaseFormItem name="password">
           <template #label>
             <span>{{ t('auth.password') }}</span>
-            <BaseIconSvg width="5" height="10" :path="SHARED.REQUIRED" />
+            <IconRequired />
           </template>
 
           <template #default="{ modelValue, updateModelValue }">
             <BaseInput
               :placeholder="t('auth.inputPassword')"
               :modelValue="modelValue"
-              :type="showPassword ? 'text' : 'password'"
+              :type="isShowPassword ? 'text' : 'password'"
               @input="updateModelValue"
             >
               <template #suffix>
-                <BaseIconSvg
-                  width="20"
-                  height="20"
-                  :path="
-                    showPassword ? MODULES.AUTH.EYE : MODULES.AUTH.EYE_CLOSED
-                  "
-                  @click="togglePasswordVisibility"
+                <component
+                  :is="isShowPassword ? IconEye : IconEyeClosed"
+                  @click="toggleIsShowPassword"
                 />
               </template>
             </BaseInput>
@@ -119,7 +117,7 @@ const onSubmit = handleSubmit(async (values) => {
         </BaseButton>
       </ElForm>
 
-      <div class="login__register-now">
+      <div class="container__register-now">
         <p>{{ t('auth.noAccount') }}</p>
         <RouterLink :to="AUTH.REGISTER">{{ t('auth.registerNow') }}</RouterLink>
       </div>
@@ -128,5 +126,5 @@ const onSubmit = handleSubmit(async (values) => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/modules/auth/login.scss';
+@import '@/assets/styles/components/auth/login.scss';
 </style>

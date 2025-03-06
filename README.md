@@ -1,6 +1,6 @@
 # code-base-nuxt-3
 
-This template should help you get started developing with Nuxt 3 in Vite.
+This template should help you get started developing with Nuxt 3 in Vite
 
 ## Overview
 
@@ -18,25 +18,28 @@ This template should help you get started developing with Nuxt 3 in Vite.
 
 ## Requirements
 
-- **Node.js**: >= 20.x
-- **npm**: >= 10.x
+- **Node.js**: >= 22
+- **pnpm**: >= 10
+- **npm**: please-use-pnpm
+- **yarn**: please-use-pnpm
+- **bun**: please-use-pnpm
 
 ## Scripts
 
 This project includes several scripts to assist with development:
 
-- `build`: Build the project for production.
-- `dev`: Start the development server using Nuxt.
-- `generate`: Generate a static version of your project.
-- `preview`: Preview the generated project.
-- `postinstall`: Prepare the Nuxt project after installation.
-- `format`: Format code using Prettier.
-- `lint`: Lint code using ESLint and fix issues.
-- `type-check`: Perform type checking with Vue TypeScript Compiler.
-- `check-all`: Run format, lint, and type-check scripts in parallel.
-- `preinstall`: Ensure only pnpm is used as the package manager.
-- `prepare`: Prepare Husky for Git hooks.
-- `precommit`: Run lint-staged and validate branch names before committing.
+- `build`: Build the project for production
+- `dev`: Start the development server using Nuxt
+- `generate`: Generate a static version of your project
+- `preview`: Preview the generated project
+- `postinstall`: Prepare the Nuxt project after installation
+- `format`: Format code using Prettier
+- `lint`: Lint code using ESLint and fix issues
+- `type-check`: Perform type checking with Vue TypeScript Compiler
+- `check-all`: Run format, lint, and type-check scripts in parallel
+- `preinstall`: Ensure only pnpm is used as the package manager
+- `prepare`: Prepare Husky for Git hooks
+- `precommit`: Run lint-staged and validate branch names before committing
 
 ## Getting Started
 

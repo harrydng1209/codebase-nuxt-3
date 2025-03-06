@@ -8,7 +8,7 @@ export default {
           const prefixPattern = /^\[TICKET-\d+\]: .+/;
           return [
             prefixPattern.test(raw),
-            `Your commit message should start with a ticket ID in the format "[TICKET-XXX]: Commit message".`,
+            `Your commit message should start with a ticket ID in the format "[TICKET-XXX]: Commit message"`,
           ];
         },
       },
