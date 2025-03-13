@@ -126,8 +126,6 @@ const shared = {
   },
 
   showLoading: (target: TLoadingTargets) => {
-    if (target === false) return null;
-
     if (target === 'fullscreen')
       return ElLoading.service({
         background: 'rgba(0, 0, 0, 0.4)',

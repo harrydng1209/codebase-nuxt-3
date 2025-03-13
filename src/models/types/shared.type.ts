@@ -2,8 +2,7 @@ export type TDate = Date | number | string;
 
 export type TLoadingTargets =
   | 'fullscreen'
-  | (typeof constants.shared.SELECTORS)[keyof typeof constants.shared.SELECTORS]
-  | false;
+  | (typeof constants.shared.SELECTORS)[keyof typeof constants.shared.SELECTORS];
 
 export type TObjectBoolean = Record<string, boolean>;
 export type TObjectString = Record<string, string>;

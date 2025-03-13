@@ -24,19 +24,22 @@ const request = async <D = unknown, M = unknown>(
   loadingTarget?: TLoadingTargets,
   toastMessage?: string,
 ) => {
+  const { hideLoading, showLoading, showToast } = utils.shared;
   let loadingInstance: null | ReturnType<typeof ElLoading.service> = null;
 
   try {
-    loadingInstance = utils.shared.showLoading(loadingTarget || false);
     const body =
       typeof data === 'object' && data !== null ? data : JSON.stringify(data);
+
+    if (loadingTarget) loadingInstance = showLoading(loadingTarget);
 
     const response = await httpService.raw<TSuccessResponse<D, M>>(url, {
       body,
       method,
       ...config,
     });
-    if (toastMessage) utils.shared.showToast(toastMessage);
+
+    if (toastMessage) showToast(toastMessage);
 
     const result: TSuccessResponse<D, M> = {
       data: response._data!.data,
@@ -70,7 +73,7 @@ const request = async <D = unknown, M = unknown>(
     };
     return Promise.reject(result);
   } finally {
-    utils.shared.hideLoading(loadingInstance);
+    hideLoading(loadingInstance);
   }
 };
 
