@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<IProps>(), {
   type: 'primary',
 });
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 
 const innerRef = ref<InstanceType<typeof ElButton> | null>(null);
 

@@ -84,11 +84,6 @@ export default defineNuxtConfig({
 
         imports: [
           {
-            from: 'vue',
-            imports: ['Slots'],
-            type: true,
-          },
-          {
             '@/apis': [['default', 'apis']],
             '@/constants': [['default', 'constants']],
             '@/utils': [['default', 'utils']],
@@ -99,7 +94,7 @@ export default defineNuxtConfig({
       }),
 
       components({
-        dirs: ['components/base/**'],
+        dirs: ['components/shared/**'],
         dts: '@types/components.d.ts',
       }),
     ],

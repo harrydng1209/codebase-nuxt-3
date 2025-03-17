@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<IProps>(), {
   fetchSuggestions: () => {},
 });
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 
 const innerRef = ref<InstanceType<typeof ElAutocomplete> | null>(null);
 

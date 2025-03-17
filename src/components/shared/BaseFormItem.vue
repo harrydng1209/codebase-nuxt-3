@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 const attrs = useAttrs();
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 const { errorMessage, meta, value: modelValue } = useField(props.name);
 
 const getVeeValidateConfig = (

@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<IProps>(), {
   options: () => [],
 });
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 </script>
 
 <template>

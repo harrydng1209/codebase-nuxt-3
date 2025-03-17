@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ElInputNumber } from 'element-plus';
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 
 const innerRef = ref<InstanceType<typeof ElInputNumber> | null>(null);
 

@@ -8,7 +8,7 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 
 const innerRef = ref<InstanceType<typeof ElSelect> | null>(null);
 

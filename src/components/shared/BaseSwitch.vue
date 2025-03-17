@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ElSwitch } from 'element-plus';
 
-const slots: Slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 
 const innerRef = ref<InstanceType<typeof ElSwitch> | null>(null);
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import TheSidebar from '@/components/shared/TheSidebar.vue';
-import TheTopbar from '@/components/shared/TheTopbar.vue';
 import { useWindowScroll } from '@vueuse/core';
 
 const { y } = useWindowScroll();
