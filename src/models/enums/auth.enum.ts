@@ -1,4 +1,17 @@
-export enum EHttpStatusCode {
+export enum EResponseStatus {
+  Failure = 'failure',
+  Success = 'success',
+}
+
+export enum ERole {
+  Admin = 'admin',
+  Guest = 'guest',
+  Moderator = 'moderator',
+  SuperAdmin = 'superAdmin',
+  User = 'user',
+}
+
+export enum EStatusCode {
   Accepted = 202,
   AlreadyReported = 208,
   BadGateway = 502,
@@ -62,17 +75,4 @@ export enum EHttpStatusCode {
   UriTooLong = 414,
   UseProxy = 305,
   VariantAlsoNegotiates = 506,
-}
-
-export enum EResponseStatus {
-  Failure = 'failure',
-  Success = 'success',
-}
-
-export enum ERole {
-  Admin = 'admin',
-  Guest = 'guest',
-  Moderator = 'moderator',
-  SuperAdmin = 'superAdmin',
-  User = 'user',
 }

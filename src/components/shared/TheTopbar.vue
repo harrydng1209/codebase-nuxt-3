@@ -9,13 +9,14 @@ import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
 import useAuthStore from '@/stores/auth.store';
 
-const { AUTH } = constants.routePages;
-const { themeColors } = constants;
+import useThemeColor from '~/composables/shared/use-theme-color';
+import { AUTH } from '~/constants/route-pages.const';
 
-const { changeTheme, isDark, theme } = useTheme();
+const { changeTheme, isDark } = useTheme();
 const { language, setLanguage } = useLanguage();
 const router = useRouter();
 const authStore = useAuthStore();
+const { getThemeColor } = useThemeColor();
 
 const i18nOptions = Object.entries(ELanguageCode).map(([key, value]) => ({
   label: key,
@@ -47,7 +48,7 @@ const handleLogout = async () => {
       <section class="container__menu">
         <component
           :is="isDark ? IconLightMode : IconDarkMode"
-          :fill="themeColors[theme].ICON_SVG"
+          :fill="getThemeColor('ICON_SVG')"
           @click="changeTheme()"
         />
 
@@ -75,7 +76,7 @@ const handleLogout = async () => {
         <BaseDropdown>
           <span>
             <ElBadge :value="notifications.length">
-              <IconNotification :fill="themeColors[theme].ICON_SVG" />
+              <IconNotification :fill="getThemeColor('ICON_SVG')" />
             </ElBadge>
           </span>
 

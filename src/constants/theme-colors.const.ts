@@ -1,16 +1,12 @@
-const themeColors = {
-  DARK: {
-    ICON_SVG: '#fff',
-  },
-
-  DEFAULT: {
-    BLACK: '#000',
-    WHITE: '#fff',
-  },
-
-  LIGHT: {
-    ICON_SVG: '#000',
-  },
+export const DARK = {
+  ICON_SVG: '#fff',
 } as const;
 
-export default themeColors;
+export const DEFAULT = {
+  BLACK: '#000',
+  WHITE: '#fff',
+} as const;
+
+export const LIGHT = {
+  ICON_SVG: '#000',
+} as const;

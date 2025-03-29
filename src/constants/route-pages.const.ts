@@ -1,14 +1,10 @@
-const routePages = {
-  AUTH: {
-    LOGIN: '/auth/login',
-    REGISTER: '/auth/register',
-    ROOT: '/auth',
-  },
-
-  BASE_COMPONENTS: '/base-components',
-  FORBIDDEN: '/access-denied',
-  HOME: '/',
-  NOT_FOUND: '/doesnt-exist',
+export const AUTH = {
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
+  ROOT: '/auth',
 } as const;
 
-export default routePages;
+export const BASE_COMPONENTS = '/base-components';
+export const FORBIDDEN = '/access-denied';
+export const HOME = '/';
+export const NOT_FOUND = '/doesnt-exist';

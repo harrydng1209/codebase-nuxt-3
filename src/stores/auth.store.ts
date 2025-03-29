@@ -2,7 +2,8 @@ import type { IUserInfo } from '@/models/interfaces/auth.interface';
 
 import { defineStore } from 'pinia';
 
-const { STORAGE_KEYS } = constants.shared;
+import { profile, refreshToken as refreshTokenApi } from '~/apis/auth.api';
+import { STORAGE_KEYS } from '~/constants/shared.const';
 
 const useAuthStore = defineStore('authStore', () => {
   const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
@@ -27,7 +28,7 @@ const useAuthStore = defineStore('authStore', () => {
         if (!isLoggedIn) return;
 
         try {
-          const response = await apis.auth.profile();
+          const response = await profile();
           getActions().setUser(response.data);
         } catch (error) {
           console.error(error);
@@ -43,7 +44,7 @@ const useAuthStore = defineStore('authStore', () => {
       refreshToken: async (): Promise<boolean> => {
         let result = true;
         try {
-          const response = await apis.auth.refreshToken();
+          const response = await refreshTokenApi();
           accessToken.value = response.data.accessToken;
         } catch (error) {
           console.error(error);

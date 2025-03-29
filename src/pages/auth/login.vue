@@ -9,8 +9,9 @@ import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 
-const { REGEXES, SELECTORS } = constants.shared;
-const { AUTH, HOME } = constants.routePages;
+import { login } from '~/apis/auth.api';
+import { AUTH, HOME } from '~/constants/route-pages.const';
+import { REGEXES, SELECTORS } from '~/constants/shared.const';
 
 definePageMeta({
   layout: 'guest',
@@ -49,7 +50,7 @@ const toggleIsShowPassword = () => {
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const response = await apis.auth.login(values);
+    const response = await login(values);
     authStore.setToken(response.data.accessToken);
     await router.push(HOME);
   } catch (error) {

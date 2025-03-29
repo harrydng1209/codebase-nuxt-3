@@ -4,7 +4,7 @@ import { ERole } from '@/models/enums/auth.enum';
 definePageMeta({
   layout: 'default',
   middleware: 'auth-middleware',
-  requiresAuth: true,
+  requiresAuth: false,
   roles: [ERole.Admin, ERole.Moderator, ERole.SuperAdmin, ERole.User],
   title: 'Home',
 });

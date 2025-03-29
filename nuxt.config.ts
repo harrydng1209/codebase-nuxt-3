@@ -73,7 +73,7 @@ export default defineNuxtConfig({
 
     plugins: [
       autoImport({
-        dirs: ['composables/shared/**'],
+        dirs: ['apis/**', 'composables/shared/**', 'constants/**', 'utils/**'],
         dts: '@types/auto-imports.d.ts',
 
         eslintrc: {
@@ -82,14 +82,7 @@ export default defineNuxtConfig({
           globalsPropValue: true,
         },
 
-        imports: [
-          {
-            '@/apis': [['default', 'apis']],
-            '@/constants': [['default', 'constants']],
-            '@/utils': [['default', 'utils']],
-          },
-        ],
-
+        imports: [],
         vueTemplate: true,
       }),
 

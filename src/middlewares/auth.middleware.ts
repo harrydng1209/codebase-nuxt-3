@@ -2,7 +2,7 @@ import type { ERole } from '@/models/enums/auth.enum';
 
 import useAuthStore from '@/stores/auth.store';
 
-const { AUTH, FORBIDDEN } = constants.routePages;
+import { AUTH, FORBIDDEN } from '~/constants/route-pages.const';
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const authStore = useAuthStore();

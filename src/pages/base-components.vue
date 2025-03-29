@@ -25,11 +25,17 @@ import {
   string as yupString,
 } from 'yup';
 
-const { NODE_ENVS, REGEXES, SELECTORS } = constants.shared;
-const { AUTH } = constants.routePages;
-const { themeColors } = constants;
-const { DEFAULT } = constants.themeColors;
-const { hideLoading, showLoading, showToast, sleep } = utils.shared;
+import { healthCheck } from '~/apis/shared.api';
+import useThemeColor from '~/composables/shared/use-theme-color';
+import { AUTH } from '~/constants/route-pages.const';
+import { NODE_ENVS, REGEXES, SELECTORS } from '~/constants/shared.const';
+import { DEFAULT } from '~/constants/theme-colors.const';
+import {
+  hideLoading,
+  showLoading,
+  showToast,
+  sleep,
+} from '~/utils/shared.util';
 
 interface IForm {
   email: string;
@@ -45,7 +51,7 @@ type TIcons = Record<string, { default: Component }>;
 definePageMeta({
   layout: 'default',
   middleware: 'auth-middleware',
-  requiresAuth: true,
+  requiresAuth: false,
   roles: [ERole.Admin, ERole.Moderator, ERole.SuperAdmin, ERole.User],
   title: 'Base Components',
 });
@@ -88,9 +94,9 @@ const { handleSubmit, resetForm } = useForm<IForm>({
 });
 const { t } = useI18n();
 const { showConfirmDialog } = useConfirmDialog();
-const { theme } = useTheme();
 const { pagination } = usePagination();
 const { handleCatchError } = useHandleCatchError();
+const { getThemeColor } = useThemeColor();
 
 const baseSelect = ref<TOptions>();
 const baseMultipleSelect = ref<TOptions[]>([]);
@@ -158,7 +164,7 @@ const onSubmit = handleSubmit((values) => {
 
 const handleGetHealthCheck = useDebounceFn(async () => {
   try {
-    await apis.shared.healthCheck();
+    await healthCheck();
   } catch (error) {
     handleCatchError(error);
   }
@@ -346,7 +352,7 @@ onMounted(() => {
 
           <BaseButton type="default" circle @click="handleClickButton">
             <template #icon>
-              <IconNotification :fill="themeColors[theme].ICON_SVG" />
+              <IconNotification :fill="getThemeColor('ICON_SVG')" />
             </template>
           </BaseButton>
         </div>
@@ -441,7 +447,7 @@ onMounted(() => {
             class="!tw-w-[300px]"
           >
             <template #suffix>
-              <IconSearch :fill="themeColors[theme].ICON_SVG" />
+              <IconSearch :fill="getThemeColor('ICON_SVG')" />
             </template>
           </BaseInput>
         </div>

@@ -2,7 +2,7 @@ import type { TFailureResponse } from '@/models/types/auth.type';
 
 import { EToast } from '@/models/enums/shared.enum';
 
-const { isFailureResponse, showToast } = utils.shared;
+import { isFailureResponse, showToast } from '~/utils/shared.util';
 
 const useHandleCatchError = () => {
   const { t } = useI18n();
