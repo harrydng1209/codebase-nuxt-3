@@ -1,11 +1,11 @@
 # code-base-nuxt-3
 
-This template should help you get started developing with Nuxt 3 in Vite
+This template will help you get started with Nuxt 3 in Vite
 
 ## Overview
 
 - **Name**: code-base-nuxt-3
-- **Description**: This template should help you get started developing with Nuxt 3 in Vite
+- **Description**: This template will help you get started with Nuxt 3 in Vite
 - **Version**: 0.1.0
 - **License**: MIT
 - **Type**: Module
@@ -18,7 +18,7 @@ This template should help you get started developing with Nuxt 3 in Vite
 
 ## Requirements
 
-- **Node.js**: >= 22
+- **Node**: >= 22
 - **pnpm**: >= 10
 - **npm**: please-use-pnpm
 - **yarn**: please-use-pnpm
