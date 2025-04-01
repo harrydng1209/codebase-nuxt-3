@@ -10,7 +10,7 @@ import { ELanguageCode } from '@/models/enums/shared.enum';
 import useAuthStore from '@/stores/auth.store';
 
 import useThemeColor from '~/composables/shared/use-theme-color';
-import { AUTH } from '~/constants/route-pages.const';
+import { AUTH_PAGES } from '~/constants/route-pages.const';
 
 const { changeTheme, isDark } = useTheme();
 const { language, setLanguage } = useLanguage();
@@ -34,7 +34,7 @@ const getIconPathForLanguage = (lang: ELanguageCode) => {
 
 const handleLogout = async () => {
   authStore.logout();
-  await router.push(AUTH.LOGIN);
+  await router.push(AUTH_PAGES.LOGIN);
 };
 </script>
 

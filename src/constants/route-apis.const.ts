@@ -1,4 +1,4 @@
-export const AUTH = {
+export const AUTH_APIS = {
   LOGIN: '/auth/login',
   PROFILE: '/auth/profile',
   REFRESH_TOKEN: '/auth/refresh-token',

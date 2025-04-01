@@ -9,7 +9,7 @@ import { useForm } from 'vee-validate';
 import { object as yupObject, ref as yupRef, string as yupString } from 'yup';
 
 import { register } from '~/apis/auth.api';
-import { AUTH } from '~/constants/route-pages.const';
+import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { REGEXES, SELECTORS } from '~/constants/shared.const';
 
 definePageMeta({
@@ -66,7 +66,7 @@ const toggleIsShowPasswordConfirm = () => {
 const onSubmit = handleSubmit(async (values) => {
   try {
     await register(values);
-    await router.push(AUTH.LOGIN);
+    await router.push(AUTH_PAGES.LOGIN);
   } catch (error) {
     const errorData = handleCatchError<{ fields: (keyof IRegister)[] }>(error);
     if (errorData?.fields && Array.isArray(errorData.fields))
@@ -190,7 +190,7 @@ const onSubmit = handleSubmit(async (values) => {
 
       <div class="container__login-now">
         <p>{{ t('auth.hasAccount') }}</p>
-        <RouterLink :to="AUTH.LOGIN">{{ t('auth.loginNow') }}</RouterLink>
+        <RouterLink :to="AUTH_PAGES.LOGIN">{{ t('auth.loginNow') }}</RouterLink>
       </div>
     </section>
   </div>

@@ -2,7 +2,7 @@ import type { ERole } from '@/models/enums/auth.enum';
 
 import useAuthStore from '@/stores/auth.store';
 
-import { AUTH, FORBIDDEN } from '~/constants/route-pages.const';
+import { AUTH_PAGES, FORBIDDEN } from '~/constants/route-pages.const';
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const authStore = useAuthStore();
@@ -14,7 +14,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (to.meta.requiresAuth) {
     await authStore.initialize();
 
-    if (!authStore.getAuthenticated) return await navigateTo(AUTH.LOGIN);
+    if (!authStore.getAuthenticated) return await navigateTo(AUTH_PAGES.LOGIN);
 
     const requiresRoles = to.meta.roles as ERole[];
     const userRole = authStore.getUserRole;

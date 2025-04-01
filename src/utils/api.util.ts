@@ -10,7 +10,7 @@ import apiConfig from '@/configs/api.config';
 import { EResponseStatus } from '@/models/enums/auth.enum';
 import useAuthStore from '@/stores/auth.store';
 
-import { AUTH } from '~/constants/route-pages.const';
+import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { ERROR_CODES, STORAGE_KEYS } from '~/constants/shared.const';
 
 import { hideLoading, showLoading, showToast } from './shared.util';
@@ -121,7 +121,7 @@ export const handleUnauthorizedError = async (
 
   if (!isTokenRefreshed) {
     authStore.logout();
-    window.location.href = AUTH.LOGIN;
+    window.location.href = AUTH_PAGES.LOGIN;
     return;
   }
 

@@ -1,4 +1,4 @@
-export const AUTH = {
+export const AUTH_PAGES = {
   LOGIN: '/auth/login',
   REGISTER: '/auth/register',
   ROOT: '/auth',

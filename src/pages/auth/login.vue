@@ -10,7 +10,7 @@ import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 
 import { login } from '~/apis/auth.api';
-import { AUTH, HOME } from '~/constants/route-pages.const';
+import { AUTH_PAGES, HOME } from '~/constants/route-pages.const';
 import { REGEXES, SELECTORS } from '~/constants/shared.const';
 
 definePageMeta({
@@ -120,7 +120,9 @@ const onSubmit = handleSubmit(async (values) => {
 
       <div class="container__register-now">
         <p>{{ t('auth.noAccount') }}</p>
-        <RouterLink :to="AUTH.REGISTER">{{ t('auth.registerNow') }}</RouterLink>
+        <RouterLink :to="AUTH_PAGES.REGISTER">{{
+          t('auth.registerNow')
+        }}</RouterLink>
       </div>
     </section>
   </div>

@@ -27,7 +27,7 @@ import {
 
 import { healthCheck } from '~/apis/shared.api';
 import useThemeColor from '~/composables/shared/use-theme-color';
-import { AUTH } from '~/constants/route-pages.const';
+import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { NODE_ENVS, REGEXES, SELECTORS } from '~/constants/shared.const';
 import { DEFAULT } from '~/constants/theme-colors.const';
 import {
@@ -58,7 +58,7 @@ definePageMeta({
 
 await useAsyncData(async () => {
   if (import.meta.env.VITE_NODE_ENV !== NODE_ENVS.DEVELOP)
-    return await navigateTo(AUTH.LOGIN);
+    return await navigateTo(AUTH_PAGES.LOGIN);
   return {};
 });
 
