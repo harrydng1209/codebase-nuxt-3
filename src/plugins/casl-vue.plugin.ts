@@ -2,7 +2,7 @@ import type { IPermission } from '@/models/interfaces/auth.interface';
 import type { PureAbility } from '@casl/ability';
 
 import { ERole } from '@/models/enums/auth.enum';
-import useAuthStore from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store';
 import { AbilityBuilder, createMongoAbility } from '@casl/ability';
 import { abilitiesPlugin } from '@casl/vue';
 

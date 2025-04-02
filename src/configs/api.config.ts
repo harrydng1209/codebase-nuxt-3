@@ -6,7 +6,7 @@ import { STORAGE_KEYS } from '~/constants/shared.const';
 import { handleUnauthorizedError } from '~/utils/api.util';
 import { convertToCamelCase, convertToSnakeCase } from '~/utils/shared.util';
 
-const apiConfig = $fetch.create({
+export const apiConfig = $fetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
   headers: {
     Accept: 'application/json',
@@ -38,5 +38,3 @@ const apiConfig = $fetch.create({
     return Promise.reject(response);
   },
 });
-
-export default apiConfig;

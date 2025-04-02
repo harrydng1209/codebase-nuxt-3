@@ -1,6 +1,6 @@
 import type { ERole } from '@/models/enums/auth.enum';
 
-import useAuthStore from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store';
 
 import { AUTH_PAGES, FORBIDDEN } from '~/constants/route-pages.const';
 

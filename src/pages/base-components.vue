@@ -26,7 +26,7 @@ import {
 } from 'yup';
 
 import { healthCheck } from '~/apis/shared.api';
-import useThemeColor from '~/composables/shared/use-theme-color';
+import { useThemeColor } from '~/composables/shared/use-theme-color';
 import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { NODE_ENVS, REGEXES, SELECTORS } from '~/constants/shared.const';
 import { DEFAULT } from '~/constants/theme-colors.const';

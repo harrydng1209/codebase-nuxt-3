@@ -6,9 +6,9 @@ import type { TLoadingTargets } from '@/models/types/shared.type';
 import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
 import type { FetchResponse, ResolvedFetchOptions } from 'ofetch';
 
-import apiConfig from '@/configs/api.config';
+import { apiConfig } from '@/configs/api.config';
 import { EResponseStatus } from '@/models/enums/auth.enum';
-import useAuthStore from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store';
 
 import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { ERROR_CODES, STORAGE_KEYS } from '~/constants/shared.const';

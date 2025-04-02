@@ -5,14 +5,14 @@ interface ICustomColors {
   LIGHT?: string;
 }
 
-const useThemeColor = () => {
+export const useThemeColor = () => {
   const { theme } = useTheme();
 
   const getThemeColor = (
     colorName: keyof typeof DARK & keyof typeof LIGHT,
     customColors?: ICustomColors,
   ) => {
-    const customColor = customColors?.[theme.value];
+    const customColor = customColors?.[theme.value as keyof ICustomColors];
     const themeColor =
       theme.value === 'DARK' ? DARK[colorName] : LIGHT[colorName];
 
@@ -21,5 +21,3 @@ const useThemeColor = () => {
 
   return { getThemeColor };
 };
-
-export default useThemeColor;

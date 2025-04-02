@@ -28,7 +28,7 @@ dayjs.extend(utc);
 dayjs.extend(localizedFormat);
 dayjs.extend(advancedFormat);
 
-const useFormatDate = () => {
+export const useFormatDate = () => {
   const formatDate = computed(() => (props: IProps) => {
     const { date, isUTC = false, locale = ELanguageCode.English } = props || {};
     let { format = 'YYYY/MM/DD' } = props || {};
@@ -68,5 +68,3 @@ const useFormatDate = () => {
 
   return { formatDate };
 };
-
-export default useFormatDate;

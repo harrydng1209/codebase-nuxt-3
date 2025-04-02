@@ -4,7 +4,7 @@ import { EToast } from '@/models/enums/shared.enum';
 
 import { isFailureResponse, showToast } from '~/utils/shared.util';
 
-const useHandleCatchError = () => {
+export const useHandleCatchError = () => {
   const { t } = useI18n();
 
   const handleCatchError = <D>(props: unknown) => {
@@ -33,5 +33,3 @@ const useHandleCatchError = () => {
 
   return { handleCatchError };
 };
-
-export default useHandleCatchError;

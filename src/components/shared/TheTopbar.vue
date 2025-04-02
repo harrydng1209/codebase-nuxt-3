@@ -7,9 +7,9 @@ import IconNotification from '@/assets/icons/shared/IconNotification.svg';
 import IconVietnamese from '@/assets/icons/shared/IconVietnamese.svg';
 import { notifications } from '@/mocks/the-topbar.mock';
 import { ELanguageCode } from '@/models/enums/shared.enum';
-import useAuthStore from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store';
 
-import useThemeColor from '~/composables/shared/use-theme-color';
+import { useThemeColor } from '~/composables/shared/use-theme-color';
 import { AUTH_PAGES } from '~/constants/route-pages.const';
 
 const { changeTheme, isDark } = useTheme();

@@ -7,7 +7,7 @@ interface IProps {
   title: string;
 }
 
-const useConfirmDialog = () => {
+export const useConfirmDialog = () => {
   const { t } = useI18n();
 
   const showConfirmDialog = async (props: IProps) => {
@@ -34,5 +34,3 @@ const useConfirmDialog = () => {
 
   return { showConfirmDialog };
 };
-
-export default useConfirmDialog;

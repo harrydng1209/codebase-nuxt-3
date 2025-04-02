@@ -4,7 +4,7 @@ import IconFolderShared from '@/assets/icons/shared/IconFolderShared.svg';
 import IconLogo from '@/assets/icons/shared/IconLogo.svg';
 import IconSettings from '@/assets/icons/shared/IconSettings.svg';
 
-import useThemeColor from '~/composables/shared/use-theme-color';
+import { useThemeColor } from '~/composables/shared/use-theme-color';
 import {
   AUTH_PAGES,
   BASE_COMPONENTS,

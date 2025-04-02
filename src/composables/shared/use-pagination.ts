@@ -4,7 +4,7 @@ interface IPagination {
   total: number;
 }
 
-const usePagination = () => {
+export const usePagination = () => {
   const pagination = ref<IPagination>({
     currentPage: 1,
     pageSize: 100,
@@ -20,5 +20,3 @@ const usePagination = () => {
     totalPages,
   };
 };
-
-export default usePagination;

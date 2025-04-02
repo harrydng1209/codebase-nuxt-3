@@ -3,7 +3,7 @@ import { useLocalStorage } from '@vueuse/core';
 
 import { STORAGE_KEYS } from '~/constants/shared.const';
 
-const useLanguage = () => {
+export const useLanguage = () => {
   const { locale } = useI18n();
   const languageStorage = useLocalStorage<ELanguageCode>(
     STORAGE_KEYS.LANGUAGE,
@@ -29,5 +29,3 @@ const useLanguage = () => {
     setLanguage,
   };
 };
-
-export default useLanguage;

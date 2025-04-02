@@ -11,5 +11,5 @@ definePageMeta({
 </script>
 
 <template>
-  <div>Code Base Nuxt 3</div>
+  <div>Codebase Nuxt 3</div>
 </template>

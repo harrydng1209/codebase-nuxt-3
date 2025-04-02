@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 import { profile, refreshToken as refreshTokenApi } from '~/apis/auth.api';
 import { STORAGE_KEYS } from '~/constants/shared.const';
 
-const useAuthStore = defineStore('authStore', () => {
+export const useAuthStore = defineStore('authStore', () => {
   const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
 
   const isAuthenticated = ref<boolean>(false);
@@ -66,5 +66,3 @@ const useAuthStore = defineStore('authStore', () => {
 
   return { ...getGetters(), ...getActions() };
 });
-
-export default useAuthStore;

@@ -4,7 +4,7 @@ import type { ILoginRequest } from '@/models/interfaces/auth.interface';
 import IconEye from '@/assets/icons/modules/auth/IconEye.svg';
 import IconEyeClosed from '@/assets/icons/modules/auth/IconEyeClosed.svg';
 import IconRequired from '@/assets/icons/shared/IconRequired.svg';
-import useAuthStore from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
