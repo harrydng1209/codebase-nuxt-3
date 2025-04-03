@@ -7,13 +7,12 @@ import { STORAGE_KEYS } from '~/constants/shared.const';
 
 export const useAuthStore = defineStore('authStore', () => {
   const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
-
   const isAuthenticated = ref<boolean>(false);
   const userInfo = ref<IUserInfo>();
 
   const getGetters = () => {
     return {
-      getAuthenticated: computed(() => isAuthenticated.value),
+      getIsAuthenticated: computed(() => isAuthenticated.value),
       getUserInfo: computed(() => userInfo.value),
       getUserRole: computed(() => userInfo.value?.role),
     };
