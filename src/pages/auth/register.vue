@@ -27,7 +27,6 @@ const schema = yupObject({
     .matches(REGEXES.DISPLAY_NAME, 'Name can only contain letters and spaces'),
   email: yupString()
     .required('Email is required')
-    .email('Invalid email format')
     .matches(REGEXES.EMAIL, 'Invalid email format'),
   password: yupString()
     .required('Password is required')

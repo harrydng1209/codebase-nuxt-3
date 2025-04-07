@@ -24,7 +24,6 @@ definePageMeta({
 const schema = yupObject({
   email: yupString()
     .required('Email is required')
-    .email('Invalid email format')
     .matches(REGEXES.EMAIL, 'Invalid email format'),
   password: yupString()
     .required('Password is required')
