@@ -6,7 +6,7 @@ const router = useRouter();
 
 <template>
   <div class="tw-fixed-center tw-flex-center tw-flex-col">
-    <h6 class="tw-mb-[16px]">This screen does not exist</h6>
+    <h4 class="tw-mb-4">This screen does not exist</h4>
     <BaseButton @click="router.push(HOME)">Go to home screen</BaseButton>
   </div>
 </template>
