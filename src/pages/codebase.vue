@@ -7,12 +7,6 @@ import IconFolderShared from '@/assets/icons/shared/IconFolderShared.svg';
 import IconNotification from '@/assets/icons/shared/IconNotification.svg';
 import IconSearch from '@/assets/icons/shared/IconSearch.svg';
 import IconSettings from '@/assets/icons/shared/IconSettings.svg';
-import {
-  baseCheckboxOptions,
-  baseSelectOptions,
-  suggestions,
-  tableData,
-} from '@/mocks/base-components.mock';
 import { ERole } from '@/models/enums/auth.enum';
 import { EToast } from '@/models/enums/shared.enum';
 import { toTypedSchema } from '@vee-validate/yup';
@@ -30,6 +24,12 @@ import { useThemeColor } from '~/composables/shared/use-theme-color';
 import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { NODE_ENVS, REGEXES, SELECTORS } from '~/constants/shared.const';
 import { DEFAULT } from '~/constants/theme-colors.const';
+import {
+  baseCheckboxOptions,
+  baseSelectOptions,
+  suggestions,
+  tableData,
+} from '~/mocks/codebase.mock';
 import {
   hideLoading,
   showLoading,
@@ -53,7 +53,7 @@ definePageMeta({
   middleware: 'auth-middleware',
   requiresAuth: false,
   roles: [ERole.Admin, ERole.Moderator, ERole.SuperAdmin, ERole.User],
-  title: 'Base Components',
+  title: 'Codebase',
 });
 
 await useAsyncData(async () => {
@@ -604,5 +604,5 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/styles/components/base-components.scss';
+@import '@/assets/styles/components/codebase.scss';
 </style>
