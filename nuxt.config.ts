@@ -1,4 +1,4 @@
-import autoImport from 'unplugin-auto-import/vite';
+import autoImports from 'unplugin-auto-import/vite';
 import components from 'unplugin-vue-components/vite';
 
 export default defineNuxtConfig({
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
     },
 
     plugins: [
-      autoImport({
+      autoImports({
         dirs: ['apis/**', 'composables/shared/**', 'constants/**', 'utils/**'],
         dts: '@types/auto-imports.d.ts',
 
