@@ -11,7 +11,7 @@ import { EResponseStatus } from '@/models/enums/auth.enum';
 import { useAuthStore } from '@/stores/auth.store';
 
 import { AUTH_PAGES } from '~/constants/route-pages.const';
-import { ERROR_CODES, STORAGE_KEYS } from '~/constants/shared.const';
+import { COOKIE_KEYS, ERROR_CODES } from '~/constants/shared.const';
 
 import { hideLoading, showLoading, showToast } from './shared.util';
 
@@ -125,7 +125,7 @@ export const handleUnauthorizedError = async (
     return;
   }
 
-  const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
+  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN);
   const retryRequest: TConfigs = {
     body: options.body,
     headers: {

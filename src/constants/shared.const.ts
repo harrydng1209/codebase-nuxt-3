@@ -34,14 +34,14 @@ export const SELECTORS = {
 } as const;
 
 export const STORAGE_KEYS = {
-  ACCESS_TOKEN: 'n_access_token',
   LANGUAGE: 'n_language',
   THEME: 'n_theme',
 } as const;
 
 export const COOKIE_KEYS = {
+  ACCESS_TOKEN: 'N_ACCESS_TOKEN',
   LANGUAGE: 'N_LANGUAGE',
-  REFRESH_TOKEN: 'N_REFRESH_TOKEN',
+  REFRESH_TOKEN: 'REFRESH_TOKEN',
 } as const;
 
 export const LANGUAGE_NAMES = {

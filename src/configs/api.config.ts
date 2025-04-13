@@ -2,7 +2,7 @@ import type { TObjectUnknown } from '@/models/types/shared.type';
 
 import { EStatusCode } from '@/models/enums/auth.enum';
 
-import { STORAGE_KEYS } from '~/constants/shared.const';
+import { COOKIE_KEYS } from '~/constants/shared.const';
 import { handleUnauthorizedError } from '~/utils/api.util';
 import { convertToCamelCase, convertToSnakeCase } from '~/utils/shared.util';
 
@@ -14,7 +14,7 @@ export const apiConfig = $fetch.create({
   },
 
   onRequest: ({ options }) => {
-    const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
+    const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN);
 
     if (options.body && !(options.body instanceof FormData))
       options.body = convertToSnakeCase(

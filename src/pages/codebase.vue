@@ -51,7 +51,7 @@ type TIcons = Record<string, { default: Component }>;
 definePageMeta({
   layout: 'default',
   middleware: 'auth-middleware',
-  requiresAuth: false,
+  requiresAuth: true,
   roles: [ERole.Admin, ERole.Moderator, ERole.SuperAdmin, ERole.User],
   title: 'Codebase',
 });

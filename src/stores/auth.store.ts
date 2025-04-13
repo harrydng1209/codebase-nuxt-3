@@ -3,10 +3,10 @@ import type { IUserInfo } from '@/models/interfaces/auth.interface';
 import { defineStore } from 'pinia';
 
 import { profile, refreshToken as refreshTokenApi } from '~/apis/auth.api';
-import { STORAGE_KEYS } from '~/constants/shared.const';
+import { COOKIE_KEYS } from '~/constants/shared.const';
 
 export const useAuthStore = defineStore('authStore', () => {
-  const accessToken = useCookie(STORAGE_KEYS.ACCESS_TOKEN);
+  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN);
   const isAuthenticated = ref<boolean>(false);
   const userInfo = ref<IUserInfo>();
 
