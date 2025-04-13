@@ -1,6 +1,9 @@
 import autoImports from 'unplugin-auto-import/vite';
 import components from 'unplugin-vue-components/vite';
 
+import { COOKIE_KEYS, LANGUAGE_NAMES } from './src/constants/shared.const';
+import { ELanguageCode } from './src/models/enums/shared.enum';
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-25',
 
@@ -23,7 +26,31 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    vueI18n: './vue-i18n.config.ts',
+    defaultLocale: ELanguageCode.English,
+    detectBrowserLanguage: {
+      alwaysRedirect: true,
+      cookieKey: COOKIE_KEYS.LANGUAGE,
+      redirectOn: 'root',
+      useCookie: true,
+    },
+    locales: [
+      {
+        code: ELanguageCode.English,
+        file: 'en.json',
+        name: LANGUAGE_NAMES[ELanguageCode.English],
+      },
+      {
+        code: ELanguageCode.Vietnamese,
+        file: 'vi.json',
+        name: LANGUAGE_NAMES[ELanguageCode.Vietnamese],
+      },
+      {
+        code: ELanguageCode.Japanese,
+        file: 'ja.json',
+        name: LANGUAGE_NAMES[ELanguageCode.Japanese],
+      },
+    ],
+    strategy: 'prefix',
   },
 
   imports: {

@@ -1,3 +1,5 @@
+import { ELanguageCode } from '../models/enums/shared.enum';
+
 export const ERROR_CODES = {
   ERR_500: 'ERR_500',
 } as const;
@@ -32,7 +34,18 @@ export const SELECTORS = {
 } as const;
 
 export const STORAGE_KEYS = {
-  ACCESS_TOKEN: 'v-access-token',
-  LANGUAGE: 'v-language',
-  THEME: 'v-theme',
+  ACCESS_TOKEN: 'n_access_token',
+  LANGUAGE: 'n_language',
+  THEME: 'n_theme',
+} as const;
+
+export const COOKIE_KEYS = {
+  LANGUAGE: 'N_LANGUAGE',
+  REFRESH_TOKEN: 'N_REFRESH_TOKEN',
+} as const;
+
+export const LANGUAGE_NAMES = {
+  [ELanguageCode.English]: 'English',
+  [ELanguageCode.Japanese]: 'Japanese',
+  [ELanguageCode.Vietnamese]: 'Vietnamese',
 } as const;

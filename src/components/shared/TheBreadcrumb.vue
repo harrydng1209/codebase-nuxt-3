@@ -10,6 +10,7 @@ interface IBreadcrumbs {
 
 const { t } = useI18n();
 const route = useRoute();
+const localePath = useLocalePath();
 
 const breadcrumbs = ref<IBreadcrumbs[]>([]);
 
@@ -17,9 +18,11 @@ watch(
   route,
   () => {
     const pathNames = route.path.split('/').filter((item) => item);
-    breadcrumbs.value = pathNames.map((path) => ({
+    const segments = pathNames.slice(1);
+
+    breadcrumbs.value = segments.map((path) => ({
       text: t(`shared.navigator.${path}`),
-      to: `/${path}`,
+      to: localePath(`/${path}`),
     }));
   },
   { immediate: true },
@@ -28,7 +31,7 @@ watch(
 
 <template>
   <ElBreadcrumb>
-    <ElBreadcrumbItem v-if="breadcrumbs.length > 0" :to="{ path: HOME }">
+    <ElBreadcrumbItem v-if="breadcrumbs.length > 0" :to="localePath(HOME)">
       {{ t('shared.navigator.home') }}
     </ElBreadcrumbItem>
 

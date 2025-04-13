@@ -120,7 +120,7 @@ const handleLogout = async () => {
 <style scoped lang="scss">
 .container {
   height: var(--el-header-height);
-  background-color: var(--v-background-content-color);
+  background-color: var(--n-background-content-color);
   @include flexbox-style(0, space-between, center);
 
   &__menu {

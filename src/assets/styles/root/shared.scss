@@ -1,7 +1,7 @@
 body {
   font-style: normal;
   font-optical-sizing: auto;
-  background-color: var(--v-background-body-color);
+  background-color: var(--n-background-body-color);
   @include text-style;
 }
 
@@ -11,7 +11,7 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   border-radius: 50px;
-  background-color: var(--v-scrollbar-color);
+  background-color: var(--n-scrollbar-color);
 }
 
 h1 {

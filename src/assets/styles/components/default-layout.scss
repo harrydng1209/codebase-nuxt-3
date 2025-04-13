@@ -1,10 +1,10 @@
 .container {
   &__sidebar {
-    background-color: var(--v-background-content-color);
+    background-color: var(--n-background-content-color);
     margin: $layout-margin;
     height: calc(100vh - $layout-margin * 2);
     position: fixed;
-    box-shadow: 0 2px 6px var(--v-box-shadow-color);
+    box-shadow: 0 2px 6px var(--n-box-shadow-color);
     border-radius: 18px;
   }
 
@@ -17,8 +17,8 @@
     &--header {
       position: fixed;
       margin-bottom: $layout-margin;
-      background-color: var(--v-background-content-color);
-      box-shadow: 0 2px 6px var(--v-box-shadow-color);
+      background-color: var(--n-background-content-color);
+      box-shadow: 0 2px 6px var(--n-box-shadow-color);
       border-radius: 18px;
       width: calc(
         100vw - var(--el-aside-width) - $layout-margin * 3 - $scrollbar-width
@@ -27,8 +27,8 @@
     }
 
     &--content {
-      background-color: var(--v-background-content-color);
-      box-shadow: 0 2px 6px var(--v-box-shadow-color);
+      background-color: var(--n-background-content-color);
+      box-shadow: 0 2px 6px var(--n-box-shadow-color);
       border-radius: 18px;
       margin-bottom: $layout-margin;
       margin-top: calc(var(--el-header-height) + $layout-margin);

@@ -10,33 +10,34 @@ import { AUTH_PAGES, CODEBASE, HOME } from '~/constants/route-pages.const';
 const { t } = useI18n();
 const route = useRoute();
 const { getThemeColor } = useThemeColor();
+const localePath = useLocalePath();
 </script>
 
 <template>
   <div class="container">
     <div class="container__logo">
-      <NuxtLink :to="HOME">
+      <NuxtLinkLocale :to="HOME">
         <IconLogo />
-      </NuxtLink>
+      </NuxtLinkLocale>
     </div>
 
     <ClientOnly>
       <ElMenu :defaultActive="route.path" :collapse="false" :router="true">
-        <ElMenuItem :index="AUTH_PAGES.LOGIN">
+        <ElMenuItem :index="localePath(AUTH_PAGES.LOGIN)">
           <ElIcon>
             <IconDashboard :fill="getThemeColor('ICON_SVG')" />
           </ElIcon>
           <template #title>{{ t('shared.navigator.login') }}</template>
         </ElMenuItem>
 
-        <ElMenuItem :index="AUTH_PAGES.REGISTER">
+        <ElMenuItem :index="localePath(AUTH_PAGES.REGISTER)">
           <ElIcon>
             <IconSettings :fill="getThemeColor('ICON_SVG')" />
           </ElIcon>
           <template #title>{{ t('shared.navigator.register') }}</template>
         </ElMenuItem>
 
-        <ElMenuItem :index="CODEBASE">
+        <ElMenuItem :index="localePath(CODEBASE)">
           <ElIcon>
             <IconFolderShared :fill="getThemeColor('ICON_SVG')" />
           </ElIcon>
@@ -56,7 +57,7 @@ const { getThemeColor } = useThemeColor();
   .el-menu {
     height: calc(100% - 30px - $layout-margin - (24px * 3));
     border-right: 0;
-    background-color: var(--v-background-content-color);
+    background-color: var(--n-background-content-color);
   }
 
   &__logo {
