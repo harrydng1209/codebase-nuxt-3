@@ -12,6 +12,7 @@ export const usePagination = () => {
   });
 
   const totalPages = computed(() => {
+    if (pagination.value.pageSize <= 0) return 0;
     return Math.ceil(pagination.value.total / pagination.value.pageSize);
   });
 
