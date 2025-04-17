@@ -1,11 +1,11 @@
-# codebase-nuxt-3
+# codebase-nuxt
 
-This template will help you get started with Nuxt 3 in Vite
+This template will help you get started with Nuxt in Vite
 
 ## Overview
 
-- **Name**: codebase-nuxt-3
-- **Description**: This template will help you get started with Nuxt 3 in Vite
+- **Name**: codebase-nuxt
+- **Description**: This template will help you get started with Nuxt in Vite
 - **Version**: 0.1.0
 - **License**: MIT
 - **Type**: Module
@@ -46,7 +46,7 @@ This project includes several scripts to assist with development:
 To get started with this template, clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/harrydng1209/codebase-nuxt-3.git
-cd codebase-nuxt-3
+git clone https://github.com/harrydng1209/codebase-nuxt.git
+cd codebase-nuxt
 pnpm install
 ```
