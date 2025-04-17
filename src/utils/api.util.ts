@@ -125,7 +125,11 @@ export const handleUnauthorizedError = async (
     return;
   }
 
-  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN, {
+    maxAge: 60 * 60 * 24,
+    path: '/',
+    sameSite: 'lax',
+  });
   const retryRequest: TConfigs = {
     body: options.body,
     headers: {

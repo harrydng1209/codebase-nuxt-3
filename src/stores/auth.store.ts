@@ -6,7 +6,11 @@ import { profile, refreshToken as refreshTokenApi } from '~/apis/auth.api';
 import { COOKIE_KEYS } from '~/constants/shared.const';
 
 export const useAuthStore = defineStore('authStore', () => {
-  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const accessToken = useCookie(COOKIE_KEYS.ACCESS_TOKEN, {
+    maxAge: 60 * 60 * 24,
+    path: '/',
+    sameSite: 'lax',
+  });
   const isAuthenticated = ref<boolean>(false);
   const userInfo = ref<IUserInfo>();
 
