@@ -7,7 +7,6 @@ import IconFolderShared from '@/assets/icons/shared/IconFolderShared.svg';
 import IconNotification from '@/assets/icons/shared/IconNotification.svg';
 import IconSearch from '@/assets/icons/shared/IconSearch.svg';
 import IconSettings from '@/assets/icons/shared/IconSettings.svg';
-import { ERole } from '@/models/enums/auth.enum';
 import { EToast } from '@/models/enums/shared.enum';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useDebounceFn } from '@vueuse/core';
@@ -21,7 +20,6 @@ import {
 
 import { healthCheck } from '~/apis/shared.api';
 import { useThemeColor } from '~/composables/shared/use-theme-color';
-import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { NODE_ENVS, REGEXES, SELECTORS } from '~/constants/shared.const';
 import { DEFAULT } from '~/constants/theme-colors.const';
 import {
@@ -51,14 +49,17 @@ type TIcons = Record<string, { default: Component }>;
 definePageMeta({
   layout: 'default',
   middleware: 'auth-middleware',
-  requiresAuth: true,
-  roles: [ERole.Admin, ERole.Moderator, ERole.SuperAdmin, ERole.User],
+  requiresAuth: false,
+  roles: [],
   title: 'Codebase',
 });
 
 await useAsyncData(async () => {
   if (import.meta.env.VITE_NODE_ENV !== NODE_ENVS.DEVELOP)
-    return await navigateTo(AUTH_PAGES.LOGIN);
+    throw createError({
+      message: 'Page not found',
+      statusCode: 404,
+    });
   return {};
 });
 
