@@ -7,7 +7,7 @@ import type {
 
 import { AUTH_APIS } from '~/constants/route-apis.const';
 import { SELECTORS } from '~/constants/shared.const';
-import { get, post } from '~/utils/api.util';
+import { get, post } from '~/libs/fetch/util';
 
 export const login = async (data: ILoginRequest) => {
   const url = AUTH_APIS.LOGIN;

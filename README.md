@@ -29,7 +29,7 @@ This template will help you get started with Nuxt in Vite
 This project includes several scripts to assist with development:
 
 - `build`: Build the project for production
-- `dev`: Start the development server using Nuxt
+- `dev`: Start the development server
 - `generate`: Generate a static version of your project
 - `preview`: Preview the generated project
 - `postinstall`: Prepare the Nuxt project after installation

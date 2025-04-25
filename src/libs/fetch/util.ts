@@ -6,14 +6,13 @@ import type { TLoadingTargets } from '@/models/types/shared.type';
 import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
 import type { FetchResponse, ResolvedFetchOptions } from 'ofetch';
 
-import { apiConfig } from '@/configs/api.config';
+import { fetchInstance } from '@/libs/fetch/config';
 import { EResponseStatus } from '@/models/enums/auth.enum';
 import { useAuthStore } from '@/stores/auth.store';
 
 import { AUTH_PAGES } from '~/constants/route-pages.const';
 import { COOKIE_KEYS, ERROR_CODES } from '~/constants/shared.const';
-
-import { hideLoading, showLoading, showToast } from './shared.util';
+import { hideLoading, showLoading, showToast } from '~/utils/shared.util';
 
 type TConfigs = NitroFetchOptions<NitroFetchRequest, TMethods>;
 type TMethods = 'delete' | 'get' | 'patch' | 'post' | 'put';
@@ -34,7 +33,7 @@ const request = async <D = unknown, M = unknown>(
 
     if (loadingTarget) loadingInstance = showLoading(loadingTarget);
 
-    const response = await apiConfig.raw<TSuccessResponse<D, M>>(url, {
+    const response = await fetchInstance.raw<TSuccessResponse<D, M>>(url, {
       body,
       method,
       ...config,
@@ -140,7 +139,7 @@ export const handleUnauthorizedError = async (
     retry: (options.retry || 0) + 1,
   };
 
-  await apiConfig(response.url, retryRequest);
+  await fetchInstance(response.url, retryRequest);
 };
 
 export const patch = async <D = unknown, M = unknown>(

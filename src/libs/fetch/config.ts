@@ -3,10 +3,10 @@ import type { TObjectUnknown } from '@/models/types/shared.type';
 import { EStatusCode } from '@/models/enums/auth.enum';
 
 import { COOKIE_KEYS } from '~/constants/shared.const';
-import { handleUnauthorizedError } from '~/utils/api.util';
+import { handleUnauthorizedError } from '~/libs/fetch/util';
 import { convertToCamelCase, convertToSnakeCase } from '~/utils/shared.util';
 
-export const apiConfig = $fetch.create({
+export const fetchInstance = $fetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
   headers: {
     Accept: 'application/json',
