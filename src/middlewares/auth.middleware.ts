@@ -14,8 +14,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (to.meta.requiresAuth) {
     await authStore.initialize();
 
-    if (!authStore.getIsAuthenticated)
-      return await navigateTo(AUTH_PAGES.LOGIN);
+    if (!authStore.isAuthenticated) return await navigateTo(AUTH_PAGES.LOGIN);
 
     const requiresRoles = to.meta.roles as ERole[];
     const userRole = authStore.getUserRole;
